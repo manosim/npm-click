@@ -1,0 +1,53 @@
+{
+  "name": "git-compare",
+  "version": "0.0.1",
+  "description": "Comparing GitHub Repositories",
+  "main": "src/js/app.js",
+  "scripts": {
+    "build-js": "browserify -t reactify src/js/app.js -o build/js/app.js",
+    "build": "npm install && mkdir -p build/js && npm run build-js",
+    "watch-js": "watchify -t reactify src/js/app.js -o build/js/app.js -v",
+    "watch": "grunt build && npm build && npm run watch-js | grunt watch",
+    "serve": "http-server 'build/'",
+    "test": "jsxhint --reporter node_modules/jshint-stylish/stylish.js 'src/js/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ekonstantinidis/git-compare.git"
+  },
+  "keywords": [
+    "git",
+    "compare",
+    "github",
+    "repositories",
+    "releases"
+  ],
+  "author": "Emmanouil Konstantinidis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekonstantinidis/git-compare/issues"
+  },
+  "homepage": "https://github.com/ekonstantinidis/git-compare",
+  "dependencies": {
+    "bootstrap": "=3.3.4",
+    "browserify": "^9.0.8",
+    "font-awesome": "^4.3.0",
+    "react": "^0.13.2",
+    "react-bootstrap": "^0.21.0",
+    "react-router": "^0.13.2",
+    "react-router-bootstrap": "^0.13.0",
+    "react-tools": "^0.13.2",
+    "reactify": "^1.1.0",
+    "watchify": "^3.1.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "jshint-stylish": "^1.0.1",
+    "jsxhint": "=0.14.0",
+    "less": "=2.5.0"
+  }
+}
