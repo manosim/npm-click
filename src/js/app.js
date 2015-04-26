@@ -3,6 +3,7 @@ var Router = require('react-router');
 var ReactBootstrap = require('react-bootstrap');
 
 var Navigation = require('./components/navigation');
+var Search = require('./components/search');
 
 var Route = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
@@ -15,6 +16,7 @@ var App = React.createClass({
     return (
       <div>
         <Navigation />
+        <Search />
         <RouteHandler />
       </div>
     );
@@ -24,7 +26,7 @@ var App = React.createClass({
 var Home = React.createClass({
   render: function () {
     return (
-      <h1>Welcome!</h1>
+      <h1>Home Page!</h1>
     );
   }
 });
