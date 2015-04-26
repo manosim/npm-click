@@ -1,3 +1,70 @@
 @import "node_modules/bootstrap/less/bootstrap";
 @import "node_modules/font-awesome/less/font-awesome.less";
 
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
+
+/* @group Colors */
+
+@ThemePrimary: #3F3F3F;
+
+/* @end Colors */
+
+
+/* @group Fonts */
+
+.FontSourceSansLight() {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+
+.FontSourceSansNormal() {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}
+
+.FontSourceSansSemiBold() {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+}
+
+.FontSourceSansBold() {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+}
+
+/* @end Fonts */
+
+
+/* @group Bootstrap Overrides */
+
+@font-family-base: 'Source Sans Pro', sans-serif;
+
+/* @end Bootstrap Overrides */
+
+
+/* @group Mixins */
+
+// Border Radius (Same Corners)
+.BorderRadius(@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+/* @end Mixins */
+
+
+/* @group Navbar */
+
+.navbar {
+    background-color: @ThemePrimary;
+    .BorderRadius(0);
+    border: 0;
+
+}
+
+/* @end Navbar */

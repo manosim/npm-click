@@ -1,6 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
-var ReactBootstrap  = require('react-bootstrap');
+var ReactBootstrap = require('react-bootstrap');
+
+var Navigation = require('./components/navigation');
 
 var Route = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
@@ -11,13 +13,10 @@ var Redirect = Router.Redirect;
 var App = React.createClass({
   render: function () {
     return (
-      <ReactBootstrap.Grid className="app">
-          <ReactBootstrap.Row className='converter hex-to-uicolor'>
-            <ReactBootstrap.Col xs={12} mdOffset={3} md={6}>
-              <RouteHandler />
-            </ReactBootstrap.Col>
-          </ReactBootstrap.Row>
-      </ReactBootstrap.Grid>
+      <div>
+        <Navigation />
+        <RouteHandler />
+      </div>
     );
   }
 });
