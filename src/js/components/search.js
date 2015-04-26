@@ -5,8 +5,8 @@ var apiRequests = require('../utils/api-requests');
 var Search = React.createClass({
   getInitialState: function () {
     return {
-      "keywords": '',
-      "errors": false,
+      keywords: '',
+      errors: false,
     };
   },
 
@@ -37,7 +37,8 @@ var Search = React.createClass({
       .get('https://api.github.com/search/repositories?q=' + keywords + '&sort=stars&order=desc')
       .end(function (err, response) {
         if (response.ok) {
-          console.log(response);
+          console.log(response.body.items);
+          this.props.updateResults(response.body.items);
         } else {
           console.log(response);
         }
@@ -52,7 +53,7 @@ var Search = React.createClass({
 
             <ReactBootstrap.Input label='Search GitHub Repositories'>
               <ReactBootstrap.Row>
-                <ReactBootstrap.Col xs={9}>
+                <ReactBootstrap.Col sm={9}>
 
                   <ReactBootstrap.Input
                     type='text'
@@ -64,7 +65,7 @@ var Search = React.createClass({
                     placeholder='Enter keywords' />
 
                 </ReactBootstrap.Col>
-                <ReactBootstrap.Col xs={3}>
+                <ReactBootstrap.Col sm={3}>
 
                   <ReactBootstrap.Button
                     className='btn-block btn-lg'

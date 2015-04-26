@@ -5,23 +5,26 @@ var Navigation = require('./components/navigation');
 var Search = require('./components/search');
 
 var App = React.createClass({
+  getInitialState: function () {
+    return {
+      results: false
+    };
+  },
+
+  onGetResults: function (results) {
+    this.setState({
+        results: results
+    });
+  },
+
   render: function () {
     return (
       <div>
         <Navigation />
-        <Search />
+        <Search updateResults={this.onGetResults} />
       </div>
     );
   }
 });
-
-var Home = React.createClass({
-  render: function () {
-    return (
-      <h1>Home Page!</h1>
-    );
-  }
-});
-
 
 React.render(<App />, document.getElementById('app'));
