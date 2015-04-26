@@ -7,20 +7,8 @@ var Navigation = React.createClass({
 
       <ReactBootstrap.Navbar brand='Git Compare' inverse toggleNavKey={0}>
         <ReactBootstrap.CollapsableNav eventKey={0}> {/* This is the eventKey referenced */}
-          <ReactBootstrap.Nav navbar>
-            <ReactBootstrap.NavItem eventKey={1} href='#'>Link</ReactBootstrap.NavItem>
-            <ReactBootstrap.NavItem eventKey={2} href='#'>Link</ReactBootstrap.NavItem>
-            <ReactBootstrap.DropdownButton eventKey={3} title='Dropdown'>
-              <ReactBootstrap.MenuItem eventKey='1'>Action</ReactBootstrap.MenuItem>
-              <ReactBootstrap.MenuItem eventKey='2'>Another action</ReactBootstrap.MenuItem>
-              <ReactBootstrap.MenuItem eventKey='3'>Something else here</ReactBootstrap.MenuItem>
-              <ReactBootstrap.MenuItem divider />
-              <ReactBootstrap.MenuItem eventKey='4'>Separated link</ReactBootstrap.MenuItem>
-            </ReactBootstrap.DropdownButton>
-          </ReactBootstrap.Nav>
           <ReactBootstrap.Nav navbar right>
-            <ReactBootstrap.NavItem eventKey={1} href='#'>Link Right</ReactBootstrap.NavItem>
-            <ReactBootstrap.NavItem eventKey={2} href='#'>Link Right</ReactBootstrap.NavItem>
+            <ReactBootstrap.NavItem eventKey={1} href='#'>Fork me on <i className='fa fa-github' /></ReactBootstrap.NavItem>
           </ReactBootstrap.Nav>
         </ReactBootstrap.CollapsableNav>
       </ReactBootstrap.Navbar>
