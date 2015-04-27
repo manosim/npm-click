@@ -5,6 +5,10 @@ var apiRequests = require('../utils/api-requests');
 var SearchStore = Reflux.createStore({
   listenables: Actions,
 
+  init: function () {
+    this._results = undefined;
+  },
+
   onMakeSearch: function (keywords) {
     apiRequests
       .get('https://api.github.com/search/repositories?q=' + keywords + '&sort=stars&order=desc')
@@ -19,12 +23,15 @@ var SearchStore = Reflux.createStore({
       });
   },
 
-  onMakeSearchCompleted: function () {
+  onMakeSearchCompleted: function (results) {
     console.log('Make Search - Success!.');
+    this._results = results;
+    this.trigger(this._results);
   },
 
-  onMakeSearchFailed: function () {
+  onMakeSearchFailed: function (errors) {
     console.log('Make Search - Error!.');
+    Action.searchErrors(errors);
   }
 
 });

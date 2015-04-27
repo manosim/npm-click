@@ -6,6 +6,7 @@ var Navigation = require('./components/navigation');
 var Search = require('./components/search');
 
 var Actions = require('./actions/actions');
+var Results = require('./components/results');
 var SearchStore = require('./stores/search-store');
 
 var App = React.createClass({
@@ -16,7 +17,7 @@ var App = React.createClass({
 
   getInitialState: function () {
     return {
-      results: false
+      results: undefined
     };
   },
 
@@ -29,7 +30,8 @@ var App = React.createClass({
     return (
       <div>
         <Navigation />
-        <Search updateResults={this.onGetResults} />
+        <Search />
+        <Results />
       </div>
     );
   }
