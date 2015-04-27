@@ -30,7 +30,7 @@ var Results = React.createClass({
           <Col md={12}>
             <h1>Results</h1>
             {this.state.results.map(function(object, i){
-                return <Repository repositoryName={object.name} />;
+                return <Repository repository={object} />;
             })}
           </Col>
         </Row>

@@ -7,7 +7,7 @@ var Col = ReactBootstrap.Col;
 var Repository = React.createClass({
   getInitialState: function () {
     return {
-      name: this.props.repositoryName
+      repository: this.props.repository
     };
   },
 
@@ -15,14 +15,14 @@ var Repository = React.createClass({
     console.log("newProps");
     console.log(newProps);
     this.setState({
-      name: newProps.repositoryName
+      repository: newProps.repository
     });
   },
 
   render: function () {
     return (
       <Row>
-        <Col md={12}>{this.state.name}</Col>
+        <Col md={12}>{this.state.repository.owner.login}/{this.state.repository.name}: {this.state.repository.stargazers_count}</Col>
       </Row>
     );
   }
