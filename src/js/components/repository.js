@@ -12,8 +12,6 @@ var Repository = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    console.log("newProps");
-    console.log(newProps);
     this.setState({
       repository: newProps.repository
     });

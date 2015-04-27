@@ -14,10 +14,8 @@ var SearchStore = Reflux.createStore({
       .get('https://api.github.com/search/repositories?q=' + keywords + '&sort=stars&order=desc')
       .end(function (err, response) {
         if (response.ok) {
-          console.log(response.body.items);
           Actions.makeSearch.completed(response.body.items);
         } else {
-          console.log(response);
           Actions.makeSearch.failed(err);
         }
       });
