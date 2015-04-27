@@ -31,7 +31,8 @@ var Search = React.createClass({
     this.setState(state);
   },
 
-  goSearch: function () {
+  goSearch: function (e) {
+    e.preventDefault();
     var keywords = this.state.keywords;
 
     if (!keywords) {
@@ -49,7 +50,7 @@ var Search = React.createClass({
       <div className='container-fluid'>
         <Row className='search-bar'>
           <Col mdOffset={3} md={6}>
-
+          <form onSubmit={this.goSearch}>
             <Input label='Search GitHub Repositories'>
               <Row>
                 <Col sm={9}>
@@ -66,15 +67,16 @@ var Search = React.createClass({
                 </Col>
                 <Col sm={3}>
 
-                  <Button
-                    className='btn-block btn-lg'
-                    onClick={this.goSearch}>
-                      Search
-                  </Button>
+                  <Input
+                    type='submit'
+                    value='Search'
+                    className='btn-block btn-lg' />
 
                 </Col>
               </Row>
             </Input>
+
+          </form>
           </Col>
         </Row>
       </div>
