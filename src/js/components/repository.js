@@ -7,20 +7,22 @@ var Col = ReactBootstrap.Col;
 var Repository = React.createClass({
   getInitialState: function () {
     return {
-      name: this.props.name
+      name: this.props.repositoryName
     };
   },
 
-  componentWillReceiveProps: function (props) {
+  componentWillReceiveProps: function (newProps) {
+    console.log("newProps");
+    console.log(newProps);
     this.setState({
-      name: props.repositoryName
+      name: newProps.repositoryName
     });
   },
 
   render: function () {
     return (
       <Row>
-        <Col>Hello, I'm a repository! {this.state.name}</Col>
+        <Col md={12}>{this.state.name}</Col>
       </Row>
     );
   }

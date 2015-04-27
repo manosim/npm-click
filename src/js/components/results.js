@@ -18,7 +18,7 @@ var Results = React.createClass({
 
   getInitialState: function () {
     return {
-      results: undefined,
+      results: [],
       errors: false,
     };
   },
@@ -29,7 +29,9 @@ var Results = React.createClass({
         <Row>
           <Col md={12}>
             <h1>Results</h1>
-            <Repository repositoryName='Example Repo' />
+            {this.state.results.map(function(object, i){
+                return <Repository repositoryName={object.name} />;
+            })}
           </Col>
         </Row>
       </Grid>
