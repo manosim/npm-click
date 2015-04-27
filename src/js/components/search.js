@@ -1,6 +1,9 @@
 var React = require('react');
+var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
+
 var apiRequests = require('../utils/api-requests');
+var Actions = require('../actions/actions');
 
 var Search = React.createClass({
   getInitialState: function () {
@@ -33,16 +36,7 @@ var Search = React.createClass({
       return;
     }
 
-    apiRequests
-      .get('https://api.github.com/search/repositories?q=' + keywords + '&sort=stars&order=desc')
-      .end(function (err, response) {
-        if (response.ok) {
-          console.log(response.body.items);
-          this.props.updateResults(response.body.items);
-        } else {
-          console.log(response);
-        }
-      });
+    Actions.makeSearch(keywords);
   },
 
   render: function () {
