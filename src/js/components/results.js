@@ -5,6 +5,7 @@ var ReactBootstrap = require('react-bootstrap');
 var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
+var Table = ReactBootstrap.Table;
 
 var apiRequests = require('../utils/api-requests');
 var SearchStore = require('../stores/search-store');
@@ -26,14 +27,21 @@ var Results = React.createClass({
   render: function () {
     return (
       <Grid>
-        <Row>
-          <Col md={12}>
-            <h1>Results</h1>
+        <h1>Results</h1>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th>Login</th>
+              <th>Repository Name</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
             {this.state.results.map(function(object, i){
-                return <Repository repository={object} />;
+              return <Repository repository={object} />;
             })}
-          </Col>
-        </Row>
+          </tbody>
+        </Table>
       </Grid>
     );
   }

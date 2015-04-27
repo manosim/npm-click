@@ -21,9 +21,11 @@ var Repository = React.createClass({
 
   render: function () {
     return (
-      <Row>
-        <Col md={12}>{this.state.repository.owner.login}/{this.state.repository.name}: {this.state.repository.stargazers_count}</Col>
-      </Row>
+      <tr>
+        <td>{this.state.repository.owner.login}</td>
+        <td>{this.state.repository.name}</td>
+        <td>{this.state.repository.stargazers_count}</td>
+      </tr>
     );
   }
 });
