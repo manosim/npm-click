@@ -9,6 +9,8 @@ var Col = ReactBootstrap.Col;
 var apiRequests = require('../utils/api-requests');
 var SearchStore = require('../stores/search-store');
 
+var Repository = require('../components/repository');
+
 var Results = React.createClass({
   mixins: [
     Reflux.connect(SearchStore, 'results'),
@@ -27,7 +29,7 @@ var Results = React.createClass({
         <Row>
           <Col md={12}>
             <h1>Results</h1>
-            {this.state.results}
+            <Repository repositoryName='Example Repo' />
           </Col>
         </Row>
       </Grid>
@@ -36,3 +38,5 @@ var Results = React.createClass({
 });
 
 module.exports = Results;
+
+// <Repository repositoryName={this.state.results[0].name} />
