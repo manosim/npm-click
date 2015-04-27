@@ -2,6 +2,11 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
 
+var Input = ReactBootstrap.Input;
+var Row = ReactBootstrap.Row;
+var Col = ReactBootstrap.Col;
+var Button = ReactBootstrap.Button;
+
 var apiRequests = require('../utils/api-requests');
 var Actions = require('../actions/actions');
 
@@ -42,14 +47,14 @@ var Search = React.createClass({
   render: function () {
     return (
       <div className='container-fluid'>
-        <ReactBootstrap.Row className='search-bar'>
-          <ReactBootstrap.Col mdOffset={3} md={6}>
+        <Row className='search-bar'>
+          <Col mdOffset={3} md={6}>
 
-            <ReactBootstrap.Input label='Search GitHub Repositories'>
-              <ReactBootstrap.Row>
-                <ReactBootstrap.Col sm={9}>
+            <Input label='Search GitHub Repositories'>
+              <Row>
+                <Col sm={9}>
 
-                  <ReactBootstrap.Input
+                  <Input
                     type='text'
                     className='input-lg'
                     value={this.state.keywords}
@@ -58,20 +63,20 @@ var Search = React.createClass({
                     onChange={this.handleChange.bind(this, 'keywords')}
                     placeholder='Enter keywords' />
 
-                </ReactBootstrap.Col>
-                <ReactBootstrap.Col sm={3}>
+                </Col>
+                <Col sm={3}>
 
-                  <ReactBootstrap.Button
+                  <Button
                     className='btn-block btn-lg'
                     onClick={this.goSearch}>
                       Search
-                  </ReactBootstrap.Button>
+                  </Button>
 
-                </ReactBootstrap.Col>
-              </ReactBootstrap.Row>
-            </ReactBootstrap.Input>
-          </ReactBootstrap.Col>
-        </ReactBootstrap.Row>
+                </Col>
+              </Row>
+            </Input>
+          </Col>
+        </Row>
       </div>
     );
   }
