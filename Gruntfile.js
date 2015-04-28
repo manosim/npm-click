@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -10,7 +8,7 @@ module.exports = function(grunt) {
       },
       main: {
         files: {
-          'build/css/style.css': 'src/less/style.less'
+          'static/build/css/style.css': 'static/src/less/style.less'
         }
       }
     },
@@ -18,27 +16,26 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {expand: true, cwd: "src/", src: 'index.html', dest: 'build/'},
-          {expand: true, cwd: "src/images/", src: '**', dest: 'build/images/'},
-          {expand: true, cwd: "node_modules/bootstrap/fonts/", src: '**', dest: 'build/fonts/'},
-          {expand: true, cwd: "node_modules/font-awesome/fonts/", src: '**', dest: 'build/fonts/'}
+          {expand: true, cwd: "static/src/images/", src: '**', dest: 'static/build/images/'},
+          {expand: true, cwd: "node_modules/bootstrap/fonts/", src: '**', dest: 'static/build/fonts/'},
+          {expand: true, cwd: "node_modules/font-awesome/fonts/", src: '**', dest: 'static/build/fonts/'}
         ]
       }
     },
 
     watch: {
       less: {
-        files: 'src/less/*',
+        files: 'static/src/less/*',
         tasks: ['less'],
       },
-      indexAndImages: {
-        files: ['src/index.html', 'src/images/*'],
+      images: {
+        files: 'static/src/images/*',
         tasks: ['copy'],
       },
     },
 
     clean: {
-        files: ["build/"]
+        files: ["static/build/"]
     },
 
   });

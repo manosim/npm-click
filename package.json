@@ -1,15 +1,15 @@
 {
-  "name": "git-compare",
+  "name": "dev-board",
   "version": "0.0.1",
   "description": "Comparing GitHub Repositories",
   "main": "src/js/app.js",
   "scripts": {
-    "build-js": "browserify -t reactify src/js/app.js -o build/js/app.js",
-    "build": "npm install && mkdir -p build/js && npm run build-js",
-    "watch-js": "watchify -t reactify src/js/app.js -o build/js/app.js -v",
+    "build-js": "browserify -t reactify static/src/js/app.js -o static/build/js/app.js",
+    "build": "npm install && mkdir -p static/build/ && mkdir -p static/build/js && grunt build && npm run build-js",
+    "watch-js": "watchify -t reactify static/src/js/app.js -o static/build/js/app.js -v",
     "watch": "grunt build && npm build && npm run watch-js | grunt watch",
-    "serve": "http-server 'build/'",
-    "test": "jsxhint --reporter node_modules/jshint-stylish/stylish.js 'src/js/*.js'"
+    "serve": "http-server 'static/build/'",
+    "test": "jsxhint --reporter node_modules/jshint-stylish/stylish.js 'static/src/js/*.js'"
   },
   "repository": {
     "type": "git",
