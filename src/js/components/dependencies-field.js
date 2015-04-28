@@ -21,11 +21,13 @@ var DependenciesField = React.createClass({
     }
   },
 
-  handleChange: function (key, event) {
-    var state = {};
-    state[key] = event.target.value;
-    state.errors = undefined;
-    this.setState(state);
+  handleJsonChange: function (e) {
+
+    console.log(e.target.value);
+
+    this.setState({
+      dependencies: e.target.value
+    });
   },
 
   goSearch: function (e) {
@@ -58,7 +60,7 @@ var DependenciesField = React.createClass({
                     rows="5"
                     label='Your package.json'
                     placeholder='Enter dependencies'
-                    onChange={this.handleChange.bind(this, 'dependencies')} />
+                    onChange={this.handleJsonChange} />
 
                 </Col>
                 <Col xs={12}>
