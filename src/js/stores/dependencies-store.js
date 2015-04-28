@@ -13,12 +13,15 @@ var DependenciesStore = Reflux.createStore({
   },
 
   onGetDependency: function (type, name, version) {
+
+    var filteredVersion = version.replace(/[^0-9.]/g, '');
+
     apiRequests
       .get('https://registry.npmjs.org/' + name)
       .end(function (err, response) {
         if (response.ok) {
           // Success - Do Something.
-          Actions.getDependency.completed(type, name, version, response.body);
+          Actions.getDependency.completed(type, name, filteredVersion, response.body);
         } else {
           // Error - Show messages.
           Actions.getDependency.failed(response.body);
