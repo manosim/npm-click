@@ -5,7 +5,12 @@
 
 /* @group Colors */
 
-@ThemePrimary: #3F3F3F;
+@ThemePrimary: #20598E;
+@LightGray: #F3F3F3;
+
+@VersionUpToDate: #0A0;
+
+@White: #FFF;
 
 /* @end Colors */
 
@@ -105,12 +110,24 @@
 /* @end Search Bar */
 
 
+/* @group Footer */
+
+.footer {
+    padding: 20px;
+    margin-top: 40px;
+    background-color: @LightGray;
+    text-align: center;
+}
+
+/* @end Footer */
+
+
 /* @group Package */
 
 .package {
     &.has-latest {
-        background-color: green;
-        color: white;
+        background-color: @VersionUpToDate;
+        color: @White;
     }
 }
 
