@@ -31,34 +31,37 @@ var DependenciesField = React.createClass({
 
   handleJsonChange: function (e) {
 
+    var value = e.target.value;
+
+    if (!value) {
+      this.setState({
+        errors: false
+      })
+      return;
+    }
+
     try {
-        var jsonValue = JSON.parse(e.target.value);
+      this.setState({
+        errors: false
+      })
 
-        for (var key in jsonValue) {
+      var jsonValue = JSON.parse(value);
+      for (var key in jsonValue) {
 
-          if (key === 'dependencies' || key === 'devDependencies') {
+        if (key === 'dependencies' || key === 'devDependencies') {
+          var dependencies = jsonValue[key];
 
-            var dependencies = jsonValue[key];
-
-
-            for (var name in dependencies) {
-
-              Actions.getDependency(key, name, dependencies[name]);
-
-            }
-
-
-
+          for (var name in dependencies) {
+            Actions.getDependency(key, name, dependencies[name]);
           }
-
         }
 
+      }
     } catch (e) {
-        console.log(e); // Catch Errors
-        this.setState({
-          errors: true
-        })
-        return;
+      console.log(e); // Catch Errors
+      this.setState({
+        errors: true
+      })
     }
 
   },
@@ -67,50 +70,22 @@ var DependenciesField = React.createClass({
     console.log("ERROR...");
   },
 
-  goSearch: function (e) {
-    e.preventDefault();
-    var dependencies = this.state.dependencies;
-
-    if (!dependencies) {
-      this.setState({
-        "errors": true
-      });
-      return;
-    }
-
-  },
-
   render: function () {
     return (
       <div className='container-fluid'>
         <Row className='search-bar'>
           <Col mdOffset={3} md={6}>
-          <form onSubmit={this.goSearch}>
-              <Row>
-                <Col xs={12}>
 
-                  <Input
-                    type='textarea'
-                    className='input-lg'
-                    bsStyle={this.validateInput()}
-                    hasFeedback
-                    rows="30"
-                    label='Your package.json'
-                    placeholder='Enter dependencies'
-                    onChange={this.handleJsonChange} />
+            <Input
+              type='textarea'
+              className='input-lg'
+              bsStyle={this.validateInput()}
+              hasFeedback
+              rows="20"
+              label='Your package.json'
+              placeholder='Enter dependencies'
+              onChange={this.handleJsonChange} />
 
-                </Col>
-                <Col xs={12}>
-
-                  <Input
-                    type='submit'
-                    value='Search'
-                    className='btn-block btn-lg' />
-
-                </Col>
-              </Row>
-
-          </form>
           </Col>
         </Row>
       </div>
