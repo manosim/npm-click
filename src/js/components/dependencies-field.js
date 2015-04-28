@@ -7,13 +7,10 @@ var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Button = ReactBootstrap.Button;
 
-var apiRequests = require('../utils/api-requests');
-var Actions = require('../actions/actions');
-
-var Search = React.createClass({
+var DependenciesField = React.createClass({
   getInitialState: function () {
     return {
-      keywords: '',
+      dependencies: '',
       errors: false,
     };
   },
@@ -33,16 +30,15 @@ var Search = React.createClass({
 
   goSearch: function (e) {
     e.preventDefault();
-    var keywords = this.state.keywords;
+    var dependencies = this.state.dependencies;
 
-    if (!keywords) {
+    if (!dependencies) {
       this.setState({
         "errors": true
       });
       return;
     }
 
-    Actions.makeSearch(keywords);
   },
 
   render: function () {
@@ -51,21 +47,21 @@ var Search = React.createClass({
         <Row className='search-bar'>
           <Col mdOffset={3} md={6}>
           <form onSubmit={this.goSearch}>
-            <Input label='Search GitHub Repositories'>
               <Row>
-                <Col sm={9}>
+                <Col xs={12}>
 
                   <Input
-                    type='text'
+                    type='textarea'
                     className='input-lg'
-                    value={this.state.keywords}
                     bsStyle={this.validateInput()}
                     hasFeedback
-                    onChange={this.handleChange.bind(this, 'keywords')}
-                    placeholder='Enter keywords' />
+                    rows="5"
+                    label='Your package.json'
+                    placeholder='Enter dependencies'
+                    onChange={this.handleChange.bind(this, 'dependencies')} />
 
                 </Col>
-                <Col sm={3}>
+                <Col xs={12}>
 
                   <Input
                     type='submit'
@@ -74,7 +70,6 @@ var Search = React.createClass({
 
                 </Col>
               </Row>
-            </Input>
 
           </form>
           </Col>
@@ -84,4 +79,4 @@ var Search = React.createClass({
   }
 });
 
-module.exports = Search;
+module.exports = DependenciesField;
