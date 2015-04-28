@@ -13,7 +13,6 @@ var Dependency = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    console.log(newProps);
     this.setState({
       dependency: newProps.dependency
     });
@@ -24,6 +23,7 @@ var Dependency = React.createClass({
       <Row>
         <Col sm={3}>{this.state.dependency.name}</Col>
         <Col sm={3}>{this.state.dependency.version}</Col>
+        <Col sm={3}>{this.state.dependency.name}</Col>
       </Row>
     );
   }

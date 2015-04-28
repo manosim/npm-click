@@ -32,7 +32,6 @@ var Results = React.createClass({
           return <Dependency dependency={object} />;
         })}
 
-
         <hr />
 
         <h1>Your DevDependencies</h1>

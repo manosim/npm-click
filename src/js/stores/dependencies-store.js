@@ -13,35 +13,34 @@ var DependenciesStore = Reflux.createStore({
   },
 
   onGetDependency: function (type, name, version) {
-
-    console.log(type + ', - ' + name + ': ' + version);
-    Actions.getDependency.completed(type, name, version);
-
-
-    // apiRequests
-    //   .post('http://registry.npmjs.org/' + , data)
-    //   .end(function (err, response) {
-    //     if (response.ok) {
-    //       // Success - Do Something.
-    //       Actions.getDependency.completed(response.body.id);
-    //     } else {
-    //       // Error - Show messages.
-    //       Actions.getDependency.failed(response.body);
-    //     }
-    //   });
+    apiRequests
+      .get('https://registry.npmjs.org/' + name)
+      .end(function (err, response) {
+        if (response.ok) {
+          // Success - Do Something.
+          Actions.getDependency.completed(type, name, version, response.body);
+        } else {
+          // Error - Show messages.
+          Actions.getDependency.failed(response.body);
+        }
+      });
   },
 
-  onGetDependencyCompleted: function (type, name, version) {
+  onGetDependencyCompleted: function (type, name, version, response) {
+
     console.log('Get Dependency - Success.');
+
     if (type === 'dependencies') {
       this._dependencies.push({
         'name': name,
-        'version': version
+        'version': version,
+        'current': response
       });
     } else if (type === 'devDependencies') {
       this._devDependencies.push({
         'name': name,
-        'version': version
+        'version': version,
+        'current': response
       });
     }
 
