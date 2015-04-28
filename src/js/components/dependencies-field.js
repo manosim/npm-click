@@ -2,16 +2,24 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
 
+var Actions = require('../actions/actions');
+var DependenciesStore = require('../stores/dependencies-store');
+
 var Input = ReactBootstrap.Input;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Button = ReactBootstrap.Button;
 
 var DependenciesField = React.createClass({
+  mixins: [
+    Reflux.connect(DependenciesStore, 'dependencies'),
+    Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
+  ],
+
   getInitialState: function () {
     return {
-      dependencies: '',
-      errors: false,
+      dependencies: undefined,
+      errors: undefined
     };
   },
 
@@ -25,14 +33,29 @@ var DependenciesField = React.createClass({
 
     try {
         var jsonValue = JSON.parse(e.target.value);
-        console.log(jsonValue);
+
+        for (var key in jsonValue) {
+
+          if (key === 'dependencies' || key === 'devDependencies') {
+            Actions.getDependency({
+              key: jsonValue[key]
+            });
+          }
+
+        }
+
     } catch (e) {
         console.log(e); // Catch Errors
+        this.setState({
+          errors: true
+        })
+        return;
     }
 
-    this.setState({
-      dependencies: jsonValue
-    });
+  },
+
+  gotDependenciesErrors: function () {
+    console.log("ERROR...");
   },
 
   goSearch: function (e) {
@@ -62,7 +85,7 @@ var DependenciesField = React.createClass({
                     className='input-lg'
                     bsStyle={this.validateInput()}
                     hasFeedback
-                    rows="5"
+                    rows="100"
                     label='Your package.json'
                     placeholder='Enter dependencies'
                     onChange={this.handleJsonChange} />
