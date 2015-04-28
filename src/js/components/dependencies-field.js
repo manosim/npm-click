@@ -32,6 +32,7 @@ var DependenciesField = React.createClass({
   handleJsonChange: function (e) {
 
     var value = e.target.value;
+    Actions.clearResults();
 
     if (!value) {
       this.setState({

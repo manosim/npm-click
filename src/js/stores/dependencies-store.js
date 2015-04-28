@@ -57,7 +57,12 @@ var DependenciesStore = Reflux.createStore({
   onGetDependencyFailed: function (errors) {
     console.log('Get Dependencies - Error.');
     Actions.onGetDependenciesErrors(errors);
-  }
+  },
+
+  onClearResults: function () {
+    this._dependencies = [];
+    this._devDependencies = [];
+  },
 
 });
 
