@@ -23,10 +23,15 @@ var DependenciesField = React.createClass({
 
   handleJsonChange: function (e) {
 
-    console.log(e.target.value);
+    try {
+        var jsonValue = JSON.parse(e.target.value);
+        console.log(jsonValue);
+    } catch (e) {
+        console.log(e); // Catch Errors
+    }
 
     this.setState({
-      dependencies: e.target.value
+      dependencies: jsonValue
     });
   },
 
