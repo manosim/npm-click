@@ -5,30 +5,28 @@ var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Input = ReactBootstrap.Input;
 
-var Repository = React.createClass({
+var Dependency = React.createClass({
   getInitialState: function () {
     return {
-      repository: this.props.repository
+      dependency: this.props.dependency
     };
   },
 
   componentWillReceiveProps: function (newProps) {
+    console.log(newProps);
     this.setState({
-      repository: newProps.repository
+      dependency: newProps.dependency
     });
   },
 
   render: function () {
     return (
       <Row>
-        <Col md={1}><Input type='checkbox' label='' /></Col>
-        <Col md={3}>{this.state.repository.owner.login}</Col>
-        <Col md={3}>{this.state.repository.name}</Col>
-        <Col md={2}>{this.state.repository.stargazers_count}</Col>
-        <Col md={2}>{this.state.repository.forks_count}</Col>
+        <Col sm={3}>{this.state.dependency.name}</Col>
+        <Col sm={3}>{this.state.dependency.version}</Col>
       </Row>
     );
   }
 });
 
-module.exports = Repository;
+module.exports = Dependency;

@@ -37,9 +37,18 @@ var DependenciesField = React.createClass({
         for (var key in jsonValue) {
 
           if (key === 'dependencies' || key === 'devDependencies') {
-            Actions.getDependency({
-              key: jsonValue[key]
-            });
+
+            var dependencies = jsonValue[key];
+
+
+            for (var name in dependencies) {
+
+              Actions.getDependency(key, name, dependencies[name]);
+
+            }
+
+
+
           }
 
         }
@@ -85,7 +94,7 @@ var DependenciesField = React.createClass({
                     className='input-lg'
                     bsStyle={this.validateInput()}
                     hasFeedback
-                    rows="100"
+                    rows="30"
                     label='Your package.json'
                     placeholder='Enter dependencies'
                     onChange={this.handleJsonChange} />

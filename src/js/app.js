@@ -14,11 +14,6 @@ var App = React.createClass({
     };
   },
 
-  onSearchErrors: function (errors) {
-    console.log("Errors:");
-    console.log(errors);
-  },
-
   render: function () {
     return (
       <div>

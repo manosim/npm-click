@@ -8,14 +8,15 @@ var DependenciesStore = Reflux.createStore({
   listenables: Actions,
 
   init: function () {
-    // this._id = undefined;
+    this._dependencies = [];
+    this._devDependencies = [];
   },
 
-  onGetDependency: function (dependency) {
+  onGetDependency: function (type, name, version) {
 
-    console.log("Dependency:");
-    console.log(dependency);
-    Actions.getDependency.completed('GOT IT!');
+    console.log(type + ', - ' + name + ': ' + version);
+    Actions.getDependency.completed(type, name, version);
+
 
     // apiRequests
     //   .post('http://registry.npmjs.org/' + , data)
@@ -30,10 +31,25 @@ var DependenciesStore = Reflux.createStore({
     //   });
   },
 
-  onGetDependencyCompleted: function (value) {
-    console.log('Get Dependencies - Success.');
-    this._id = value;
-    this.trigger(this._id);
+  onGetDependencyCompleted: function (type, name, version) {
+    console.log('Get Dependency - Success.');
+    if (type === 'dependencies') {
+      this._dependencies.push({
+        'name': name,
+        'version': version
+      });
+    } else if (type === 'devDependencies') {
+      this._devDependencies.push({
+        'name': name,
+        'version': version
+      });
+    }
+
+    this.trigger({
+      'dependencies': this._dependencies,
+      'devDependencies': this._devDependencies
+    });
+
   },
 
   onGetDependencyFailed: function (errors) {

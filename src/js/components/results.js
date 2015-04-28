@@ -6,12 +6,20 @@ var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 
-var Repository = require('../components/repository');
+var Dependency = require('../components/repository');
+var DependenciesStore = require('../stores/dependencies-store')
 
 var Results = React.createClass({
+  mixins: [
+    Reflux.connect(DependenciesStore, 'dependencies'),
+  ],
+
   getInitialState: function () {
     return {
-      results: [],
+      dependencies: {
+        dependencies: [],
+        devDependencies: []
+      },
       errors: false,
     };
   },
@@ -20,9 +28,18 @@ var Results = React.createClass({
     return (
       <Grid>
         <h1>Your Dependencies</h1>
-        {this.state.results.map(function(object, i){
-          return <Repository repository={object} />;
+        {this.state.dependencies.dependencies.map(function(object, i){
+          return <Dependency dependency={object} />;
         })}
+
+
+        <hr />
+
+        <h1>Your DevDependencies</h1>
+        {this.state.dependencies.devDependencies.map(function(object, i){
+          return <Dependency dependency={object} />;
+        })}
+
       </Grid>
     );
   }
