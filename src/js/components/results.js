@@ -28,20 +28,16 @@ var Results = React.createClass({
     return (
       <Grid>
         <h1>Results</h1>
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>Login</th>
-              <th>Repository Name</th>
-              <th>Stars</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.results.map(function(object, i){
-              return <Repository repository={object} />;
-            })}
-          </tbody>
-        </Table>
+        <Row>
+          <Col md={2}>Compare</Col>
+          <Col md={3}>Login</Col>
+          <Col md={3}>Repository</Col>
+          <Col md={2}>Stars</Col>
+          <Col md={2}>Forks</Col>
+        </Row>
+        {this.state.results.map(function(object, i){
+          return <Repository repository={object} />;
+        })}
       </Grid>
     );
   }
