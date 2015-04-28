@@ -22,8 +22,9 @@ var Dependency = React.createClass({
     return (
       <Row>
         <Col sm={3}>{this.state.dependency.name}</Col>
-        <Col sm={3}>{this.state.dependency.version}</Col>
-        <Col sm={3}>{this.state.dependency.name}</Col>
+        <Col sm={2}>{this.state.dependency.version}</Col>
+        <Col sm={5}>{this.state.dependency.current.description}</Col>
+        <Col sm={2}>{this.state.dependency.current['dist-tags'].latest}</Col>
       </Row>
     );
   }
