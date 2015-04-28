@@ -1,5 +1,5 @@
 {
-  "name": "git-compare",
+  "name": "dep-compare",
   "version": "0.0.1",
   "description": "Comparing GitHub Repositories",
   "main": "src/js/app.js",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/ekonstantinidis/git-compare",
   "dependencies": {
-    "bootstrap": "=3.3.4",
+    "bootstrap": "^3.3.4",
     "browserify": "^9.0.8",
     "font-awesome": "^4.3.0",
     "react": "^0.13.2",

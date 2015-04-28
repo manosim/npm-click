@@ -1,6 +1,6 @@
-Git Compare [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/git-compare.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/git-compare)
+Dependencies Compare [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/git-compare.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/git-compare)
 =====================
-Comparing GitGub Repositories
+Checking your dependencies can be really handy.
 
 ### Prerequisites
 
