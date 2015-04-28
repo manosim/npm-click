@@ -5,7 +5,7 @@
   "main": "src/js/app.js",
   "scripts": {
     "build-js": "browserify -t reactify src/js/app.js -o build/js/app.js",
-    "build": "npm install && mkdir -p build/js && npm run build-js",
+    "build": "npm install && mkdir -p build/js && grunt build && npm run build-js",
     "watch-js": "watchify -t reactify src/js/app.js -o build/js/app.js -v",
     "watch": "grunt build && npm build && npm run watch-js | grunt watch",
     "serve": "http-server 'build/'",
