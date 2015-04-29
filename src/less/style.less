@@ -9,6 +9,7 @@
 @LightGray: #F3F3F3;
 
 @VersionUpToDate: #0A0;
+@VersionPrevious: #FF6C60;
 
 @White: #FFF;
 
@@ -125,9 +126,14 @@
 /* @group Package */
 
 .package {
+    color: @White;
+
     &.has-latest {
         background-color: @VersionUpToDate;
-        color: @White;
+    }
+
+    &.has-previous {
+        background-color: @VersionPrevious;
     }
 }
 

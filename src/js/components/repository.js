@@ -73,6 +73,8 @@ var Dependency = React.createClass({
     console.log(isUpToDate);
     if (isUpToDate >= 0) {
       return 'package has-latest'
+    } else if (isUpToDate < 0) {
+      return 'package has-previous'
     }
   },
 
