@@ -1,8 +1,10 @@
 var Reflux = require('reflux');
 
 var Actions = Reflux.createActions({
-  'makeSearch': {asyncResult: true},
-  'searchErrors': {}
+
+  'getDependency': {asyncResult: true},
+  'onGetDependenciesErrors': {},
+  'clearResults': {}
 
 });
 

@@ -5,7 +5,15 @@
 
 /* @group Colors */
 
-@ThemePrimary: #3F3F3F;
+@ThemePrimary: #20598E;
+@LightGray: #F3F3F3;
+
+@VersionUpToDate: #0A0;
+@VersionPrevious: #FF6C60;
+@VersionErrored: #CDBC2C;
+
+@White: #FFF;
+@DarkGray: #777;
 
 /* @end Colors */
 
@@ -17,7 +25,7 @@
     font-weight: 300;
 }
 
-.FontSourceSansNormal() {
+.FontSourceSansRegular() {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
 }
@@ -56,6 +64,16 @@
 }
 
 /* @end Mixins */
+
+
+/* @group Misc */
+
+body {
+    .FontSourceSansRegular();
+    font-size: 16px;
+}
+
+/* @end Misc */
 
 
 /* @group Navbar */
@@ -103,3 +121,68 @@
 }
 
 /* @end Search Bar */
+
+
+/* @group Footer */
+
+.footer {
+    padding: 30px;
+    margin-top: 40px;
+    background-color: @LightGray;
+    font-size: 20px;
+    text-align: center;
+
+    .social {
+        margin-bottom: 10px;
+    }
+}
+
+/* @end Footer */
+
+
+/* @group Results */
+
+.results {
+    h2 {
+        text-align: center;
+        text-transform: uppercase;
+        margin-top: 50px;
+        margin-bottom: 20px;
+      }
+}
+
+/* @end Results */
+
+
+/* @group Package */
+
+.package {
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid @DarkGray;
+
+    small {
+        display: block;
+        .FontSourceSansLight();
+        font-size: 75%;
+    }
+
+    .status {
+        font-size: 30px;
+        text-align: center;
+
+        .has-latest {
+            color: @VersionUpToDate;
+        }
+
+        .has-previous {
+            color: @VersionPrevious;
+        }
+
+        .has-errored {
+            color: @VersionErrored;
+        }
+    }
+}
+
+/* @end Package */
