@@ -82,7 +82,7 @@ var DependenciesField = React.createClass({
               className='input-lg'
               bsStyle={this.validateInput()}
               hasFeedback
-              rows="15"
+              rows="12"
               label='Your package.json'
               placeholder='Enter dependencies'
               onChange={this.handleJsonChange} />

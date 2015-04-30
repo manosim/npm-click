@@ -21,9 +21,8 @@ var Package = React.createClass({
   compareVersionNumbers: function (v1, v2){
     // http://stackoverflow.com/a/6832721/11236
     // http://jsfiddle.net/ripper234/Xv9WL/28/
-    console.log(v1);
-    console.log(v2);
-    var v1parts = v1.split('.');
+    console.log(v1, ' - ',v2);
+    var v1parts = v1.replace(/[^0-9.]/g, '').split('.');
     var v2parts = v2.split('.');
 
     function isPositiveInteger(x) {
@@ -70,7 +69,6 @@ var Package = React.createClass({
     var installedVersion = this.state.dependency.version;
     var latestVersion = this.state.dependency.current['dist-tags'].latest;
     var isUpToDate = this.compareVersionNumbers(installedVersion, latestVersion);
-    console.log(isUpToDate);
     if (isUpToDate >= 0) {
       return 'has-latest fa fa-check-circle';
     } else if (isUpToDate < 0) {
@@ -83,8 +81,8 @@ var Package = React.createClass({
   render: function () {
     return (
       <Row className='package'>
-        <Col sm={1} className='status'><i className={this.upToDate()}></i></Col>
-        <Col sm={4} className='name'><small>name</small> {this.state.dependency.name}</Col>
+        <Col xs={12} sm={1} className='status'><i className={this.upToDate()}></i></Col>
+        <Col xs={12} sm={4} className='name'><small>name</small> {this.state.dependency.name}</Col>
         <Col xs={6} sm={3} className=''><small>required</small> {this.state.dependency.version}</Col>
         <Col xs={6} sm={3} className=''><small>latest</small> {this.state.dependency.current['dist-tags'].latest}</Col>
         <Col xs={6} sm={1} className=''><small>more</small> coming</Col>
