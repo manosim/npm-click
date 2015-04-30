@@ -23,7 +23,7 @@
     font-weight: 300;
 }
 
-.FontSourceSansNormal() {
+.FontSourceSansRegular() {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
 }
@@ -62,6 +62,16 @@
 }
 
 /* @end Mixins */
+
+
+/* @group Misc */
+
+body {
+    .FontSourceSansRegular();
+    font-size: 16px;
+}
+
+/* @end Misc */
 
 
 /* @group Navbar */
@@ -126,14 +136,25 @@
 /* @group Package */
 
 .package {
-    color: @White;
+    margin: 15px 0;
 
-    &.has-latest {
-        background-color: @VersionUpToDate;
+    small {
+        display: block;
+        .FontSourceSansLight();
+        font-size: 75%;
     }
 
-    &.has-previous {
-        background-color: @VersionPrevious;
+    .status {
+        font-size: 30px;
+        text-align: center;
+
+        .has-latest {
+            color: @VersionUpToDate;
+        }
+
+        .has-previous {
+            color: @VersionPrevious;
+        }
     }
 }
 

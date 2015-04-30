@@ -5,7 +5,7 @@ var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Input = ReactBootstrap.Input;
 
-var Dependency = React.createClass({
+var Package = React.createClass({
   getInitialState: function () {
     return {
       dependency: this.props.dependency
@@ -72,22 +72,23 @@ var Dependency = React.createClass({
     var isUpToDate = this.compareVersionNumbers(installedVersion, latestVersion);
     console.log(isUpToDate);
     if (isUpToDate >= 0) {
-      return 'package has-latest'
+      return 'has-latest fa fa-check-circle';
     } else if (isUpToDate < 0) {
-      return 'package has-previous'
+      return 'has-previous fa fa-exclamation-circle';
     }
   },
 
   render: function () {
     return (
-      <Row className={this.upToDate()}>
-        <Col sm={3}>{this.state.dependency.name}</Col>
-        <Col sm={1}>{this.state.dependency.version}</Col>
-        <Col sm={7}>{this.state.dependency.current.description}</Col>
-        <Col sm={1}>{this.state.dependency.current['dist-tags'].latest}</Col>
+      <Row className='package'>
+        <Col sm={1} className='status'><i className={this.upToDate()}></i></Col>
+        <Col sm={3} className='name'><small>name</small> {this.state.dependency.name}</Col>
+        <Col sm={2} className=''><small>your version</small> {this.state.dependency.version}</Col>
+        <Col sm={2} className=''><small>latest version</small> {this.state.dependency.current['dist-tags'].latest}</Col>
+        <Col sm={4} className=''><small>description</small> {this.state.dependency.current.description}</Col>
       </Row>
     );
   }
 });
 
-module.exports = Dependency;
+module.exports = Package;
