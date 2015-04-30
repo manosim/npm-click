@@ -37,14 +37,14 @@ var DependenciesField = React.createClass({
     if (!value) {
       this.setState({
         errors: false
-      })
+      });
       return;
     }
 
     try {
       this.setState({
         errors: false
-      })
+      });
 
       var jsonValue = JSON.parse(value);
       for (var key in jsonValue) {
@@ -58,11 +58,11 @@ var DependenciesField = React.createClass({
         }
 
       }
-    } catch (e) {
-      console.log(e); // Catch Errors
+    } catch (error) {
+      console.log(error); // Catch Errors
       this.setState({
         errors: true
-      })
+      });
     }
 
   },
@@ -82,7 +82,7 @@ var DependenciesField = React.createClass({
               className='input-lg'
               bsStyle={this.validateInput()}
               hasFeedback
-              rows="20"
+              rows="15"
               label='Your package.json'
               placeholder='Enter dependencies'
               onChange={this.handleJsonChange} />

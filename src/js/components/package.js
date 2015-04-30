@@ -82,10 +82,10 @@ var Package = React.createClass({
     return (
       <Row className='package'>
         <Col sm={1} className='status'><i className={this.upToDate()}></i></Col>
-        <Col sm={3} className='name'><small>name</small> {this.state.dependency.name}</Col>
-        <Col sm={2} className=''><small>your version</small> {this.state.dependency.version}</Col>
-        <Col sm={2} className=''><small>latest version</small> {this.state.dependency.current['dist-tags'].latest}</Col>
-        <Col sm={4} className=''><small>description</small> {this.state.dependency.current.description}</Col>
+        <Col sm={4} className='name'><small>name</small> {this.state.dependency.name}</Col>
+        <Col xs={6} sm={3} className=''><small>required</small> {this.state.dependency.version}</Col>
+        <Col xs={6} sm={3} className=''><small>latest</small> {this.state.dependency.current['dist-tags'].latest}</Col>
+        <Col xs={6} sm={1} className=''><small>more</small> coming</Col>
       </Row>
     );
   }

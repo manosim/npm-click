@@ -27,18 +27,26 @@ var Results = React.createClass({
   render: function () {
     return (
       <Grid>
-        <h1>Your Dependencies</h1>
-        {this.state.dependencies.dependencies.map(function(object, i){
-          return <Package dependency={object} />;
-        })}
+        <Row>
 
-        <hr />
+          <Col smOffset={1} sm={10}><h1>Your Dependencies</h1></Col>
+          <Col smOffset={1} sm={10}>
+            {this.state.dependencies.dependencies.map(function(object, i){
+              return <Package dependency={object} />;
+            })}
+          </Col>
 
-        <h1>Your DevDependencies</h1>
-        {this.state.dependencies.devDependencies.map(function(object, i){
-          return <Package dependency={object} />;
-        })}
+        </Row>
 
+        <Row>
+          <Col smOffset={1} sm={10}><h1>Your DevDependencies</h1></Col>
+          <Col smOffset={1} sm={10}>
+            {this.state.dependencies.devDependencies.map(function(object, i){
+              return <Package dependency={object} />;
+            })}
+          </Col>
+
+        </Row>
       </Grid>
     );
   }
