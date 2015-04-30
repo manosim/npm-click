@@ -10,8 +10,10 @@
 
 @VersionUpToDate: #0A0;
 @VersionPrevious: #FF6C60;
+@VersionErrored: #CDBC2C;
 
 @White: #FFF;
+@DarkGray: #777;
 
 /* @end Colors */
 
@@ -133,10 +135,23 @@ body {
 /* @end Footer */
 
 
+/* @group Results */
+
+.results {
+    h1 {
+        text-align: center;
+    }
+}
+
+/* @end Results */
+
+
 /* @group Package */
 
 .package {
     margin: 15px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid @DarkGray;
 
     small {
         display: block;
@@ -154,6 +169,10 @@ body {
 
         .has-previous {
             color: @VersionPrevious;
+        }
+
+        .has-errored {
+            color: @VersionErrored;
         }
     }
 }

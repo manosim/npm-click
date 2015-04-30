@@ -75,6 +75,8 @@ var Package = React.createClass({
       return 'has-latest fa fa-check-circle';
     } else if (isUpToDate < 0) {
       return 'has-previous fa fa-exclamation-circle';
+    } else {
+      return 'has-errored fa fa-times-circle-o';
     }
   },
 

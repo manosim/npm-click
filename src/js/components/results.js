@@ -26,7 +26,7 @@ var Results = React.createClass({
 
   render: function () {
     return (
-      <Grid>
+      <Grid className='results'>
         <Row>
 
           <Col smOffset={1} sm={10}><h1>Your Dependencies</h1></Col>
