@@ -11,12 +11,12 @@ var DependenciesStore = require('../stores/dependencies-store');
 
 var Results = React.createClass({
   mixins: [
-    Reflux.connect(DependenciesStore, 'dependencies'),
+    Reflux.connect(DependenciesStore, 'project'),
   ],
 
   getInitialState: function () {
     return {
-      dependencies: {
+      project: {
         dependencies: [],
         devDependencies: []
       },
@@ -27,13 +27,13 @@ var Results = React.createClass({
   render: function () {
     return (
       <Grid className='results'>
-        <h2>Dependencies - {this.state.dependencies.dependencies.length}</h2>
-        {this.state.dependencies.dependencies.map(function(object, i){
+        <h2>Dependencies - {this.state.project.dependencies.length}</h2>
+        {this.state.project.dependencies.map(function(object, i){
           return <Package dependency={object} />;
         })}
 
-        <h2>DevDependencies - {this.state.dependencies.devDependencies.length}</h2>
-        {this.state.dependencies.devDependencies.map(function(object, i){
+        <h2>DevDependencies - {this.state.project.devDependencies.length}</h2>
+        {this.state.project.devDependencies.map(function(object, i){
           return <Package dependency={object} />;
         })}
       </Grid>
