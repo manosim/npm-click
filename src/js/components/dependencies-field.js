@@ -32,7 +32,6 @@ var DependenciesField = React.createClass({
   handleJsonChange: function (e) {
 
     var value = e.target.value;
-    Actions.clearResults();
 
     if (!value) {
       this.setState({
@@ -59,9 +58,7 @@ var DependenciesField = React.createClass({
   },
 
   generateDemoData: function () {
-    Actions.clearResults();
-
-    var data = {
+    Actions.getDependency({
       "name": "dep-compare",
       "version": "0.0.1",
       "description": "Comparing NPM (dev)Dependencies",
@@ -93,20 +90,7 @@ var DependenciesField = React.createClass({
         "jsxhint":"=0.14.0",
         "less":"=2.5.0"
       }
-    };
-
-    for (var key in data) {
-
-      if (key === 'dependencies' || key === 'devDependencies') {
-        var dependencies = data[key];
-
-        for (var name in dependencies) {
-          Actions.getDependency(key, name, dependencies[name]);
-        }
-      }
-
-    }
-
+    });
   },
 
   gotDependenciesErrors: function () {

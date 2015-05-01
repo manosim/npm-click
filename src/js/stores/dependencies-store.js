@@ -25,6 +25,8 @@ var DependenciesStore = Reflux.createStore({
   },
 
   onGetDependency: function (jsonValue) {
+      Actions.clearResults();
+
       for (var key in jsonValue) {
         if (key === 'dependencies' || key === 'devDependencies') {
           var dependencies = jsonValue[key];
