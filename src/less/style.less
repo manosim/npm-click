@@ -5,7 +5,8 @@
 
 /* @group Colors */
 
-@ThemePrimary: #20598E;
+@ThemePrimary: #d3d3d3;
+@ThemeSecondary: #cb3837;
 @LightGray: #F3F3F3;
 
 @VersionUpToDate: #0A0;
@@ -80,7 +81,7 @@ body {
 /* @group Navbar */
 
 .navbar {
-    background-color: @ThemePrimary;
+    background-color: @ThemeSecondary;
     .BorderRadius(0);
     border: 0;
     min-height: 0;
@@ -89,7 +90,17 @@ body {
     .navbar-brand {
         padding: 10px 15px;
         height: auto;
+        color: @White;
     }
+
+    .navbar-nav > li > a {
+        color: @White;
+
+        &:hover {
+            color: darken(@ThemeSecondary, 40%);
+        }
+    }
+
 
     // screen-sm-min - 768px
     @media (min-width: @screen-sm-min) {
@@ -107,7 +118,7 @@ body {
 /* @group Search Bar */
 
 .search-bar {
-    background-color: lighten(@ThemePrimary, 10%);
+    background-color: @ThemePrimary;
     padding: 20px;
 
     .form-control {
