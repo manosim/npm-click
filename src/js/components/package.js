@@ -18,63 +18,51 @@ var Package = React.createClass({
     });
   },
 
-  compareVersionNumbers: function (v1, v2){
-    // http://stackoverflow.com/a/6832721/11236
-    // http://jsfiddle.net/ripper234/Xv9WL/28/
-    console.log(v1, ' - ',v2);
-    var v1parts = v1.replace(/[^0-9.]/g, '').split('.');
-    var v2parts = v2.split('.');
-
-    function isPositiveInteger(x) {
-      // http://stackoverflow.com/a/1019526/11236
-      return /^\d+$/.test(x);
+  compareVersionNumbers: function (v1, v2) {
+    // http://maymay.net/blog/2008/06/15/ridiculously-simple-javascript-version-string-to-object-parser/
+    function parseVersionString (str) {
+      if (typeof(str) != 'string') { return false; }
+      var x = str.split('.');
+      // parse from string or default to 0 if can't parse
+      var maj = parseInt(x[0]) || 0;
+      var min = parseInt(x[1]) || 0;
+      var pat = parseInt(x[2]) || 0;
+      return {
+        major: maj,
+        minor: min,
+        patch: pat
+      };
     }
 
-    // First, validate both numbers are true version numbers
-    function validateParts(parts) {
-        for (var i = 0; i < parts.length; ++i) {
-            if (!isPositiveInteger(parts[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    if (!validateParts(v1parts) || !validateParts(v2parts)) {
-        return NaN;
-    }
-
-    for (var i = 0; i < v1parts.length; ++i) {
-        if (v2parts.length === i) {
-            return 1;
-        }
-
-        if (v1parts[i] === v2parts[i]) {
-            continue;
-        }
-        if (v1parts[i] > v2parts[i]) {
-            return 1;
-        }
+    var running_version = parseVersionString(v1.replace(/[^0-9.]/g, ''));
+    var latest_version = parseVersionString(v2);
+    if (running_version.major < latest_version.major) {
+        // A major new update is available!
+        console.log('A major new update is available!');
         return -1;
+    } else if (running_version.minor < latest_version.minor || running_version.patch < latest_version.patch) {
+        // A new minor or patch update is available.
+        console.log('A new minor or patch update is available.');
+        return 0;
+    } else {
+        // We are running the latest version! No need to update.
+        console.log('We are running the latest version! No need to update.');
+        return 1;
     }
-
-    if (v1parts.length != v2parts.length) {
-        return -1;
-    }
-
-    return 0;
   },
 
   upToDate: function () {
     var installedVersion = this.state.dependency.version;
     var latestVersion = this.state.dependency.current['dist-tags'].latest;
     var isUpToDate = this.compareVersionNumbers(installedVersion, latestVersion);
-    if (isUpToDate >= 0) {
+    if (isUpToDate === 1) {
       return 'has-latest fa fa-check-circle';
-    } else if (isUpToDate < 0) {
-      return 'has-previous fa fa-exclamation-circle';
+    } else if (isUpToDate === 0) {
+      return 'has-minor fa fa-exclamation-circle';
+    } else if (isUpToDate === -1) {
+      return 'has-major fa fa-times-circle-o';
     } else {
-      return 'has-errored fa fa-times-circle-o';
+      return 'has-errored fa fa-question-circle';
     }
   },
 

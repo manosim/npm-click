@@ -77,7 +77,8 @@ var DependenciesField = React.createClass({
         "reactify":"^1.1.0",
         "reflux":"^0.2.7",
         "superagent":"^1.2.0",
-        "watchify":"^3.1.2"
+        "watchify":"^3.1.2",
+        "request":"2.42.0"
       },
 
       "devDependencies": {

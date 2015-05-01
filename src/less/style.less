@@ -9,8 +9,9 @@
 @LightGray: #F3F3F3;
 
 @VersionUpToDate: #0A0;
-@VersionPrevious: #FF6C60;
-@VersionErrored: #CDBC2C;
+@VersionMinor: #CDBC2C;
+@VersionMajor: #FF6C60;
+@VersionErrored: #787878;
 
 @White: #FFF;
 @DarkGray: #777;
@@ -179,8 +180,12 @@ body {
             color: @VersionUpToDate;
         }
 
-        .has-previous {
-            color: @VersionPrevious;
+        .has-minor {
+            color: @VersionMinor;
+        }
+
+        .has-major {
+            color: @VersionMajor;
         }
 
         .has-errored {
