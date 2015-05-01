@@ -68,6 +68,8 @@ var DependenciesField = React.createClass({
   },
 
   generateDemoData: function () {
+    Actions.clearResults();
+
     var data = {
       "name": "dep-compare",
       "version": "0.0.1",
