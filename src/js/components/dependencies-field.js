@@ -47,17 +47,8 @@ var DependenciesField = React.createClass({
       });
 
       var jsonValue = JSON.parse(value);
-      for (var key in jsonValue) {
+      Actions.getDependency(jsonValue);
 
-        if (key === 'dependencies' || key === 'devDependencies') {
-          var dependencies = jsonValue[key];
-
-          for (var name in dependencies) {
-            Actions.getDependency(key, name, dependencies[name]);
-          }
-        }
-
-      }
     } catch (error) {
       console.log(error); // Catch Errors
       this.setState({

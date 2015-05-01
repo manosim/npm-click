@@ -10,8 +10,7 @@ var DependenciesStore = Reflux.createStore({
     this._devDependencies = [];
   },
 
-  onGetDependency: function (type, name, version) {
-
+  makeRequest: function (type, name, version) {
     apiRequests
       .get('https://registry.npmjs.org/' + name)
       .end(function (err, response) {
@@ -23,6 +22,18 @@ var DependenciesStore = Reflux.createStore({
           Actions.getDependency.failed(response.body);
         }
       });
+  },
+
+  onGetDependency: function (jsonValue) {
+      for (var key in jsonValue) {
+        if (key === 'dependencies' || key === 'devDependencies') {
+          var dependencies = jsonValue[key];
+
+          for (var name in dependencies) {
+            this.makeRequest(key, name, dependencies[name]);
+          }
+        }
+      }
   },
 
   onGetDependencyCompleted: function (type, name, version, response) {
