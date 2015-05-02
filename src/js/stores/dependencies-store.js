@@ -11,45 +11,75 @@ var DependenciesStore = Reflux.createStore({
     this._stats = {
       dependencies: [
         {
-          value: 300,
-          color:"#F7464A",
-          highlight: "#FF5A5E",
+          value: 0,
+          color: "#0A0",
+          highlight: "#008f00",
           label: "Up to date"
         },
         {
-          value: 50,
-          color: "#46BFBD",
-          highlight: "#5AD3D1",
+          value: 0,
+          color: "#FDB45C",
+          highlight: "#FFC870",
           label: "Minor Update"
         },
         {
-          value: 100,
-          color: "#FDB45C",
-          highlight: "#FFC870",
+          value: 0,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
           label: "Major Update"
         }
       ],
       devDependencies: [
         {
-          value: 300,
-          color:"#F7464A",
-          highlight: "#FF5A5E",
+          value: 0,
+          color: "#0A0",
+          highlight: "#008f00",
           label: "Up to date"
         },
         {
-          value: 50,
-          color: "#46BFBD",
-          highlight: "#5AD3D1",
+          value: 0,
+          color: "#FDB45C",
+          highlight: "#FFC870",
           label: "Minor Update"
         },
         {
-          value: 100,
-          color: "#FDB45C",
-          highlight: "#FFC870",
+          value: 0,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
           label: "Major Update"
         }
       ],
     };
+  },
+
+  setStats: function (type, status) {
+    console.log("...");
+    if (status === -1) {
+      // A major new update is available!
+      for (var i = this._stats[type].length - 1; i >= 0; i--) {
+        console.log(this._stats[type][i].label);
+        if (this._stats[type][i].label == 'Major Update') {
+          this._stats[type][i].value ++;
+        }
+      }
+    } else if (status === 0) {
+      // A new minor or patch update is available.
+      for (var k = this._stats[type].length - 1; k >= 0; k--) {
+        console.log(this._stats[type][k].label);
+        if (this._stats[type][k].label == 'Minor Update') {
+          this._stats[type][k].value ++;
+        }
+      }
+    } else {
+      // We are running the latest version! No need to update.
+      for (var l = this._stats[type].length - 1; l >= 0; l--) {
+        console.log(this._stats[type][l].label);
+        if (this._stats[type][l].label == 'Up to date') {
+          this._stats[type][l].value ++;
+        }
+      }
+    }
+
   },
 
   compareVersionNumbers: function (v1, v2) {
@@ -92,6 +122,7 @@ var DependenciesStore = Reflux.createStore({
           // Success - Do Something.
           var latestVersion = response.body['dist-tags'].latest;
           var status = self.compareVersionNumbers(version, latestVersion);
+          self.setStats(type, status);
           Actions.getDependency.completed(type, name, version, status, response.body);
         } else {
           // Error - Show messages.
