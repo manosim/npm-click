@@ -6,6 +6,8 @@ var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 
+var PieChart = require('react-chartjs').Pie;
+
 var Package = require('../components/package');
 var DependenciesStore = require('../stores/dependencies-store');
 var ProjectStore = require('../stores/project-details');
@@ -24,9 +26,17 @@ var Results = React.createClass({
       },
       packages: {
         dependencies: [],
-        devDependencies: []
+        devDependencies: [],
+        stats: {
+          dependencies: [],
+          devDependencies: []
+        },
       },
       errors: false,
+      chartOptions: {
+        percentageInnerCutout : 35,
+        responsive: true
+      }
     };
   },
 
@@ -35,8 +45,10 @@ var Results = React.createClass({
       <Grid className='results'>
         <h2>Project Details</h2>
         <Row className='details'>
-          <Col sm={4}><small>name</small> {this.state.projectDetails.name}</Col>
-          <Col sm={8}><small>description</small> {this.state.projectDetails.description}</Col>
+          <Col sm={3}><small>name</small> {this.state.projectDetails.name}</Col>
+          <Col sm={5}><small>description</small> {this.state.projectDetails.description}</Col>
+          <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} /></Col>
+          <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} /></Col>
         </Row>
 
         <h2>Dependencies - {this.state.packages.dependencies.length}</h2>

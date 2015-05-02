@@ -8,6 +8,48 @@ var DependenciesStore = Reflux.createStore({
   init: function () {
     this._dependencies = [];
     this._devDependencies = [];
+    this._stats = {
+      dependencies: [
+        {
+          value: 300,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: "Up to date"
+        },
+        {
+          value: 50,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Minor Update"
+        },
+        {
+          value: 100,
+          color: "#FDB45C",
+          highlight: "#FFC870",
+          label: "Major Update"
+        }
+      ],
+      devDependencies: [
+        {
+          value: 300,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: "Up to date"
+        },
+        {
+          value: 50,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Minor Update"
+        },
+        {
+          value: 100,
+          color: "#FDB45C",
+          highlight: "#FFC870",
+          label: "Major Update"
+        }
+      ],
+    };
   },
 
   compareVersionNumbers: function (v1, v2) {
@@ -93,10 +135,11 @@ var DependenciesStore = Reflux.createStore({
         'current': response
       });
     }
-
+console.log(this._stats);
     this.trigger({
       'dependencies': this._dependencies,
-      'devDependencies': this._devDependencies
+      'devDependencies': this._devDependencies,
+      'stats': this._stats
     });
 
   },
@@ -108,6 +151,7 @@ var DependenciesStore = Reflux.createStore({
   onClearResults: function () {
     this._dependencies = [];
     this._devDependencies = [];
+    this._stats = [];
   },
 
 });
