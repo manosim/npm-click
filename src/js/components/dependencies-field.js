@@ -1,6 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
+var Dropzone = require('react-dropzone');
 
 var Actions = require('../actions/actions');
 var DependenciesStore = require('../stores/dependencies-store');
@@ -98,6 +99,34 @@ var DependenciesField = React.createClass({
     console.log('ERROR...');
   },
 
+  onDrop: function (files) {
+    var self = this;
+    if (files.length == 1 && files[0].type == 'application/json') {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        try {
+          self.setState({
+            errors: false
+          });
+
+          var jsonValue = JSON.parse(reader.result);
+          Actions.getDependency(jsonValue);
+
+        } catch (error) {
+          console.log(error); // Catch Errors
+          self.setState({
+            errors: true
+          });
+        }
+
+      };
+
+      reader.readAsText(files[0]);
+    }
+  },
+
   render: function () {
     return (
       <div className='container-fluid'>
@@ -118,6 +147,12 @@ var DependenciesField = React.createClass({
 
           <Col mdOffset={3} md={6}>
             <Button bsSize='large' onClick={this.generateDemoData}>Demo</Button>
+          </Col>
+
+          <Col mdOffset={3} md={6}>
+            <Dropzone onDrop={this.onDrop} size={350}>
+              <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
           </Col>
 
         </Row>
