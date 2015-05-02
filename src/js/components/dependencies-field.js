@@ -60,7 +60,7 @@ var DependenciesField = React.createClass({
   generateDemoData: function () {
     Actions.getDependency({
       "name": "dep-compare",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "description": "Comparing NPM (dev)Dependencies",
       "repository": {
         "type": "git",
