@@ -53,11 +53,9 @@ var DependenciesStore = Reflux.createStore({
   },
 
   setStats: function (type, status) {
-    console.log("...");
     if (status === -1) {
       // A major new update is available!
       for (var i = this._stats[type].length - 1; i >= 0; i--) {
-        console.log(this._stats[type][i].label);
         if (this._stats[type][i].label == 'Major Update') {
           this._stats[type][i].value ++;
         }
@@ -65,7 +63,6 @@ var DependenciesStore = Reflux.createStore({
     } else if (status === 0) {
       // A new minor or patch update is available.
       for (var k = this._stats[type].length - 1; k >= 0; k--) {
-        console.log(this._stats[type][k].label);
         if (this._stats[type][k].label == 'Minor Update') {
           this._stats[type][k].value ++;
         }
@@ -73,7 +70,6 @@ var DependenciesStore = Reflux.createStore({
     } else {
       // We are running the latest version! No need to update.
       for (var l = this._stats[type].length - 1; l >= 0; l--) {
-        console.log(this._stats[type][l].label);
         if (this._stats[type][l].label == 'Up to date') {
           this._stats[type][l].value ++;
         }

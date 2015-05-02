@@ -41,6 +41,17 @@ var Results = React.createClass({
     };
   },
 
+  getStat: function (type, label) {
+    if (this.state.packages.stats[type]) {
+      for (var i = this.state.packages.stats[type].length - 1; i >= 0; i--) {
+        if (this.state.packages.stats[type][i].label == label) {
+          return this.state.packages.stats[type][i].value;
+        }
+      }
+    }
+    return '-';
+  },
+
   render: function () {
     return (
       <Grid className='results'>
@@ -53,16 +64,16 @@ var Results = React.createClass({
           </Col>
           <Col sm={2}>
             <small>dependencies</small>
-            <div className="uptodate">Up to date: 21</div>
-            <div className="minor-updates">Minor Updates: 5</div>
-            <div className="major-updates">Major Updates: 8</div>
+            <div className="uptodate">Up to date: {this.getStat('dependencies', 'Up to date')}</div>
+            <div className="minor-updates">Minor Updates: {this.getStat('dependencies', 'Minor Update')}</div>
+            <div className="major-updates">Major Updates: {this.getStat('dependencies', 'Major Update')}</div>
           </Col>
           <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
           <Col sm={2}>
             <small>devDependencies</small>
-            <div className="uptodate">Up to date: 21</div>
-            <div className="minor-updates">Minor Updates: 5</div>
-            <div className="major-updates">Major Updates: 8</div>
+            <div className="uptodate">Up to date: {this.getStat('devDependencies', 'Up to date')}</div>
+            <div className="minor-updates">Minor Updates: {this.getStat('devDependencies', 'Minor Update')}</div>
+            <div className="major-updates">Major Updates: {this.getStat('devDependencies', 'Major Update')}</div>
           </Col>
           <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
         </Row>
