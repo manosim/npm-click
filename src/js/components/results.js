@@ -28,8 +28,8 @@ var Results = React.createClass({
         dependencies: [],
         devDependencies: [],
         stats: {
-          dependencies: [],
-          devDependencies: []
+          dependencies: undefined,
+          devDependencies: undefined
         },
       },
       errors: false,
@@ -47,8 +47,8 @@ var Results = React.createClass({
         <Row className='details'>
           <Col sm={3}><small>name</small> {this.state.projectDetails.name}</Col>
           <Col sm={5}><small>description</small> {this.state.projectDetails.description}</Col>
-          <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} /></Col>
-          <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} /></Col>
+          <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
+          <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
         </Row>
 
         <h2>Dependencies - {this.state.packages.dependencies.length}</h2>

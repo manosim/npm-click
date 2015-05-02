@@ -135,7 +135,7 @@ var DependenciesStore = Reflux.createStore({
         'current': response
       });
     }
-console.log(this._stats);
+
     this.trigger({
       'dependencies': this._dependencies,
       'devDependencies': this._devDependencies,
@@ -151,7 +151,7 @@ console.log(this._stats);
   onClearResults: function () {
     this._dependencies = [];
     this._devDependencies = [];
-    this._stats = [];
+    // this._stats = [];
   },
 
 });
