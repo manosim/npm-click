@@ -60,6 +60,10 @@ var DependenciesStore = Reflux.createStore({
 
   onGetDependency: function (jsonValue) {
       Actions.clearResults();
+      Actions.projectDetails({
+        name: jsonValue.name || '-',
+        description: jsonValue.description || '-'
+      });
 
       for (var key in jsonValue) {
         if (key === 'dependencies' || key === 'devDependencies') {
