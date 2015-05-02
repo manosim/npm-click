@@ -75,6 +75,12 @@ body {
     font-size: 16px;
 }
 
+small {
+    display: block;
+    .FontSourceSansLight();
+    font-size: 75%;
+}
+
 /* @end Misc */
 
 
@@ -164,7 +170,11 @@ body {
         text-transform: uppercase;
         margin-top: 50px;
         margin-bottom: 20px;
-      }
+    }
+
+    .details {
+        margin: 10px 0;
+    }
 }
 
 /* @end Results */
@@ -176,12 +186,6 @@ body {
     margin: 10px 0;
     padding-bottom: 10px;
     border-bottom: 1px solid @DarkGray;
-
-    small {
-        display: block;
-        .FontSourceSansLight();
-        font-size: 75%;
-    }
 
     .status {
         font-size: 30px;

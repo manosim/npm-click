@@ -34,9 +34,9 @@ var Results = React.createClass({
     return (
       <Grid className='results'>
         <h2>Project Details</h2>
-        <Row>
-          <Col md={4}><small>name</small> {this.state.projectDetails.name}</Col>
-          <Col md={8}><small>description</small> {this.state.projectDetails.description}</Col>
+        <Row className='details'>
+          <Col sm={4}><small>name</small> {this.state.projectDetails.name}</Col>
+          <Col sm={8}><small>description</small> {this.state.projectDetails.description}</Col>
         </Row>
 
         <h2>Dependencies - {this.state.packages.dependencies.length}</h2>
