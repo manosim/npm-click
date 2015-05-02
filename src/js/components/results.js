@@ -62,14 +62,14 @@ var Results = React.createClass({
             <small>version</small> {this.state.projectDetails.version}
             <small>description</small> {this.state.projectDetails.description}
           </Col>
-          <Col sm={2}>
+          <Col sm={2} className='stats-map'>
             <small>dependencies</small>
             <div className="uptodate">Up to date: {this.getStat('dependencies', 'Up to date')}</div>
             <div className="minor-updates">Minor Updates: {this.getStat('dependencies', 'Minor Update')}</div>
             <div className="major-updates">Major Updates: {this.getStat('dependencies', 'Major Update')}</div>
           </Col>
           <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
-          <Col sm={2}>
+          <Col sm={2} className='stats-map'>
             <small>devDependencies</small>
             <div className="uptodate">Up to date: {this.getStat('devDependencies', 'Up to date')}</div>
             <div className="minor-updates">Minor Updates: {this.getStat('devDependencies', 'Minor Update')}</div>
