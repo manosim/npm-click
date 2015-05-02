@@ -31,9 +31,11 @@
   "dependencies": {
     "bootstrap": "^3.3.4",
     "browserify": "^9.0.8",
+    "chart.js": "^1.0.2",
     "font-awesome": "^4.3.0",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.0",
+    "react-chartjs": "^0.6.0",
     "react-tools": "^0.13.2",
     "reactify": "^1.1.0",
     "reflux": "^0.2.7",

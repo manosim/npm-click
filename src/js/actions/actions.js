@@ -4,7 +4,8 @@ var Actions = Reflux.createActions({
 
   'getDependency': {asyncResult: true},
   'onGetDependenciesErrors': {},
-  'clearResults': {}
+  'clearResults': {},
+  'projectDetails': {}
 
 });
 

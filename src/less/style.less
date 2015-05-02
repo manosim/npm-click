@@ -5,12 +5,14 @@
 
 /* @group Colors */
 
-@ThemePrimary: #20598E;
+@ThemePrimary: #d3d3d3;
+@ThemeSecondary: #cb3837;
 @LightGray: #F3F3F3;
 
 @VersionUpToDate: #0A0;
-@VersionPrevious: #FF6C60;
-@VersionErrored: #CDBC2C;
+@VersionMinor: #FDB45C;
+@VersionMajor: #F7464A;
+@VersionErrored: #787878;
 
 @White: #FFF;
 @DarkGray: #777;
@@ -73,13 +75,19 @@ body {
     font-size: 16px;
 }
 
+small {
+    display: block;
+    .FontSourceSansLight();
+    font-size: 75%;
+}
+
 /* @end Misc */
 
 
 /* @group Navbar */
 
 .navbar {
-    background-color: @ThemePrimary;
+    background-color: @ThemeSecondary;
     .BorderRadius(0);
     border: 0;
     min-height: 0;
@@ -88,7 +96,17 @@ body {
     .navbar-brand {
         padding: 10px 15px;
         height: auto;
+        color: @White;
     }
+
+    .navbar-nav > li > a {
+        color: @White;
+
+        &:hover {
+            color: darken(@ThemeSecondary, 40%);
+        }
+    }
+
 
     // screen-sm-min - 768px
     @media (min-width: @screen-sm-min) {
@@ -106,7 +124,7 @@ body {
 /* @group Search Bar */
 
 .search-bar {
-    background-color: lighten(@ThemePrimary, 10%);
+    background-color: @ThemePrimary;
     padding: 20px;
 
     .form-control {
@@ -134,6 +152,10 @@ body {
 
     .social {
         margin-bottom: 10px;
+
+        .fa {
+            margin: 0 5px;
+        }
     }
 }
 
@@ -148,7 +170,25 @@ body {
         text-transform: uppercase;
         margin-top: 50px;
         margin-bottom: 20px;
-      }
+    }
+
+    .details {
+        margin: 10px 0;
+
+        .stats-map {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+
+        // screen-sm-min - 768px
+        @media (min-width: @screen-sm-min) {
+            .stats-map {
+                text-align: right;
+                margin: 0;
+            }
+        }
+    }
 }
 
 /* @end Results */
@@ -161,12 +201,6 @@ body {
     padding-bottom: 10px;
     border-bottom: 1px solid @DarkGray;
 
-    small {
-        display: block;
-        .FontSourceSansLight();
-        font-size: 75%;
-    }
-
     .status {
         font-size: 30px;
         text-align: center;
@@ -175,8 +209,12 @@ body {
             color: @VersionUpToDate;
         }
 
-        .has-previous {
-            color: @VersionPrevious;
+        .has-minor {
+            color: @VersionMinor;
+        }
+
+        .has-major {
+            color: @VersionMajor;
         }
 
         .has-errored {

@@ -32,7 +32,6 @@ var DependenciesField = React.createClass({
   handleJsonChange: function (e) {
 
     var value = e.target.value;
-    Actions.clearResults();
 
     if (!value) {
       this.setState({
@@ -47,17 +46,8 @@ var DependenciesField = React.createClass({
       });
 
       var jsonValue = JSON.parse(value);
-      for (var key in jsonValue) {
+      Actions.getDependency(jsonValue);
 
-        if (key === 'dependencies' || key === 'devDependencies') {
-          var dependencies = jsonValue[key];
-
-          for (var name in dependencies) {
-            Actions.getDependency(key, name, dependencies[name]);
-          }
-        }
-
-      }
     } catch (error) {
       console.log(error); // Catch Errors
       this.setState({
@@ -67,8 +57,45 @@ var DependenciesField = React.createClass({
 
   },
 
+  generateDemoData: function () {
+    Actions.getDependency({
+      "name": "dep-compare",
+      "version": "0.1.1",
+      "description": "Comparing NPM (dev)Dependencies",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/ekonstantinidis/git-compare.git"
+      },
+
+      "dependencies": {
+        "bootstrap":"^3.3.4",
+        "browserify":"^9.0.8",
+        "font-awesome":"^4.3.0",
+        "react":"^0.13.2",
+        "react-bootstrap":"^0.21.0",
+        "react-tools":"^0.13.2",
+        "reactify":"^1.1.0",
+        "reflux":"^0.2.7",
+        "superagent":"^1.2.0",
+        "watchify":"^3.1.2",
+        "request":"2.42.0"
+      },
+
+      "devDependencies": {
+        "grunt":"^0.4.5",
+        "grunt-contrib-clean":"^0.6.0",
+        "grunt-contrib-copy":"^0.8.0",
+        "grunt-contrib-less":"^1.0.1",
+        "grunt-contrib-watch":"^0.6.1",
+        "jshint-stylish":"^1.0.1",
+        "jsxhint":"=0.14.0",
+        "less":"=2.5.0"
+      }
+    });
+  },
+
   gotDependenciesErrors: function () {
-    console.log("ERROR...");
+    console.log('ERROR...');
   },
 
   render: function () {
@@ -82,12 +109,17 @@ var DependenciesField = React.createClass({
               className='input-lg'
               bsStyle={this.validateInput()}
               hasFeedback
-              rows="12"
+              rows='10'
               label='Your package.json'
               placeholder='Enter dependencies'
               onChange={this.handleJsonChange} />
 
           </Col>
+
+          <Col mdOffset={3} md={6}>
+            <Button bsSize='large' onClick={this.generateDemoData}>Demo</Button>
+          </Col>
+
         </Row>
       </div>
     );
