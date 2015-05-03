@@ -6,6 +6,7 @@ var Dropzone = require('react-dropzone');
 var Actions = require('../actions/actions');
 var DependenciesStore = require('../stores/dependencies-store');
 
+var Alert = ReactBootstrap.Alert;
 var Input = ReactBootstrap.Input;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
@@ -50,10 +51,7 @@ var DependenciesField = React.createClass({
       Actions.getDependency(jsonValue);
 
     } catch (error) {
-      console.log(error); // Catch Errors
-      this.setState({
-        errors: true
-      });
+      this.gotDependenciesErrors();
     }
 
   },
@@ -97,6 +95,9 @@ var DependenciesField = React.createClass({
 
   gotDependenciesErrors: function () {
     console.log('ERROR...');
+    this.setState({
+      errors: true
+    });
   },
 
   onDrop: function (files) {
@@ -115,10 +116,7 @@ var DependenciesField = React.createClass({
           Actions.getDependency(jsonValue);
 
         } catch (error) {
-          console.log(error); // Catch Errors
-          self.setState({
-            errors: true
-          });
+          self.gotDependenciesErrors();
         }
 
       };
@@ -128,6 +126,14 @@ var DependenciesField = React.createClass({
   },
 
   render: function () {
+    var errors;
+    if (this.state.errors) {
+        errors = (
+          <Col mdOffset={2} md={8}>
+            <Alert bsStyle='danger'>Oops! Something is wrong with your package.json. Please try again.</Alert>
+          </Col>
+        );
+    }
     return (
       <div className='container-fluid'>
         <Row className='search-bar'>
@@ -152,6 +158,7 @@ var DependenciesField = React.createClass({
             <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
           </Col>
 
+          {errors}
         </Row>
       </div>
     );
