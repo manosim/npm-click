@@ -1,5 +1,6 @@
 var Actions = require('../actions/actions');
 var Reflux = require('reflux');
+var u = require('underscore');
 var apiRequests = require('../utils/api-requests');
 
 var DependenciesStore = Reflux.createStore({
@@ -50,6 +51,10 @@ var DependenciesStore = Reflux.createStore({
         }
       ],
     };
+    this._length = {
+      dependencies: 0,
+      devDependencies: 0
+    };
   },
 
   setStats: function (type, status) {
@@ -75,7 +80,6 @@ var DependenciesStore = Reflux.createStore({
         }
       }
     }
-
   },
 
   compareVersionNumbers: function (v1, v2) {
@@ -119,50 +123,56 @@ var DependenciesStore = Reflux.createStore({
           var latestVersion = response.body['dist-tags'].latest;
           var status = self.compareVersionNumbers(version, latestVersion);
           self.setStats(type, status);
-          Actions.getDependency.completed(type, name, version, status, response.body);
+
+          if (type === 'dependencies') {
+            self._dependencies.push({
+              'name': name,
+              'version': version,
+              'status': status,
+              'current': response.body
+            });
+          } else if (type === 'devDependencies') {
+            self._devDependencies.push({
+              'name': name,
+              'version': version,
+              'status': status,
+              'current': response.body
+            });
+          }
+
+          if (self._dependencies.length == self._length.dependencies && self._devDependencies.length == self._length.devDependencies) {
+            Actions.getDependencies.completed();
+          }
+
         } else {
           // Error - Show messages.
-          Actions.getDependency.failed(response.body);
+          Actions.getDependencies.failed(response.body);
         }
       });
   },
 
-  onGetDependency: function (jsonValue) {
+  onGetDependencies: function (jsonValue) {
       Actions.clearResults();
       Actions.projectDetails({
         name: jsonValue.name || '-',
-        version: jsonValue.version || '-',
-        description: jsonValue.description || '-'
+        version: jsonValue.version || '-'
       });
 
-      for (var key in jsonValue) {
-        if (key === 'dependencies' || key === 'devDependencies') {
-          var dependencies = jsonValue[key];
+      var self = this;
 
-          for (var name in dependencies) {
-            this.makeRequest(key, name, dependencies[name]);
-          }
-        }
-      }
+      self._length.dependencies = u.size(jsonValue.dependencies);
+      self._length.devDependencies = u.size(jsonValue.devDependencies);
+
+      u.mapObject(jsonValue.dependencies, function(val, key) {
+        self.makeRequest('dependencies', key, val);
+      });
+
+      u.mapObject(jsonValue.devDependencies, function(val, key) {
+        self.makeRequest('devDependencies', key, val);
+      });
   },
 
-  onGetDependencyCompleted: function (type, name, version, status, response) {
-
-    if (type === 'dependencies') {
-      this._dependencies.push({
-        'name': name,
-        'version': version,
-        'status': status,
-        'current': response
-      });
-    } else if (type === 'devDependencies') {
-      this._devDependencies.push({
-        'name': name,
-        'version': version,
-        'status': status,
-        'current': response
-      });
-    }
+  onGetDependenciesCompleted: function (type, name, version, status, response) {
 
     this.trigger({
       'dependencies': this._dependencies,
@@ -172,7 +182,7 @@ var DependenciesStore = Reflux.createStore({
 
   },
 
-  onGetDependencyFailed: function (errors) {
+  onGetDependenciesFailed: function (errors) {
     Actions.onGetDependenciesErrors(errors);
   },
 
@@ -180,13 +190,13 @@ var DependenciesStore = Reflux.createStore({
     this._dependencies = [];
     this._devDependencies = [];
 
-    for (var i = this._stats.dependencies.length - 1; i >= 0; i--) {
-      this._stats.dependencies[i].value = 0;
-    }
+    u.mapObject(this._stats.dependencies, function(val, key) {
+      val.value = 0;
+    });
 
-    for (var k = this._stats.devDependencies.length - 1; k >= 0; k--) {
-      this._stats.devDependencies[k].value = 0;
-    }
+    u.mapObject(this._stats.devDependencies, function(val, key) {
+      val.value = 0;
+    });
 
   },
 

@@ -22,8 +22,7 @@ var Results = React.createClass({
     return {
       projectDetails: {
         name: undefined,
-        version: undefined,
-        description: undefined,
+        version: undefined
       },
       packages: {
         dependencies: [],
@@ -58,9 +57,8 @@ var Results = React.createClass({
         <h2>Project Details</h2>
         <Row className='details'>
           <Col sm={4}>
-            <small>name</small> {this.state.projectDetails.name}
-            <small>version</small> {this.state.projectDetails.version}
-            <small>description</small> {this.state.projectDetails.description}
+            <small>name</small> <h3>{this.state.projectDetails.name}</h3>
+            <small>version</small> <h4>{this.state.projectDetails.version}</h4>
           </Col>
           <Col sm={2} className='stats-map'>
             <small>dependencies</small>

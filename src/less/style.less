@@ -166,6 +166,10 @@ small {
     .btn {
         .BorderRadius(0);
         border: 0;
+
+        &:focus {
+           outline: none;
+        }
     }
 
     .alert {
@@ -214,11 +218,18 @@ small {
     .details {
         margin: 10px 0;
 
+        h3 {
+            margin: 5px 0;
+        }
+
+        h4 {
+            margin: 5px 0 0;
+        }
+
         .stats-map {
             text-align: left;
             margin: 20px 0;
         }
-
 
         // screen-sm-min - 768px
         @media (min-width: @screen-sm-min) {

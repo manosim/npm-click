@@ -15,12 +15,6 @@ var Store = Reflux.createStore({
     this._version = details.version;
     this._description = details.description;
 
-    console.log({
-      name: this._name,
-      version: this._version,
-      details: this._description
-    });
-
     this.trigger({
       name: this._name,
       version: this._version,
