@@ -159,7 +159,7 @@ var DependenciesField = React.createClass({
             </Col>
 
             <Col md={3}>
-              <Dropzone onDrop={this.onDrop} className='dropzone'>
+              <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
                 <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
               </Dropzone>
 
