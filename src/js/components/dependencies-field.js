@@ -48,7 +48,7 @@ var DependenciesField = React.createClass({
       });
 
       var jsonValue = JSON.parse(value);
-      Actions.getDependency(jsonValue);
+      Actions.getDependencies(jsonValue);
 
     } catch (error) {
       this.gotDependenciesErrors();
@@ -61,7 +61,7 @@ var DependenciesField = React.createClass({
       errors: false
     });
 
-    Actions.getDependency({
+    Actions.getDependencies({
       "name": "dep-compare",
       "version": "0.1.1",
       "description": "Comparing NPM (dev)Dependencies",
@@ -116,7 +116,7 @@ var DependenciesField = React.createClass({
           });
 
           var jsonValue = JSON.parse(reader.result);
-          Actions.getDependency(jsonValue);
+          Actions.getDependencies(jsonValue);
 
         } catch (error) {
           self.gotDependenciesErrors();

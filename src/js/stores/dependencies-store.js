@@ -141,17 +141,17 @@ var DependenciesStore = Reflux.createStore({
           }
 
           if (self._dependencies.length == self._length.dependencies && self._devDependencies.length == self._length.devDependencies) {
-            Actions.getDependency.completed();
+            Actions.getDependencies.completed();
           }
 
         } else {
           // Error - Show messages.
-          Actions.getDependency.failed(response.body);
+          Actions.getDependencies.failed(response.body);
         }
       });
   },
 
-  onGetDependency: function (jsonValue) {
+  onGetDependencies: function (jsonValue) {
       Actions.clearResults();
       Actions.projectDetails({
         name: jsonValue.name || '-',
@@ -173,7 +173,7 @@ var DependenciesStore = Reflux.createStore({
       });
   },
 
-  onGetDependencyCompleted: function (type, name, version, status, response) {
+  onGetDependenciesCompleted: function (type, name, version, status, response) {
 
     this.trigger({
       'dependencies': this._dependencies,
@@ -183,7 +183,7 @@ var DependenciesStore = Reflux.createStore({
 
   },
 
-  onGetDependencyFailed: function (errors) {
+  onGetDependenciesFailed: function (errors) {
     Actions.onGetDependenciesErrors(errors);
   },
 

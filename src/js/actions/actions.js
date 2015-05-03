@@ -2,7 +2,7 @@ var Reflux = require('reflux');
 
 var Actions = Reflux.createActions({
 
-  'getDependency': {asyncResult: true},
+  'getDependencies': {asyncResult: true},
   'onGetDependenciesErrors': {},
   'clearResults': {},
   'projectDetails': {}
