@@ -94,7 +94,6 @@ var DependenciesField = React.createClass({
   },
 
   gotDependenciesErrors: function () {
-    console.log('ERROR...');
     this.setState({
       errors: true
     });
@@ -122,6 +121,10 @@ var DependenciesField = React.createClass({
       };
 
       reader.readAsText(files[0]);
+    } else {
+      this.setState({
+        errors: true
+      });
     }
   },
 
