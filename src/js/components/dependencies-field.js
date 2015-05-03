@@ -57,6 +57,10 @@ var DependenciesField = React.createClass({
   },
 
   generateDemoData: function () {
+    this.setState({
+      errors: false
+    });
+
     Actions.getDependency({
       "name": "dep-compare",
       "version": "0.1.1",
@@ -132,37 +136,39 @@ var DependenciesField = React.createClass({
     var errors;
     if (this.state.errors) {
         errors = (
-          <Col mdOffset={2} md={8}>
+          <div className='container-fluid error-bar'>
             <Alert bsStyle='danger'>Oops! Something is wrong with your package.json. Please try again.</Alert>
-          </Col>
+          </div>
         );
     }
     return (
-      <div className='container-fluid'>
-        <Row className='search-bar'>
-          <Col mdOffset={2} md={5}>
+      <div>
+        <div className='container-fluid'>
+          <Row className='search-bar'>
+            <Col mdOffset={2} md={5}>
 
-            <Input
-              type='textarea'
-              className='input-lg'
-              bsStyle={this.validateInput()}
-              hasFeedback
-              rows='10'
-              placeholder='Your package.json'
-              onChange={this.handleJsonChange} />
+              <Input
+                type='textarea'
+                className='input-lg'
+                bsStyle={this.validateInput()}
+                hasFeedback
+                rows='10'
+                placeholder='Paste your package.json and I will handle the work.'
+                onChange={this.handleJsonChange} />
 
-          </Col>
+            </Col>
 
-          <Col md={3}>
-            <Dropzone onDrop={this.onDrop} className='dropzone'>
-              <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
-            </Dropzone>
+            <Col md={3}>
+              <Dropzone onDrop={this.onDrop} className='dropzone'>
+                <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
+              </Dropzone>
 
-            <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
-          </Col>
+              <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
+            </Col>
 
-          {errors}
-        </Row>
+          </Row>
+        </div>
+        {errors}
       </div>
     );
   }
