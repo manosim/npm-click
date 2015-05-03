@@ -155,8 +155,7 @@ var DependenciesStore = Reflux.createStore({
       Actions.clearResults();
       Actions.projectDetails({
         name: jsonValue.name || '-',
-        version: jsonValue.version || '-',
-        description: jsonValue.description || '-'
+        version: jsonValue.version || '-'
       });
 
       var self = this;
