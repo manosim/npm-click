@@ -78,12 +78,12 @@ var Results = React.createClass({
           <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
         </Row>
 
-        <h2>Dependencies - {this.state.packages.dependencies.length}</h2>
+        <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
         {this.state.packages.dependencies.map(function(object, i){
           return <Package key={object.name} dependency={object} />;
         })}
 
-        <h2>DevDependencies - {this.state.packages.devDependencies.length}</h2>
+        <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
         {this.state.packages.devDependencies.map(function(object, i){
           return <Package key={object.name} dependency={object} />;
         })}

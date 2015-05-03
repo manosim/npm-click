@@ -1,10 +1,12 @@
 var React = require('react');
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
+var Dropzone = require('react-dropzone');
 
 var Actions = require('../actions/actions');
 var DependenciesStore = require('../stores/dependencies-store');
 
+var Alert = ReactBootstrap.Alert;
 var Input = ReactBootstrap.Input;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
@@ -49,15 +51,16 @@ var DependenciesField = React.createClass({
       Actions.getDependency(jsonValue);
 
     } catch (error) {
-      console.log(error); // Catch Errors
-      this.setState({
-        errors: true
-      });
+      this.gotDependenciesErrors();
     }
 
   },
 
   generateDemoData: function () {
+    this.setState({
+      errors: false
+    });
+
     Actions.getDependency({
       "name": "dep-compare",
       "version": "0.1.1",
@@ -95,32 +98,77 @@ var DependenciesField = React.createClass({
   },
 
   gotDependenciesErrors: function () {
-    console.log('ERROR...');
+    this.setState({
+      errors: true
+    });
+  },
+
+  onDrop: function (files) {
+    var self = this;
+    if (files.length == 1 && files[0].type == 'application/json') {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        try {
+          self.setState({
+            errors: false
+          });
+
+          var jsonValue = JSON.parse(reader.result);
+          Actions.getDependency(jsonValue);
+
+        } catch (error) {
+          self.gotDependenciesErrors();
+        }
+
+      };
+
+      reader.readAsText(files[0]);
+    } else {
+      this.setState({
+        errors: true
+      });
+    }
   },
 
   render: function () {
+    var errors;
+    if (this.state.errors) {
+        errors = (
+          <div className='container-fluid error-bar'>
+            <Alert bsStyle='danger'>Oops! Something is wrong with your package.json. Please try again.</Alert>
+          </div>
+        );
+    }
     return (
-      <div className='container-fluid'>
-        <Row className='search-bar'>
-          <Col mdOffset={3} md={6}>
+      <div>
+        <div className='container-fluid'>
+          <Row className='search-bar'>
+            <Col mdOffset={2} md={5}>
 
-            <Input
-              type='textarea'
-              className='input-lg'
-              bsStyle={this.validateInput()}
-              hasFeedback
-              rows='10'
-              label='Your package.json'
-              placeholder='Enter dependencies'
-              onChange={this.handleJsonChange} />
+              <Input
+                type='textarea'
+                className='input-lg'
+                bsStyle={this.validateInput()}
+                hasFeedback
+                rows='10'
+                placeholder='Paste your package.json and I will handle the work.'
+                onChange={this.handleJsonChange} />
 
-          </Col>
+            </Col>
 
-          <Col mdOffset={3} md={6}>
-            <Button bsSize='large' onClick={this.generateDemoData}>Demo</Button>
-          </Col>
+            <Col md={3}>
+              <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
+                <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
+              </Dropzone>
 
-        </Row>
+              <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
+            </Col>
+
+          </Row>
+        </div>
+        {errors}
       </div>
     );
   }

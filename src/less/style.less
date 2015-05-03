@@ -81,6 +81,21 @@ small {
     font-size: 75%;
 }
 
+.error-bar {
+    padding-left: 0;
+    padding-right: 0;
+
+    .alert {
+        color: @DarkGray;
+    }
+}
+
+.alert {
+    .BorderRadius(0);
+    border: 0;
+    text-align: center;
+}
+
 /* @end Misc */
 
 
@@ -130,11 +145,31 @@ small {
     .form-control {
         .BorderRadius(0);
         border: 0;
+        resize: none;
+    }
+
+    .dropzone {
+        padding: 60px 20px;;
+        margin-bottom: 20px;
+        text-align: center;
+        color: @DarkGray;
+        border: 1px dotted @DarkGray;
+        width: 100%;
+        height: 195px;
+
+        &.active {
+            background-color: @DarkGray;
+            color: @White;
+        }
     }
 
     .btn {
         .BorderRadius(0);
         border: 0;
+    }
+
+    .alert {
+        margin: 10px 0 0;
     }
 }
 
@@ -147,7 +182,7 @@ small {
     padding: 30px;
     margin-top: 40px;
     background-color: @LightGray;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
 
     .social {
@@ -170,6 +205,10 @@ small {
         text-transform: uppercase;
         margin-top: 50px;
         margin-bottom: 20px;
+
+        .count {
+            color: @DarkGray;
+        }
     }
 
     .details {
@@ -224,3 +263,4 @@ small {
 }
 
 /* @end Package */
+
