@@ -131,7 +131,7 @@ var DependenciesField = React.createClass({
     return (
       <div className='container-fluid'>
         <Row className='search-bar'>
-          <Col mdOffset={3} md={6}>
+          <Col mdOffset={2} md={5}>
 
             <Input
               type='textarea'
@@ -139,20 +139,17 @@ var DependenciesField = React.createClass({
               bsStyle={this.validateInput()}
               hasFeedback
               rows='10'
-              label='Your package.json'
-              placeholder='Enter dependencies'
+              placeholder='Your package.json'
               onChange={this.handleJsonChange} />
 
           </Col>
 
-          <Col mdOffset={3} md={6}>
-            <Button bsSize='large' onClick={this.generateDemoData}>Demo</Button>
-          </Col>
-
-          <Col mdOffset={3} md={6}>
-            <Dropzone onDrop={this.onDrop} size={350}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
+          <Col md={3}>
+            <Dropzone onDrop={this.onDrop} className='dropzone'>
+              <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
             </Dropzone>
+
+            <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
           </Col>
 
         </Row>
