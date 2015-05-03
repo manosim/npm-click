@@ -191,13 +191,13 @@ var DependenciesStore = Reflux.createStore({
     this._dependencies = [];
     this._devDependencies = [];
 
-    for (var i = this._stats.dependencies.length - 1; i >= 0; i--) {
-      this._stats.dependencies[i].value = 0;
-    }
+    u.mapObject(this._stats.dependencies, function(val, key) {
+      val.value = 0;
+    });
 
-    for (var k = this._stats.devDependencies.length - 1; k >= 0; k--) {
-      this._stats.devDependencies[k].value = 0;
-    }
+    u.mapObject(this._stats.devDependencies, function(val, key) {
+      val.value = 0;
+    });
 
   },
 
