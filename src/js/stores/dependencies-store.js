@@ -174,6 +174,9 @@ var DependenciesStore = Reflux.createStore({
 
   onGetDependenciesCompleted: function (type, name, version, status, response) {
 
+    this._dependencies = u.sortBy(this._dependencies, 'name');
+    this._devDependencies = u.sortBy(this._devDependencies, 'name');
+
     this.trigger({
       'dependencies': this._dependencies,
       'devDependencies': this._devDependencies,
