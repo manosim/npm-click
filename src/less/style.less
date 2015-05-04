@@ -5,8 +5,9 @@
 
 /* @group Colors */
 
-@ThemePrimary: #F3F3F3;
+@ThemePrimary: #2A4D6E;
 @ThemeSecondary: #cb3837;
+@ThemeGray: #F3F3F3;
 
 @VersionUpToDate: #0A0;
 @VersionMinor: #FDB45C;
@@ -144,7 +145,7 @@ small {
 /* @group Search Bar */
 
 .search-bar {
-    background-color: @ThemePrimary;
+    background-color: @ThemeGray;
     padding: 20px;
 
     .form-control {
@@ -183,10 +184,20 @@ small {
 }
 
 .section-welcome {
+    background-color: #2A4D6E;
+    color: @White;
+
     padding: 50px 20px;
 
     h1, h2 {
         text-align: center;
+    }
+
+    .img-responsive {
+        margin: 25px auto;
+        .BorderRadius(50%);
+        max-width: 180px;
+        border: 5px solid @ThemeSecondary;
     }
 }
 
@@ -229,7 +240,7 @@ small {
     }
 
     .details {
-        background-color: @ThemePrimary;
+        background-color: @ThemeGray;
         margin: 0 0;
         padding: 30px 20px;
 

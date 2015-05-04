@@ -176,15 +176,33 @@ var DependenciesField = React.createClass({
             </Col>
 
           </Row>
-
-          <Row className='section-welcome'>
-            <Col md={12}>
-              <h1>Comparing NPM (dev)Dependencies</h1>
-              <h2>All you need is your package.json. That's all!</h2>
-            </Col>
-          </Row>
-
         </div>
+
+        <div className='container-fluid section-welcome'>
+          <div className='container'>
+            <Row>
+              <Col md={12}>
+                <h1>Comparing NPM (dev)Dependencies</h1>
+                <h2>All you need is your package.json. That's all!</h2>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={4}>
+                <img src='images/npm-logo.png' className='img-responsive' />
+                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
+              </Col>
+              <Col md={4}>
+                <img src='images/npm-logo.png' className='img-responsive' />
+                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
+              </Col>
+              <Col md={4}>
+                <img src='images/npm-logo.png' className='img-responsive' />
+                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
+              </Col>
+            </Row>
+          </div>
+        </div>
+
         {errors}
       </div>
     );
