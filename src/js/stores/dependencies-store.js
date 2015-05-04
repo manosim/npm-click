@@ -190,6 +190,10 @@ var DependenciesStore = Reflux.createStore({
   },
 
   getResults: function () {
+
+    this._dependencies = u.sortBy(this._dependencies, 'name');
+    this._devDependencies = u.sortBy(this._devDependencies, 'name');
+
     return {
       'dependencies': this._dependencies,
       'devDependencies': this._devDependencies,
