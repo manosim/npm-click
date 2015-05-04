@@ -38,39 +38,46 @@ var Results = React.createClass({
 
   render: function () {
     return (
-      <Grid className='results'>
-        <h2>Project Details</h2>
-        <Row className='details'>
-          <Col sm={4}>
-            <small>name</small> <h3>{this.state.projectDetails.name}</h3>
-            <small>version</small> <h4>{this.state.projectDetails.version}</h4>
-          </Col>
-          <Col sm={2} className='stats-map'>
-            <small>dependencies</small>
-            <div className="uptodate">Up to date: {this.getStat('dependencies', 'Up to date')}</div>
-            <div className="minor-updates">Minor Updates: {this.getStat('dependencies', 'Minor Update')}</div>
-            <div className="major-updates">Major Updates: {this.getStat('dependencies', 'Major Update')}</div>
-          </Col>
-          <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
-          <Col sm={2} className='stats-map'>
-            <small>devDependencies</small>
-            <div className="uptodate">Up to date: {this.getStat('devDependencies', 'Up to date')}</div>
-            <div className="minor-updates">Minor Updates: {this.getStat('devDependencies', 'Minor Update')}</div>
-            <div className="major-updates">Major Updates: {this.getStat('devDependencies', 'Major Update')}</div>
-          </Col>
-          <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
-        </Row>
+      <div className='results'>
+        <div className='container-fluid details'>
+          <div className='container'>
+            <h2>Project Details</h2>
+            <Row>
+              <Col sm={4}>
+                <small>name</small> <h3>{this.state.projectDetails.name}</h3>
+                <small>version</small> <h4>{this.state.projectDetails.version}</h4>
+              </Col>
+              <Col sm={2} className='stats-map'>
+                <small>dependencies</small>
+                <div className="uptodate">Up to date: {this.getStat('dependencies', 'Up to date')}</div>
+                <div className="minor-updates">Minor Updates: {this.getStat('dependencies', 'Minor Update')}</div>
+                <div className="major-updates">Major Updates: {this.getStat('dependencies', 'Major Update')}</div>
+              </Col>
+              <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
+              <Col sm={2} className='stats-map'>
+                <small>devDependencies</small>
+                <div className="uptodate">Up to date: {this.getStat('devDependencies', 'Up to date')}</div>
+                <div className="minor-updates">Minor Updates: {this.getStat('devDependencies', 'Minor Update')}</div>
+                <div className="major-updates">Major Updates: {this.getStat('devDependencies', 'Major Update')}</div>
+              </Col>
+              <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
+            </Row>
+          </div>
+        </div>
 
-        <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
-        {this.state.packages.dependencies.map(function(object, i){
-          return <Package key={object.name} dependency={object} />;
-        })}
 
-        <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
-        {this.state.packages.devDependencies.map(function(object, i){
-          return <Package key={object.name} dependency={object} />;
-        })}
-      </Grid>
+        <Grid>
+          <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
+          {this.state.packages.dependencies.map(function(object, i){
+            return <Package key={object.name} dependency={object} />;
+          })}
+
+          <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
+          {this.state.packages.devDependencies.map(function(object, i){
+            return <Package key={object.name} dependency={object} />;
+          })}
+        </Grid>
+      </div>
     );
   }
 });
