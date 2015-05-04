@@ -20,6 +20,7 @@ var Results = React.createClass({
       errors: false,
       chartOptions: {
         percentageInnerCutout : 35,
+        segmentShowStroke : false,
         responsive: true
       }
     };
