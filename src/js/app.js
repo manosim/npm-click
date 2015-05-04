@@ -10,7 +10,7 @@ var RouteHandler = Router.RouteHandler;
 var Redirect = Router.Redirect;
 
 var Navigation = require('./components/navigation');
-var DependenciesField = require('./components/dependencies-field');
+var Search = require('./components/search');
 var Results = require('./components/results');
 
 var App = React.createClass({
@@ -32,8 +32,8 @@ var NotFound = React.createClass({
 
 var routes = (
   <Route handler={App}>
-    <DefaultRoute handler={DependenciesField}/>
-    <Route name="search" path="search" handler={DependenciesField}/>
+    <DefaultRoute handler={Search}/>
+    <Route name="search" path="/" handler={Search}/>
     <Route name="results" path="results" handler={Results}/>
     <NotFoundRoute handler={NotFound}/>
   </Route>

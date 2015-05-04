@@ -4,7 +4,7 @@ var ReactBootstrap = require('react-bootstrap');
 var Dropzone = require('react-dropzone');
 
 var Actions = require('../actions/actions');
-var DependenciesStore = require('../stores/dependencies-store');
+var DependenciesStore = require('../stores/dependencies');
 
 var Alert = ReactBootstrap.Alert;
 var Input = ReactBootstrap.Input;

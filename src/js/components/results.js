@@ -9,7 +9,7 @@ var Col = ReactBootstrap.Col;
 var PieChart = require('react-chartjs').Pie;
 
 var Package = require('../components/package');
-var DependenciesStore = require('../stores/dependencies-store');
+var DependenciesStore = require('../stores/dependencies');
 var ProjectStore = require('../stores/project-details');
 
 var Results = React.createClass({
