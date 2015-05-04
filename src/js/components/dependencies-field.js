@@ -15,8 +15,13 @@ var Button = ReactBootstrap.Button;
 var DependenciesField = React.createClass({
   mixins: [
     Reflux.connect(DependenciesStore, 'dependencies'),
+    Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
     Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
   ],
+
+  contextTypes: {
+    router: React.PropTypes.func
+  },
 
   getInitialState: function () {
     return {
@@ -95,6 +100,10 @@ var DependenciesField = React.createClass({
         "less":"=2.5.0"
       }
     });
+  },
+
+  gotDependenciesSuccess: function () {
+    this.context.router.transitionTo('results');
   },
 
   gotDependenciesErrors: function () {
