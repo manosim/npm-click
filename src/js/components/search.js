@@ -192,11 +192,11 @@ var DependenciesField = React.createClass({
                 <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
               </Col>
               <Col md={4}>
-                <img src='images/npm-logo.png' className='img-responsive' />
+                <img src='images/packagejson.png' className='img-responsive' />
                 <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
               </Col>
               <Col md={4}>
-                <img src='images/npm-logo.png' className='img-responsive' />
+                <img src='images/results.png' className='img-responsive' />
                 <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
               </Col>
             </Row>
