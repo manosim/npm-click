@@ -91,7 +91,7 @@ var DependenciesField = React.createClass({
 
       "devDependencies": {
         "grunt":"^0.4.5",
-        "grunt-contrib-clean":"^0.6.0",
+        "grunt-contrib-clean":"^0.5.0",
         "grunt-contrib-copy":"^0.8.0",
         "grunt-contrib-less":"^1.0.1",
         "grunt-contrib-watch":"^0.6.1",
