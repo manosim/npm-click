@@ -185,8 +185,8 @@ var DependenciesField = React.createClass({
                   className='input-lg'
                   bsStyle={this.validateInput()}
                   hasFeedback
-                  rows='10'
-                  placeholder='Paste your package.json and I will handle the work.'
+                  rows='8'
+                  placeholder='Place the content of your package.json and I will handle the work.'
                   onChange={this.handleJsonChange}
                   onClick={this.onTextAreaClick} />
 
