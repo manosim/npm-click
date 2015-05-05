@@ -2,7 +2,7 @@ var React = require('react');
 
 var loadingStyle = {
     textAlign: 'center',
-    padding: '5px 0 15px'
+    padding: '5px 0'
 };
 
 var Loading = React.createClass({
