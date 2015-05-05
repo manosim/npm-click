@@ -4,6 +4,7 @@ var ReactBootstrap = require('react-bootstrap');
 var Dropzone = require('react-dropzone');
 
 var Actions = require('../actions/actions');
+var Loading = require('../components/loading');
 var DependenciesStore = require('../stores/dependencies');
 
 var Alert = ReactBootstrap.Alert;
@@ -27,7 +28,8 @@ var DependenciesField = React.createClass({
   getInitialState: function () {
     return {
       json: undefined,
-      errors: undefined
+      errors: undefined,
+      loading: false
     };
   },
 
@@ -43,7 +45,8 @@ var DependenciesField = React.createClass({
 
     if (!value) {
       this.setState({
-        errors: false
+        errors: false,
+        loading: false
       });
       return;
     }
@@ -62,7 +65,8 @@ var DependenciesField = React.createClass({
 
   generateDemoData: function () {
     this.setState({
-      errors: false
+      errors: false,
+      loading: true
     });
 
     Actions.getDependencies({
@@ -102,12 +106,16 @@ var DependenciesField = React.createClass({
   },
 
   gotDependenciesSuccess: function () {
+    this.setState({
+      loading: false
+    });
     this.context.router.transitionTo('results');
   },
 
   gotDependenciesErrors: function () {
     this.setState({
-      errors: true
+      errors: true,
+      loading: false
     });
   },
 
@@ -120,7 +128,8 @@ var DependenciesField = React.createClass({
 
         try {
           self.setState({
-            errors: false
+            errors: false,
+            loading: true
           });
 
           var jsonValue = JSON.parse(reader.result);
@@ -146,6 +155,9 @@ var DependenciesField = React.createClass({
 
   submitJson: function () {
     if (this.state.json) {
+      this.setState({
+        loading: true,
+      });
       Actions.getDependencies(this.state.json);
     } else {
       this.gotDependenciesErrors();
@@ -183,6 +195,7 @@ var DependenciesField = React.createClass({
               </Dropzone>
 
               {errors}
+              <Loading shouldShow={this.state.loading} />
 
               <Row>
                 <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
