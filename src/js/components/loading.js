@@ -14,7 +14,6 @@ var Loading = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    console.log(newProps.shouldShow);
     this.replaceState({
       show: newProps.shouldShow
     });

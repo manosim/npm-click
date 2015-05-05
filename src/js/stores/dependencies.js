@@ -118,7 +118,7 @@ var DependenciesStore = Reflux.createStore({
     apiRequests
       .get('https://registry.npmjs.org/' + name)
       .end(function (err, response) {
-        if (response.ok) {
+        if (response && response.ok) {
           // Success - Do Something.
           var latestVersion = response.body['dist-tags'].latest;
           var status = self.compareVersionNumbers(version, latestVersion);
@@ -146,7 +146,7 @@ var DependenciesStore = Reflux.createStore({
 
         } else {
           // Error - Show messages.
-          Actions.getDependencies.failed(response.body);
+          Actions.getDependencies.failed();
         }
       });
   },
@@ -172,8 +172,8 @@ var DependenciesStore = Reflux.createStore({
       });
   },
 
-  onGetDependenciesFailed: function (errors) {
-    Actions.onGetDependenciesErrors(errors);
+  onGetDependenciesFailed: function () {
+    Actions.onGetDependenciesErrors();
   },
 
   onClearResults: function () {
