@@ -8,6 +8,7 @@ var DependenciesStore = require('../stores/dependencies');
 
 var Alert = ReactBootstrap.Alert;
 var Input = ReactBootstrap.Input;
+var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Button = ReactBootstrap.Button;
@@ -171,8 +172,11 @@ var DependenciesField = React.createClass({
                   onChange={this.handleJsonChange}
                   onClick={this.onTextAreaClick} />
 
-                <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
+                <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
+                <Button bsStyle='info'>Upload package.json</Button>
               </Dropzone>
+
+              {errors}
 
               <Row>
                 <Col md={6}><Button bsStyle='success' bsSize='large' block>Submit</Button></Col>
@@ -184,7 +188,7 @@ var DependenciesField = React.createClass({
         </div>
 
         <div className='container-fluid section-welcome'>
-          <div className='container'>
+          <Grid>
             <Row>
               <Col md={12}>
                 <h1>Comparing NPM (dev)Dependencies</h1>
@@ -205,10 +209,9 @@ var DependenciesField = React.createClass({
                 <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
               </Col>
             </Row>
-          </div>
+          </Grid>
         </div>
 
-        {errors}
       </div>
     );
   }
