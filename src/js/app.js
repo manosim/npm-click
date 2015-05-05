@@ -11,7 +11,7 @@ var Redirect = Router.Redirect;
 
 var Navigation = require('./components/navigation');
 var SearchPage = require('./pages/search');
-var Results = require('./components/results');
+var ResultsPage = require('./pages/results');
 
 var App = React.createClass({
   render: function () {
@@ -34,7 +34,7 @@ var routes = (
   <Route handler={App}>
     <DefaultRoute handler={SearchPage}/>
     <Route name="search" path="/" handler={SearchPage}/>
-    <Route name="results" path="results" handler={Results}/>
+    <Route name="results" path="results" handler={ResultsPage}/>
     <NotFoundRoute handler={NotFound}/>
   </Route>
 );
