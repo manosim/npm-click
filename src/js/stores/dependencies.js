@@ -172,19 +172,6 @@ var DependenciesStore = Reflux.createStore({
       });
   },
 
-  onGetDependenciesCompleted: function (type, name, version, status, response) {
-
-    this._dependencies = u.sortBy(this._dependencies, 'name');
-    this._devDependencies = u.sortBy(this._devDependencies, 'name');
-
-    this.trigger({
-      'dependencies': this._dependencies,
-      'devDependencies': this._devDependencies,
-      'stats': this._stats
-    });
-
-  },
-
   onGetDependenciesFailed: function (errors) {
     Actions.onGetDependenciesErrors(errors);
   },
@@ -200,7 +187,18 @@ var DependenciesStore = Reflux.createStore({
     u.mapObject(this._stats.devDependencies, function(val, key) {
       val.value = 0;
     });
+  },
 
+  getResults: function () {
+
+    this._dependencies = u.sortBy(this._dependencies, 'name');
+    this._devDependencies = u.sortBy(this._devDependencies, 'name');
+
+    return {
+      'dependencies': this._dependencies,
+      'devDependencies': this._devDependencies,
+      'stats': this._stats
+    };
   },
 
 });

@@ -7,19 +7,18 @@ var Store = Reflux.createStore({
   init: function () {
     this._name = undefined;
     this._version = undefined;
-    this._description = undefined;
   },
 
   onProjectDetails: function (details) {
     this._name = details.name;
     this._version = details.version;
-    this._description = details.description;
+  },
 
-    this.trigger({
+  getProjectDetails: function () {
+    return {
       name: this._name,
-      version: this._version,
-      description: this._description
-    });
+      version: this._version
+    };
   },
 
 });
