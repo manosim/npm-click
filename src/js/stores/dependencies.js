@@ -189,16 +189,16 @@ var DependenciesStore = Reflux.createStore({
     });
   },
 
-  getResults: function () {
+  onGetDependenciesCompleted: function () {
 
     this._dependencies = u.sortBy(this._dependencies, 'name');
     this._devDependencies = u.sortBy(this._devDependencies, 'name');
 
-    return {
+    this.trigger({
       'dependencies': this._dependencies,
       'devDependencies': this._devDependencies,
       'stats': this._stats
-    };
+    });
   },
 
 });

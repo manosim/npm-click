@@ -21,10 +21,6 @@ var DependenciesField = React.createClass({
     Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
   ],
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
   getInitialState: function () {
     return {
       json: undefined,
@@ -109,7 +105,6 @@ var DependenciesField = React.createClass({
     this.setState({
       loading: false
     });
-    this.context.router.transitionTo('results');
   },
 
   gotDependenciesErrors: function () {
