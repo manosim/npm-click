@@ -154,27 +154,27 @@ var DependenciesField = React.createClass({
       <div>
         <div className='container-fluid'>
           <Row className='search-bar'>
-            <Col mdOffset={2} md={5}>
+            <Col mdOffset={3} md={6}>
 
-              <Input
-                type='textarea'
-                className='input-lg'
-                bsStyle={this.validateInput()}
-                hasFeedback
-                rows='10'
-                placeholder='Paste your package.json and I will handle the work.'
-                onChange={this.handleJsonChange} />
-
-            </Col>
-
-            <Col md={3}>
               <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
+                <Input
+                  type='textarea'
+                  className='input-lg'
+                  bsStyle={this.validateInput()}
+                  hasFeedback
+                  rows='10'
+                  placeholder='Paste your package.json and I will handle the work.'
+                  onChange={this.handleJsonChange} />
+
                 <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
               </Dropzone>
 
-              <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button>
-            </Col>
+              <Row>
+                <Col md={6}><Button bsStyle='success' bsSize='large' block>Submit</Button></Col>
+                <Col md={6}><Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button></Col>
+              </Row>
 
+            </Col>
           </Row>
         </div>
 
