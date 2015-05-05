@@ -37,7 +37,6 @@
     "react-bootstrap": "^0.21.0",
     "react-chartjs": "^0.6.0",
     "react-dropzone": "^1.0.1",
-    "react-router": "^0.13.3",
     "react-tools": "^0.13.2",
     "reactify": "^1.1.0",
     "reflux": "^0.2.7",

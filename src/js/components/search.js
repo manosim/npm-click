@@ -21,10 +21,6 @@ var DependenciesField = React.createClass({
     Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
   ],
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
   getInitialState: function () {
     return {
       json: undefined,
@@ -109,7 +105,6 @@ var DependenciesField = React.createClass({
     this.setState({
       loading: false
     });
-    this.context.router.transitionTo('results');
   },
 
   gotDependenciesErrors: function () {
@@ -167,70 +162,42 @@ var DependenciesField = React.createClass({
   render: function () {
     var errors;
     if (this.state.errors) {
-        errors = (
-          <div className='container-fluid error-bar'>
-            <Alert bsStyle='danger'>Oops! Something is wrong with your package.json. Please try again.</Alert>
-          </div>
-        );
+      errors = (
+        <div className='container-fluid error-bar'>
+          <Alert bsStyle='danger'>Oops! Something is wrong with your package.json. Please try again.</Alert>
+        </div>
+      );
     }
     return (
-      <div>
-        <div className='container-fluid'>
-          <Row className='search-bar'>
-            <Col mdOffset={3} md={6}>
+      <div className='container-fluid'>
+        <Row className='search-bar'>
+          <Col mdOffset={3} md={6}>
 
-              <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
-                <Input
-                  type='textarea'
-                  className='input-lg'
-                  bsStyle={this.validateInput()}
-                  hasFeedback
-                  rows='8'
-                  placeholder='Place the content of your package.json and I will handle the work.'
-                  onChange={this.handleJsonChange}
-                  onClick={this.onTextAreaClick} />
+            <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
+              <Input
+                type='textarea'
+                className='input-lg'
+                bsStyle={this.validateInput()}
+                hasFeedback
+                rows='8'
+                placeholder='Place the content of your package.json and I will handle the work.'
+                onChange={this.handleJsonChange}
+                onClick={this.onTextAreaClick} />
 
-                <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
-                <Button bsStyle='info'>Upload package.json</Button>
-              </Dropzone>
+              <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
+              <Button bsStyle='info'>Upload package.json</Button>
+            </Dropzone>
 
-              {errors}
-              <Loading shouldShow={this.state.loading} />
+            {errors}
+            <Loading shouldShow={this.state.loading} />
 
-              <Row>
-                <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
-                <Col md={6}><Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button></Col>
-              </Row>
-
-            </Col>
-          </Row>
-        </div>
-
-        <div className='container-fluid section-welcome'>
-          <Grid>
             <Row>
-              <Col md={12}>
-                <h1>Comparing NPM (dev)Dependencies</h1>
-                <h2>All you need is your package.json. That's all!</h2>
-              </Col>
+              <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
+              <Col md={6}><Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button></Col>
             </Row>
-            <Row>
-              <Col md={4}>
-                <img src='images/npm-logo.png' className='img-responsive' />
-                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
-              </Col>
-              <Col md={4}>
-                <img src='images/packagejson.png' className='img-responsive' />
-                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
-              </Col>
-              <Col md={4}>
-                <img src='images/results.png' className='img-responsive' />
-                <p className='lead'>npm is the package manager for Node.js. It was created in 2009 as an open source project to help JavaScript developers easily share packaged modules of code.</p>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
 
+          </Col>
+        </Row>
       </div>
     );
   }

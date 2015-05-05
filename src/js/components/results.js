@@ -13,10 +13,26 @@ var DependenciesStore = require('../stores/dependencies');
 var ProjectStore = require('../stores/project-details');
 
 var Results = React.createClass({
+
+  mixins: [
+    Reflux.connect(ProjectStore, 'projectDetails'),
+    Reflux.connect(DependenciesStore, 'packages'),
+  ],
+
   getInitialState: function () {
     return {
-      projectDetails: ProjectStore.getProjectDetails(),
-      packages: DependenciesStore.getResults(),
+      projectDetails: {
+        name: '-',
+        version: '-'
+      },
+      packages: {
+        dependencies: [],
+        devDependencies: [],
+        stats: {
+          dependencies: [],
+          devDependencies: []
+        }
+      },
       errors: false,
       chartOptions: {
         percentageInnerCutout : 35,
