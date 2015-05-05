@@ -26,7 +26,7 @@ var DependenciesField = React.createClass({
 
   getInitialState: function () {
     return {
-      dependencies: undefined,
+      json: undefined,
       errors: undefined
     };
   },
@@ -49,13 +49,11 @@ var DependenciesField = React.createClass({
     }
 
     try {
-      this.setState({
-        errors: false
-      });
-
       var jsonValue = JSON.parse(value);
-      Actions.getDependencies(jsonValue);
-
+      this.setState({
+        errors: false,
+        json: jsonValue
+      });
     } catch (error) {
       this.gotDependenciesErrors();
     }
@@ -146,6 +144,14 @@ var DependenciesField = React.createClass({
     event.stopPropagation();
   },
 
+  submitJson: function () {
+    if (this.state.json) {
+      Actions.getDependencies(this.state.json);
+    } else {
+      this.gotDependenciesErrors();
+    }
+  },
+
   render: function () {
     var errors;
     if (this.state.errors) {
@@ -179,7 +185,7 @@ var DependenciesField = React.createClass({
               {errors}
 
               <Row>
-                <Col md={6}><Button bsStyle='success' bsSize='large' block>Submit</Button></Col>
+                <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
                 <Col md={6}><Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>or do the demo?</Button></Col>
               </Row>
 
