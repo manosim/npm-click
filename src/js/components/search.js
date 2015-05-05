@@ -141,6 +141,10 @@ var DependenciesField = React.createClass({
     }
   },
 
+  onTextAreaClick: function (event) {
+    event.stopPropagation();
+  },
+
   render: function () {
     var errors;
     if (this.state.errors) {
@@ -164,7 +168,8 @@ var DependenciesField = React.createClass({
                   hasFeedback
                   rows='10'
                   placeholder='Paste your package.json and I will handle the work.'
-                  onChange={this.handleJsonChange} />
+                  onChange={this.handleJsonChange}
+                  onClick={this.onTextAreaClick} />
 
                 <div>Drop your <strong>awesome</strong> package.json here, or click to select files to upload.</div>
               </Dropzone>
