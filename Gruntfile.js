@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             email: 'manos@iamemmanouil.com'
           },
           repo: 'https://' + process.env.GH_TOKEN + '@github.com/ekonstantinidis/npm-check.git',
-          message: 'Publish project to Github Pages (Auto)' + getDeployMessage(),
+          message: 'Publish project to Github Pages (Auto)',
           silent: true
         },
         src: ['**/*']
@@ -62,25 +62,20 @@ module.exports = function(grunt) {
 
   });
 
-  function getDeployMessage() {
-    var ret = '\n\n';
-    if (process.env.TRAVIS !== 'true') {
-      ret += 'missing env vars for travis-ci';
-      return ret;
-    }
-    ret += 'branch:       ' + process.env.TRAVIS_BRANCH + '\n';
-    ret += 'SHA:          ' + process.env.TRAVIS_COMMIT + '\n';
-    ret += 'range SHA:    ' + process.env.TRAVIS_COMMIT_RANGE + '\n';
-    ret += 'build id:     ' + process.env.TRAVIS_BUILD_ID  + '\n';
-    ret += 'build number: ' + process.env.TRAVIS_BUILD_NUMBER + '\n';
-    return ret;
-  }
-
   grunt.registerTask('check-deploy', function() {
     // need this
     this.requires(['build']);
 
     // only deploy under these conditions
+    if (process.env.TRAVIS === 'true') {
+      grunt.log.writeln('process.env.TRAVIS === true');
+    }
+    if (process.env.TRAVIS_SECURE_ENV_VARS === 'true') {
+      grunt.log.writeln('process.env.TRAVIS_SECURE_ENV_VARS === true');
+    }
+    if (process.env.TRAVIS_PULL_REQUEST === 'false') {
+      grunt.log.writeln('process.env.TRAVIS_PULL_REQUEST === false');
+    }
     if (process.env.TRAVIS === 'true' && process.env.TRAVIS_SECURE_ENV_VARS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
       grunt.log.writeln('executing deployment');
       // queue deploy
