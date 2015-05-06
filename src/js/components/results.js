@@ -13,6 +13,18 @@ var DependenciesStore = require('../stores/dependencies');
 var ProjectStore = require('../stores/project-details');
 
 var Results = React.createClass({
+
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
+  componentWillMount: function () {
+    var projectName = ProjectStore.getProjectDetails().name;
+    if (!projectName) {
+      this.context.router.transitionTo('home');
+    }
+  },
+
   getInitialState: function () {
     return {
       projectDetails: ProjectStore.getProjectDetails(),

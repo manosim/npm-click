@@ -33,7 +33,7 @@ var NotFound = React.createClass({
 var routes = (
   <Route handler={App}>
     <DefaultRoute handler={SearchPage}/>
-    <Route name="search" path="/" handler={SearchPage}/>
+    <Route name="home" path="/" handler={SearchPage}/>
     <Route name="results" path="results" handler={ResultsPage}/>
     <NotFoundRoute handler={NotFound}/>
   </Route>
