@@ -101,5 +101,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['less', 'copy']);
   grunt.registerTask('release', ['clean', 'build']);
-  grunt.registerTask('deploy', ['check-deploy']);
+  grunt.registerTask('deploy', 'Publish from Travis', [ 'build', 'check-deploy']);
 };
