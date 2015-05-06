@@ -8,6 +8,8 @@ before_install:
 
 install:
   - npm install
+  - npm run build
+  - grunt build
   - npm test
 
 env:
