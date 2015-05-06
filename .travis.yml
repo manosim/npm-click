@@ -3,12 +3,11 @@ language: node_js
 node_js:
   - "0.12"
 
-install:
-  - npm install
-
 before_install:
   - npm install -g grunt-cli
-  - npm install -g jsxhint
+
+install:
+  - npm install
   - npm test
 
 env:
