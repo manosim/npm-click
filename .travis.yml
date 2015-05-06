@@ -13,7 +13,7 @@ install:
 
 env:
   global:
-    - secure: Jr6tS+xTpeOKhxC1eQgsiGh3LDQz7k9MNXHNsFF/dO5qyiMSwLWoA2EFIY77pfLxIvKoS/d+1FVvnXssvTtOuLidTw4eONJhjCW3XV8ekAbsIcboA88rKFU44ukGobmNfTJ6tPiShDhuU1FTPN7IP1iBrYqiqF6b9MDdCczPsGo=
+    - secure: Mz4dyivRdLHuliRFgd6qPtCCxb498G69T/b/iWPmhzqcu67X0KEllQumP13fxHMihE8f1Fs731ivYqw3xONiJKnqeUKDbZOBccsa32koUCfFb/yOfkiNZlGaXB70holHiNv9IpmJJd9WG38Jg96QVgGLUzK+Te+wQKGx+Gybi4E=
 
 script:
   - grunt deploy
