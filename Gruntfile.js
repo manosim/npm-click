@@ -82,6 +82,11 @@ module.exports = function(grunt) {
 
     // only deploy under these conditions
     if (process.env.TRAVIS === 'true' && process.env.TRAVIS_SECURE_ENV_VARS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
+
+      grunt.log.writeln('process.env.TRAVIS: ' + process.env.TRAVIS);
+      grunt.log.writeln('process.env.TRAVIS_SECURE_ENV_VARS: ' + process.env.TRAVIS_SECURE_ENV_VARS);
+      grunt.log.writeln('process.env.TRAVIS_PULL_REQUEST: ' + process.env.TRAVIS_PULL_REQUEST);
+
       grunt.log.writeln('executing deployment');
       // queue deploy
       grunt.task.run('gh-pages:deploy');
