@@ -116,7 +116,7 @@ var DependenciesStore = Reflux.createStore({
     var self = this;
 
     apiRequests
-      .get('https://registry.npmjs.org/' + name)
+      .get('https://salty-bayou-6454.herokuapp.com/' + name)
       .end(function (err, response) {
         if (response && response.ok) {
           // Success - Do Something.
