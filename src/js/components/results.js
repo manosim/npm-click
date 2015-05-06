@@ -68,15 +68,21 @@ var Results = React.createClass({
 
 
         <Grid>
-          <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
-          {this.state.packages.dependencies.map(function(object, i){
-            return <Package key={object.name} dependency={object} />;
-          })}
+          <Row>
+            <Col md={6}>
+              <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
+              {this.state.packages.dependencies.map(function(object, i){
+                return <Package key={object.name} dependency={object} />;
+              })}
+            </Col>
 
-          <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
-          {this.state.packages.devDependencies.map(function(object, i){
-            return <Package key={object.name} dependency={object} />;
-          })}
+            <Col md={6}>
+              <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
+              {this.state.packages.devDependencies.map(function(object, i){
+                return <Package key={object.name} dependency={object} />;
+              })}
+            </Col>
+          </Row>
         </Grid>
       </div>
     );

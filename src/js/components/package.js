@@ -35,10 +35,9 @@ var Package = React.createClass({
     return (
       <Row className='package'>
         <Col xs={12} sm={1} className='status'><i className={this.upToDate()}></i></Col>
-        <Col xs={12} sm={4} className='name'><small>name</small> {this.state.dependency.name}</Col>
+        <Col xs={12} sm={5} className='name'><small>name</small> {this.state.dependency.name}</Col>
         <Col xs={6} sm={3} className=''><small>required</small> {this.state.dependency.version}</Col>
         <Col xs={6} sm={3} className=''><small>latest</small> {this.state.dependency.current['dist-tags'].latest}</Col>
-        <Col xs={6} sm={1} className=''><small>more</small> coming</Col>
       </Row>
     );
   }

@@ -13,7 +13,6 @@ var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Button = ReactBootstrap.Button;
-var CollapsibleParagraph = ReactBootstrap.CollapsibleParagraph;
 
 var DependenciesField = React.createClass({
   mixins: [
