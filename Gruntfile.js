@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             name: 'Emmanouil Konstantinidis',
             email: 'manos@iamemmanouil.com'
           },
-          repo: 'https://' + process.env.GH_TOKEN + '@github.com/ekonstantinidis/npm-check.git',
+          repo: 'https://' + process.env.TRAVIS_SECURE_ENV_VARS + '@github.com/ekonstantinidis/npm-check.git',
           message: 'Publish project to Github Pages (Auto)',
           silent: false
         },
