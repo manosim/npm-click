@@ -54,7 +54,7 @@ module.exports = function(grunt) {
           },
           repo: 'https://' + process.env.GH_TOKEN + '@github.com/ekonstantinidis/npm-check.git',
           message: 'Publish project to Github Pages (Auto)',
-          silent: true
+          silent: false
         },
         src: ['**/*']
       }
