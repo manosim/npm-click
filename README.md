@@ -1,6 +1,6 @@
 Npm Check [![Build Status](https://travis-ci.org/ekonstantinidis/npm-check.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-check)
 =====================
-Checking your dependencies can be really handy.
+Comparing NPM (dev)Dependencies.
 
 ### Prerequisites
 
@@ -18,3 +18,12 @@ You will need `http-server` installed globally to serve the website. If you enco
 
     npm run watch
     npm run serve
+
+
+### Tests (JsxHint)
+
+    npm test
+
+
+### Deployment
+Travis CI does the job. For every commit on the `master` branch, Travis runs the builds and push to the `gh-pages` branch.
