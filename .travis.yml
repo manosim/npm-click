@@ -3,8 +3,16 @@ language: node_js
 node_js:
   - "0.12"
 
+before_install:
+  - npm install -g grunt-cli
+
 install:
   - npm install
+  - npm test
+
+env:
+  global:
+    - secure: Jr6tS+xTpeOKhxC1eQgsiGh3LDQz7k9MNXHNsFF/dO5qyiMSwLWoA2EFIY77pfLxIvKoS/d+1FVvnXssvTtOuLidTw4eONJhjCW3XV8ekAbsIcboA88rKFU44ukGobmNfTJ6tPiShDhuU1FTPN7IP1iBrYqiqF6b9MDdCczPsGo=
 
 script:
-  - npm test
+  - grunt deploy
