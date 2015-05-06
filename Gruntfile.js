@@ -67,16 +67,7 @@ module.exports = function(grunt) {
     this.requires(['build']);
 
     // only deploy under these conditions
-    if (process.env.TRAVIS === 'true') {
-      grunt.log.writeln('process.env.TRAVIS === true');
-    }
-    if (process.env.TRAVIS_SECURE_ENV_VARS === 'true') {
-      grunt.log.writeln('process.env.TRAVIS_SECURE_ENV_VARS === true');
-    }
-    if (process.env.TRAVIS_PULL_REQUEST === 'false') {
-      grunt.log.writeln('process.env.TRAVIS_PULL_REQUEST === false');
-    }
-    if (process.env.TRAVIS === 'true' && process.env.TRAVIS_SECURE_ENV_VARS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
+    if (process.env.TRAVIS === 'true' && process.env.TRAVIS_PULL_REQUEST === 'false') {
       grunt.log.writeln('executing deployment');
       // queue deploy
       grunt.task.run('gh-pages:deploy');
