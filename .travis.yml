@@ -1,19 +1,23 @@
 language: node_js
 
 node_js:
-  - "0.12"
+- '0.12'
 
 before_install:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 
 install:
-  - npm install
-  - npm run build
-  - npm test
+- npm install
+- npm test
+- npm run build
+
+script:
+- grunt deploy
+
+branches:
+  only:
+  - master
 
 env:
   global:
-    - secure: hE76XayVUowzrfgElQZqT1d+WrRGqqnfYItUOmreVB/iFK9Y4YJJdj4/n2HLvcf5hrSXbG4jK/mDLTfeRyWabv5vuS41er15wAv9CJ2HjnGLGCrRP6zyZbaLw4lWwtABy7ozDB5xchmWtrcHrVdaT1nm16L5dsOcyFu9a+CEhJndScYx47IHsmvGAqWW2ynppTyTnr47UNibsAvXuMllaJ7CcpQuLEzYGCZ/xnU4iqMJltvSlJ+/gFD9u1YqQ4es+YD9oZkWdSzuC6nkDlBEEqbZ5oy4qTSz+uqQyk/Ew0FZy5NUnZ8c8w4FSxKs8xPYmqZP8sPohdypb/Eo4s+Sto7yblxnj0YmzDK1B1P6EoHQsMpHGwNKlEwQDH9mnTP+HLEjomrl0lRli7sGPKolaY6DQarlswiLKY9R5r/f5IJN4WJTP2wma/8jnABRXMAxk/O+K0p2fd6HHAEyfvTjiFeziXnGJloviFef8LcmLDMo/krZxsmuktgG+WKosFk19wbTOu5bTWXCwF3tLnD5oHeVq1y0kbGHY9WHOlAMUCwshG++cOv7B0xWQvjSmSOCQk1BmejvBlQc6tU9okar0RfDxREfxziSCP18wydVutF2xjFc2PYg7CVjVtZc/NAPdPDQhSuqI+j0BLoft0zys0ma9HJxWZkArwUTuMw7dSI=
-
-script:
-  - grunt deploy
+    secure: b3xg4aP+pDFj+sAC/kMH+oywOiifO09Xs99eSoqRK2cQZO0E2eE0kKUR++I3TnzylkbkK/nCgUY1EPTmutrOhga6bxUeRK1+ecx+Zv63iWXicDbD8eusCGAv6n3xNXK5e64H8toC7FvGzabYgbMCXeaAz9hCinPaXUNcDJOLARGXquwSRFtBHNrxwmnPNHng0FdC0De3lh2DRZnciGqVebydo1f0iouN2ibbqzyHW+erF0mJwhtj0E57Tdt+lZQHr04wWXu4671xCgVWjYKkRR4OAeBFpoWbVz80v3FcZ1tW63GhkHFo2YmQI2hCcuJd8/k+jAAlXwo8uYX2cVEhuiInBNS36f0PxMJMEFDt50ONa7u0e+BFa+HYnLGrmq3LwZHpTh9lSNd+8klmqEzYciWDkHQHo93rrQ1ZvXgGyeer0jTKWCCuiBu9KSVh0fiVJfFBPpFXGn+h9VxwFMOKDec2ZI0Bu3wVqynMsxLuOYrFnsyMcmihRmEcF8ApL6C3DXFe2JGE5e40H6MbFxrYyHM7DRNLltLFHYxXmFWLf7pUy5gx6yv5VP/q3UCemfTIUfFkBiHnZoW1IiX6kUgnbmnxmZFyIhnE/jDJpLV+FGgv6is2MSVmRhgQYHMciDxBG6mU8uyHKT98Ty41RupTcyzzN2DvT48Rzi3N5A3zdyY=
