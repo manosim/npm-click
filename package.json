@@ -1,7 +1,7 @@
 {
-  "name": "dep-compare",
+  "name": "npm-check",
   "version": "0.0.1",
-  "description": "Comparing GitHub Repositories",
+  "description": "Checking your dependencies can be really handy.",
   "main": "src/js/app.js",
   "scripts": {
     "build-js": "browserify -t reactify src/js/app.js -o build/js/app.js",
