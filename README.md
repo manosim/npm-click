@@ -1,4 +1,4 @@
-Npm Check [![Build Status](https://magnum.travis-ci.com/ekonstantinidis/npm-check.svg?token=9QR4ewbqbkEmHps6q5sq&branch=master)](https://magnum.travis-ci.com/ekonstantinidis/npm-check)
+Npm Check [![Build Status](https://travis-ci.org/ekonstantinidis/npm-check.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-check)
 =====================
 Checking your dependencies can be really handy.
 
