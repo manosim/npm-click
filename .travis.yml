@@ -8,6 +8,7 @@ install:
 
 before_install:
   - npm install -g grunt-cli
+  - npm install -g jsxhint
   - npm test
 
 env:
