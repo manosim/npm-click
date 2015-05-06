@@ -41,7 +41,40 @@ module.exports = function(grunt) {
         files: ["build/"]
     },
 
+    'gh-pages': {
+      options: {
+        branch: 'gh-pages',
+        base: 'build'
+      },
+      deploy: {
+        options: {
+          user: {
+            name: 'Emmanouil Konstantinidis',
+            email: 'manos@iamemmanouil.com'
+          },
+          repo: 'https://' + process.env.GH_TOKEN + '@github.com/ekonstantinidis/ui-color.git',
+          message: 'Publish project to Github Pages (Auto)' + getDeployMessage(),
+          silent: true
+        },
+        src: ['**/*']
+      }
+    }
+
   });
+
+  function getDeployMessage() {
+    var ret = '\n\n';
+    if (process.env.TRAVIS !== 'true') {
+      ret += 'missing env vars for travis-ci';
+      return ret;
+    }
+    ret += 'branch:       ' + process.env.TRAVIS_BRANCH + '\n';
+    ret += 'SHA:          ' + process.env.TRAVIS_COMMIT + '\n';
+    ret += 'range SHA:    ' + process.env.TRAVIS_COMMIT_RANGE + '\n';
+    ret += 'build id:     ' + process.env.TRAVIS_BUILD_ID  + '\n';
+    ret += 'build number: ' + process.env.TRAVIS_BUILD_NUMBER + '\n';
+    return ret;
+  }
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-less');
@@ -53,5 +86,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['less', 'copy']);
   grunt.registerTask('release', ['clean', 'build']);
-
+  grunt.registerTask('deploy', 'Publish from Travis', [ 'build', 'check-deploy']);
 };

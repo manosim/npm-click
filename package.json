@@ -33,6 +33,7 @@
     "browserify": "^9.0.8",
     "chart.js": "^1.0.2",
     "font-awesome": "^4.3.0",
+    "grunt-gh-pages": "^0.10.0",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.0",
     "react-chartjs": "^0.6.0",
