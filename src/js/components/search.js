@@ -179,7 +179,7 @@ var DependenciesField = React.createClass({
           <Row className='search-bar'>
             <Col mdOffset={3} md={6}>
 
-              <Dropzone onDrop={this.onDrop} className='dropzone hidden-xs'>
+              <Dropzone onDrop={this.onDrop} className='dropzone'>
                 <Input
                   type='textarea'
                   className='input-lg'
