@@ -2,9 +2,9 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
 var Dropzone = require('react-dropzone');
+var Loading = require('reloading');
 
 var Actions = require('../actions/actions');
-var Loading = require('../components/loading');
 var DependenciesStore = require('../stores/dependencies');
 
 var Alert = ReactBootstrap.Alert;
@@ -195,7 +195,7 @@ var DependenciesField = React.createClass({
               </Dropzone>
 
               {errors}
-              <Loading shouldShow={this.state.loading} />
+              <Loading shouldShow={this.state.loading} faIcon='fa fa-refresh fa-spin' className='loading' />
 
               <Row>
                 <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
