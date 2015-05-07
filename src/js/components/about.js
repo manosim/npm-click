@@ -13,7 +13,7 @@ var About = React.createClass({
         <Grid>
           <Row>
             <Col md={12}>
-              <h1>Comparing NPM (dev)Dependencies</h1>
+              <h1>Comparing NPM (dev) Dependencies</h1>
               <h2>All you need is your package.json. That's all!</h2>
             </Col>
           </Row>
