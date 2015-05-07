@@ -10,12 +10,10 @@ var Navigation = React.createClass({
   render: function () {
     return (
 
-      <Navbar brand='Npm Check' inverse toggleNavKey={0}>
-        <CollapsibleNav eventKey={0}> {/* This is the eventKey referenced */}
-          <Nav navbar right>
-            <NavItem eventKey={1} href='https://github.com/ekonstantinidis/npm-check'>Fork me on <i className='fa fa-github' /></NavItem>
+      <Navbar brand={<a href="http://www.iamemmanouil.com/npm-check">Npm Check</a>} inverse>
+          <Nav right>
+            <NavItem href='https://github.com/ekonstantinidis/npm-check'>Fork me on <i className='fa fa-github' /></NavItem>
           </Nav>
-        </CollapsibleNav>
       </Navbar>
 
     );
