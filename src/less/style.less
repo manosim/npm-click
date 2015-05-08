@@ -101,6 +101,10 @@ small {
 .loading {
     text-align: center;
     padding: 5px 0;
+
+    .fa {
+        margin: 0 5px;
+    }
 }
 
 /* @end Misc */
@@ -309,6 +313,17 @@ small {
 
         .has-errored {
             color: @VersionErrored;
+        }
+    }
+
+    .required {
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+            width: 100%;
         }
     }
 }

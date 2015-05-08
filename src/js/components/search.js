@@ -195,7 +195,7 @@ var DependenciesField = React.createClass({
               </Dropzone>
 
               {errors}
-              <Loading shouldShow={this.state.loading} faIcon='fa fa-refresh fa-spin' className='loading' />
+              <Loading shouldShow={this.state.loading} className='loading'><i className='fa fa-refresh fa-spin'></i> Getting your (dev) dependencies</Loading>
 
               <Row>
                 <Col md={6}><Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>Submit</Button></Col>
