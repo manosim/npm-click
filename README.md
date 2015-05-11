@@ -1,4 +1,4 @@
-Npm Check [![Build Status](https://travis-ci.org/ekonstantinidis/npm-check.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-check)
+Npm Click [![Build Status](https://travis-ci.org/ekonstantinidis/npm-click.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-click)
 =====================
 Comparing NPM (dev)Dependencies.
 

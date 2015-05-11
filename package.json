@@ -1,7 +1,7 @@
 {
-  "name": "npm-check",
+  "name": "npm-click",
   "version": "0.0.1",
-  "description": "Checking your dependencies can be really handy.",
+  "description": "Comparing NPM (dev)Dependencies.",
   "main": "src/js/app.js",
   "scripts": {
     "build-js": "browserify -t reactify src/js/app.js -o build/js/app.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ekonstantinidis/git-compare.git"
+    "url": "https://github.com/ekonstantinidis/npm-click.git"
   },
   "keywords": [
     "git",
@@ -25,9 +25,9 @@
   "author": "Emmanouil Konstantinidis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ekonstantinidis/git-compare/issues"
+    "url": "https://github.com/ekonstantinidis/npm-click/issues"
   },
-  "homepage": "https://github.com/ekonstantinidis/git-compare",
+  "homepage": "https://github.com/ekonstantinidis/npm-click",
   "dependencies": {
     "bootstrap": "^3.3.4",
     "browserify": "^9.0.8",
@@ -42,7 +42,7 @@
     "react-tools": "^0.13.2",
     "reactify": "^1.1.0",
     "reflux": "^0.2.7",
-    "reloading": "0.0.5",
+    "reloading": "0.0.6",
     "superagent": "^1.2.0",
     "underscore": "^1.8.3",
     "watchify": "^3.1.2"
