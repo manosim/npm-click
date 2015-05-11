@@ -10,9 +10,9 @@ var Navigation = React.createClass({
   render: function () {
     return (
 
-      <Navbar brand={<a href="http://www.iamemmanouil.com/npm-check">Npm Check</a>} inverse>
+      <Navbar brand={<a href="/">Npm Click</a>} inverse>
           <Nav right>
-            <NavItem href='https://github.com/ekonstantinidis/npm-check'>Fork me on <i className='fa fa-github' /></NavItem>
+            <NavItem href='https://github.com/ekonstantinidis/npm-click'>Fork me on <i className='fa fa-github' /></NavItem>
           </Nav>
       </Navbar>
 
