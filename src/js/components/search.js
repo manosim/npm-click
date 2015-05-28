@@ -79,6 +79,7 @@ var DependenciesField = React.createClass({
       },
 
       "dependencies": {
+        "@ekonstantinidis/reloading": "^0.0.6",
         "bootstrap": "^3.3.4",
         "browserify": "^9.0.8",
         "chart.js": "^1.0.2",
@@ -99,6 +100,7 @@ var DependenciesField = React.createClass({
       },
 
       "devDependencies": {
+        "@ekonstantinidis/gitify": "^0.0.1",
         "grunt": "^0.4.5",
         "grunt-contrib-clean": "^0.6.0",
         "grunt-contrib-copy": "^0.8.0",
