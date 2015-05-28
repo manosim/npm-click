@@ -160,15 +160,23 @@ var DependenciesStore = Reflux.createStore({
 
       var self = this;
 
-      self._length.dependencies = u.size(jsonValue.dependencies);
-      self._length.devDependencies = u.size(jsonValue.devDependencies);
+      this._length.dependencies = u.size(jsonValue.dependencies);
+      this._length.devDependencies = u.size(jsonValue.devDependencies);
 
       u.mapObject(jsonValue.dependencies, function(val, key) {
-        self.makeRequest('dependencies', key, val);
+        if (key.indexOf('@') == -1) {
+          self.makeRequest('dependencies', key, val);
+        } else {
+          self._length.dependencies -= 1;
+        }
       });
 
       u.mapObject(jsonValue.devDependencies, function(val, key) {
-        self.makeRequest('devDependencies', key, val);
+        if (key.indexOf('@') == -1) {
+          self.makeRequest('devDependencies', key, val);
+        } else {
+          self._length.devDependencies -= 1;
+        }
       });
   },
 
