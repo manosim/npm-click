@@ -8,7 +8,7 @@
     "build": "npm install && mkdir -p build/js && grunt build && npm run build-js",
     "watch-js": "webpack --progress --colors --watch",
     "watch": "grunt build && npm build && npm run watch-js | grunt watch",
-    "release-js": "webpack --config webpack.rel.config.js",
+    "release-js": "webpack --config webpack.prod.config.js",
     "release": "npm install && mkdir -p build/js && grunt build && npm run release-js",
     "test": "eslint 'src/js/'",
     "start": "http-server './build/' -c-1 -o"
