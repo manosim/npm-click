@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'react-router';
 
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
@@ -17,6 +18,7 @@ var Button = ReactBootstrap.Button;
 
 var DependenciesField = React.createClass({
   mixins: [
+    History,
     Reflux.connect(DependenciesStore, 'dependencies'),
     Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
     Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
@@ -118,7 +120,8 @@ var DependenciesField = React.createClass({
     this.setState({
       loading: false
     });
-    this.context.router.transitionTo('results');
+    console.log(this.history);
+    this.history.push('/results');
   },
 
   gotDependenciesErrors: function () {

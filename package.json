@@ -33,6 +33,7 @@
     "chart.js": "=1.0.2",
     "font-awesome": "=4.5.0",
     "grunt-gh-pages": "=1.0.0",
+    "history": "=1.17.0",
     "react": "=0.14.6",
     "react-bootstrap": "=0.28.2",
     "react-chartjs": "=0.6.0",
