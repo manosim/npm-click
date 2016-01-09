@@ -2,9 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
-var Reflux = require('reflux');
-var ReactBootstrap = require('react-bootstrap');
-
 var Navigation = require('./components/navigation');
 var SearchPage = require('./pages/search');
 var ResultsPage = require('./pages/results');

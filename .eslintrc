@@ -4,7 +4,7 @@
     "max-len": [1, 100, 2],
     "no-undef": 2,
     "no-unreachable": 2,
-    "no-unused-vars": 2,
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
     "no-undef-init": 2,
     "no-multiple-empty-lines": [2, {"max": 2}],
     "indent": [2, 2],

@@ -13,41 +13,41 @@ var DependenciesStore = Reflux.createStore({
       dependencies: [
         {
           value: 0,
-          color: "#0A0",
-          highlight: "#008f00",
-          label: "Up to date"
+          color: '#0A0',
+          highlight: '#008f00',
+          label: 'Up to date'
         },
         {
           value: 0,
-          color: "#FDB45C",
-          highlight: "#FFC870",
-          label: "Minor Update"
+          color: '#FDB45C',
+          highlight: '#FFC870',
+          label: 'Minor Update'
         },
         {
           value: 0,
-          color:"#F7464A",
-          highlight: "#FF5A5E",
-          label: "Major Update"
+          color:'#F7464A',
+          highlight: '#FF5A5E',
+          label: 'Major Update'
         }
       ],
       devDependencies: [
         {
           value: 0,
-          color: "#0A0",
-          highlight: "#008f00",
-          label: "Up to date"
+          color: '#0A0',
+          highlight: '#008f00',
+          label: 'Up to date'
         },
         {
           value: 0,
-          color: "#FDB45C",
-          highlight: "#FFC870",
-          label: "Minor Update"
+          color: '#FDB45C',
+          highlight: '#FFC870',
+          label: 'Minor Update'
         },
         {
           value: 0,
-          color:"#F7464A",
-          highlight: "#FF5A5E",
-          label: "Major Update"
+          color:'#F7464A',
+          highlight: '#FF5A5E',
+          label: 'Major Update'
         }
       ],
     };
@@ -83,9 +83,9 @@ var DependenciesStore = Reflux.createStore({
   },
 
   compareVersionNumbers: function (v1, v2) {
-    // http://maymay.net/blog/2008/06/15/ridiculously-simple-javascript-version-string-to-object-parser/
+    // Article: http://goo.gl/K7hYWj
     function parseVersionString (str) {
-      if (typeof(str) != 'string') { return false; }
+      if (typeof (str) != 'string') { return false; }
       var x = str.split('.');
       // parse from string or default to 0 if can't parse
       var maj = parseInt(x[0]) || 0;
@@ -101,14 +101,15 @@ var DependenciesStore = Reflux.createStore({
     var running_version = parseVersionString(v1.replace(/[^0-9.]/g, ''));
     var latest_version = parseVersionString(v2);
     if (running_version.major < latest_version.major) {
-        // A major new update is available!
-        return -1;
-    } else if (running_version.minor < latest_version.minor || running_version.patch < latest_version.patch) {
-        // A new minor or patch update is available.
-        return 0;
+      // A major new update is available!
+      return -1;
+    } else if (running_version.minor < latest_version.minor ||
+      running_version.patch < latest_version.patch) {
+      // A new minor or patch update is available.
+      return 0;
     } else {
-        // We are running the latest version! No need to update.
-        return 1;
+      // We are running the latest version! No need to update.
+      return 1;
     }
   },
 
@@ -140,7 +141,8 @@ var DependenciesStore = Reflux.createStore({
             });
           }
 
-          if (self._dependencies.length == self._length.dependencies && self._devDependencies.length == self._length.devDependencies) {
+          if (self._dependencies.length == self._length.dependencies &&
+            self._devDependencies.length == self._length.devDependencies) {
             Actions.getDependencies.completed();
           }
 
@@ -152,32 +154,32 @@ var DependenciesStore = Reflux.createStore({
   },
 
   onGetDependencies: function (jsonValue) {
-      Actions.clearResults();
-      Actions.projectDetails({
-        name: jsonValue.name || '-',
-        version: jsonValue.version || '-'
-      });
+    Actions.clearResults();
+    Actions.projectDetails({
+      name: jsonValue.name || '-',
+      version: jsonValue.version || '-'
+    });
 
-      var self = this;
+    var self = this;
 
-      this._length.dependencies = u.size(jsonValue.dependencies);
-      this._length.devDependencies = u.size(jsonValue.devDependencies);
+    this._length.dependencies = u.size(jsonValue.dependencies);
+    this._length.devDependencies = u.size(jsonValue.devDependencies);
 
-      u.mapObject(jsonValue.dependencies, function(val, key) {
-        if (key.indexOf('@') == -1) {
-          self.makeRequest('dependencies', key, val);
-        } else {
-          self._length.dependencies -= 1;
-        }
-      });
+    u.mapObject(jsonValue.dependencies, function(val, key) {
+      if (key.indexOf('@') == -1) {
+        self.makeRequest('dependencies', key, val);
+      } else {
+        self._length.dependencies -= 1;
+      }
+    });
 
-      u.mapObject(jsonValue.devDependencies, function(val, key) {
-        if (key.indexOf('@') == -1) {
-          self.makeRequest('devDependencies', key, val);
-        } else {
-          self._length.devDependencies -= 1;
-        }
-      });
+    u.mapObject(jsonValue.devDependencies, function(val, key) {
+      if (key.indexOf('@') == -1) {
+        self.makeRequest('devDependencies', key, val);
+      } else {
+        self._length.devDependencies -= 1;
+      }
+    });
   },
 
   onGetDependenciesFailed: function () {

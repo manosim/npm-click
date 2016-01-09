@@ -1,7 +1,6 @@
 import React from 'react';
 import { History } from 'react-router';
 
-var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
 
 var Grid = ReactBootstrap.Grid;
@@ -67,18 +66,38 @@ var Results = React.createClass({
               </Col>
               <Col sm={2} className='stats-map'>
                 <small>dependencies</small>
-                <div className="uptodate">Up to date: {this.getStat('dependencies', 'Up to date')}</div>
-                <div className="minor-updates">Minor Updates: {this.getStat('dependencies', 'Minor Update')}</div>
-                <div className="major-updates">Major Updates: {this.getStat('dependencies', 'Major Update')}</div>
+                <div className="uptodate">
+                  Up to date: {this.getStat('dependencies', 'Up to date')}
+                </div>
+                <div className="minor-updates">
+                  Minor Updates: {this.getStat('dependencies', 'Minor Update')}
+                </div>
+                <div className="major-updates">
+                  Major Updates: {this.getStat('dependencies', 'Major Update')}
+                </div>
               </Col>
-              <Col sm={2}><PieChart data={this.state.packages.stats.dependencies} options={this.state.chartOptions} redraw /></Col>
+              <Col sm={2}>
+                <PieChart
+                  data={this.state.packages.stats.dependencies}
+                  options={this.state.chartOptions} redraw />
+              </Col>
               <Col sm={2} className='stats-map'>
                 <small>devDependencies</small>
-                <div className="uptodate">Up to date: {this.getStat('devDependencies', 'Up to date')}</div>
-                <div className="minor-updates">Minor Updates: {this.getStat('devDependencies', 'Minor Update')}</div>
-                <div className="major-updates">Major Updates: {this.getStat('devDependencies', 'Major Update')}</div>
+                <div className="uptodate">
+                  Up to date: {this.getStat('devDependencies', 'Up to date')}
+                </div>
+                <div className="minor-updates">
+                  Minor Updates: {this.getStat('devDependencies', 'Minor Update')}
+                </div>
+                <div className="major-updates">
+                  Major Updates: {this.getStat('devDependencies', 'Major Update')}
+                </div>
               </Col>
-              <Col sm={2}><PieChart data={this.state.packages.stats.devDependencies} options={this.state.chartOptions} redraw /></Col>
+              <Col sm={2}>
+                <PieChart
+                  data={this.state.packages.stats.devDependencies}
+                  options={this.state.chartOptions} redraw />
+              </Col>
             </Row>
           </div>
         </div>
@@ -87,15 +106,21 @@ var Results = React.createClass({
         <Grid>
           <Row>
             <Col md={6}>
-              <h2>Dependencies <span className='count'>({this.state.packages.dependencies.length})</span></h2>
-              {this.state.packages.dependencies.map(function(object, i){
+              <h2>
+                Dependencies
+                <span className='count'>({this.state.packages.dependencies.length})</span>
+              </h2>
+              {this.state.packages.dependencies.map(function (object, i) {
                 return <Package key={object.name} dependency={object} />;
               })}
             </Col>
 
             <Col md={6}>
-              <h2>DevDependencies <span className='count'>({this.state.packages.devDependencies.length})</span></h2>
-              {this.state.packages.devDependencies.map(function(object, i){
+              <h2>
+                DevDependencies
+                <span className='count'>({this.state.packages.devDependencies.length})</span>
+              </h2>
+              {this.state.packages.devDependencies.map(function (object, i) {
                 return <Package key={object.name} dependency={object} />;
               })}
             </Col>
