@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'react-router';
 
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
@@ -14,6 +15,9 @@ var DependenciesStore = require('../stores/dependencies');
 var ProjectStore = require('../stores/project-details');
 
 var Results = React.createClass({
+  mixins: [
+    History
+  ],
 
   contextTypes: {
     router: React.PropTypes.func
@@ -22,7 +26,7 @@ var Results = React.createClass({
   componentWillMount: function () {
     var projectName = ProjectStore.getProjectDetails().name;
     if (!projectName) {
-      this.context.router.transitionTo('home');
+      this.history.push('/');
     }
   },
 
