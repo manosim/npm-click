@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
@@ -27,7 +27,7 @@ var NotFound = React.createClass({
 });
 
 render(
-  <Router history={browserHistory}>
+  <Router history={hashHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={SearchPage} />
       <Route path='/' component={SearchPage} />

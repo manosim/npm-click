@@ -16,11 +16,13 @@
     "url": "https://github.com/ekonstantinidis/npm-click.git"
   },
   "keywords": [
-    "git",
+    "npm",
+    "dependencies",
+    "version",
+    "semver",
     "compare",
     "github",
-    "repositories",
-    "releases"
+    "package.json"
   ],
   "author": "Emmanouil Konstantinidis",
   "license": "ISC",

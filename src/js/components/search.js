@@ -88,12 +88,12 @@ var DependenciesField = React.createClass({
         "chart.js": "^1.0.2",
         "font-awesome": "^4.3.0",
         "grunt-gh-pages": "^0.10.0",
-        "react": "^0.13.2",
+        "react": "=0.14.6",
+        "react-dom": "=0.14.6",
         "react-bootstrap": "^0.21.2",
         "react-chartjs": "^0.6.0",
         "react-dropzone": "^1.0.1",
-        "react-router": "^0.13.3",
-        "react-tools": "^0.13.2",
+        "react-router": "^1.0.3",
         "reactify": "^1.1.0",
         "reflux": "^0.2.7",
         "reloading": "0.0.6",
@@ -105,8 +105,8 @@ var DependenciesField = React.createClass({
       "devDependencies": {
         "@ekonstantinidis/gitify": "^0.0.1",
         "grunt": "^0.4.5",
-        "grunt-contrib-clean": "^0.6.0",
-        "grunt-contrib-copy": "^0.8.0",
+        "grunt-contrib-clean": "^0.7.0",
+        "grunt-contrib-copy": "^0.8.2",
         "grunt-contrib-less": "^1.0.1",
         "grunt-contrib-watch": "^0.6.1",
         "jshint-stylish": "^1.0.1",
@@ -120,7 +120,6 @@ var DependenciesField = React.createClass({
     this.setState({
       loading: false
     });
-    console.log(this.history);
     this.history.push('/results');
   },
 
