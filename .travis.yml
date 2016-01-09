@@ -9,7 +9,7 @@ before_install:
 install:
 - npm install
 - npm test
-- npm run build
+- npm run release
 
 script:
 - grunt deploy
