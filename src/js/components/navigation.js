@@ -10,10 +10,18 @@ var Navigation = React.createClass({
   render: function () {
     return (
 
-      <Navbar brand={<a href="/">Npm Click</a>} inverse>
-          <Nav right>
-            <NavItem href='https://github.com/ekonstantinidis/npm-click'>Fork me on <i className='fa fa-github' /></NavItem>
+      <Navbar inverse>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/">Npm Click</a>
+          </Navbar.Brand>
+        </Navbar.Header>
+
+        <Navbar.Collapse>
+          <Nav pullRight>
+          <NavItem href='https://github.com/ekonstantinidis/npm-click'>Fork me on <i className='fa fa-github' /></NavItem>
           </Nav>
+        </Navbar.Collapse>
       </Navbar>
 
     );

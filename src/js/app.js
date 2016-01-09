@@ -1,13 +1,9 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, Route, IndexRoute } from 'react-router';
+
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
-
-var Route = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
-var DefaultRoute = Router.DefaultRoute;
-var RouteHandler = Router.RouteHandler;
-var Redirect = Router.Redirect;
 
 var Navigation = require('./components/navigation');
 var SearchPage = require('./pages/search');
@@ -18,11 +14,13 @@ var App = React.createClass({
     return (
       <div>
         <Navigation />
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }
 });
+
+
 
 var NotFound = React.createClass({
   render: function () {
@@ -30,15 +28,15 @@ var NotFound = React.createClass({
   }
 });
 
-var routes = (
-  <Route handler={App}>
-    <DefaultRoute handler={SearchPage}/>
-    <Route name="home" path="/" handler={SearchPage}/>
-    <Route name="results" path="results" handler={ResultsPage}/>
-    <NotFoundRoute handler={NotFound}/>
-  </Route>
-);
 
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('app'));
-});
+render(
+  <Router>
+    <Route path='/' component={App}>
+      <IndexRoute component={SearchPage} />
+      <Route path='/' component={SearchPage} />
+      <Route path='/results' component={ResultsPage} />
+      <Route path='*' component={NotFound} />
+    </Route>
+  </Router>,
+  document.getElementById('app')
+);

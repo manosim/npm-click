@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+
 var Reflux = require('reflux');
 var ReactBootstrap = require('react-bootstrap');
 var Dropzone = require('react-dropzone');
@@ -188,6 +189,7 @@ var DependenciesField = React.createClass({
             <Col mdOffset={3} md={6}>
 
               <Dropzone onDrop={this.onDrop} className='dropzone'>
+                <div>
                 <Input
                   type='textarea'
                   className='input-lg'
@@ -200,6 +202,7 @@ var DependenciesField = React.createClass({
 
                 <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
                 <Button bsStyle='info'>Upload package.json</Button>
+                </div>
               </Dropzone>
 
               {errors}
