@@ -29,76 +29,9 @@ $alert-border-radius: 0;
 
 /* @end Bootstrap Overrides */
 
-
 // @import "node_modules/bootstrap/less/bootstrap";
 // @import "node_modules/font-awesome/less/font-awesome.less";
-
 // @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
-
-// /* @group Colors */
-
-// @ThemePrimary: #2A4D6E;
-// @ThemeSecondary: #cb3837;
-// @ThemeGray: #F3F3F3;
-
-// @VersionUpToDate: #0A0;
-// @VersionMinor: #FDB45C;
-// @VersionMajor: #F7464A;
-// @VersionErrored: #787878;
-
-// @White: #FFF;
-// @DarkGray: #777;
-// @LightGray: #F3F3F3;
-
-// /* @end Colors */
-
-
-// /* @group Fonts */
-
-// .FontSourceSansLight() {
-//     font-family: 'Source Sans Pro', sans-serif;
-//     font-weight: 300;
-// }
-
-// .FontSourceSansRegular() {
-//     font-family: 'Source Sans Pro', sans-serif;
-//     font-weight: 400;
-// }
-
-// .FontSourceSansSemiBold() {
-//     font-family: 'Source Sans Pro', sans-serif;
-//     font-weight: 600;
-// }
-
-// .FontSourceSansBold() {
-//     font-family: 'Source Sans Pro', sans-serif;
-//     font-weight: 700;
-// }
-
-// /* @end Fonts */
-
-
-// /* @group Bootstrap Overrides */
-
-// @font-family-base: 'Source Sans Pro', sans-serif;
-
-// /* @end Bootstrap Overrides */
-
-
-// /* @group Mixins */
-
-// // Border Radius (Same Corners)
-// .BorderRadius(@radius: 5px) {
-//     -webkit-border-radius: @radius;
-//     -moz-border-radius:    @radius;
-//     border-radius:         @radius;
-
-//     -moz-background-clip:    padding;
-//     -webkit-background-clip: padding-box;
-//     background-clip:         padding-box;
-// }
-
-// /* @end Mixins */
 
 
 // /* @group Misc */
@@ -219,9 +152,10 @@ $alert-border-radius: 0;
   .img-responsive {
     @include border-radius(50%);
 
+    display: block;
     margin: 25px auto;
     max-width: 180px;
-    border: 5px solid orange;
+    border: 5px solid $theme-red;
   }
 }
 
@@ -233,7 +167,7 @@ $alert-border-radius: 0;
 .footer {
   padding: 30px;
   margin-top: 40px;
-  background-color: $gray-light;
+  background-color: $gray-lighter;
   font-size: 18px;
   text-align: center;
 
