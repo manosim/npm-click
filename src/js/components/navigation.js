@@ -6,7 +6,7 @@ export default class Navigation extends Component {
       <nav className="navbar navbar-dark bg-inverse">
         <a href="/">
           <img
-            className={'navbar-brand img-responsive'}
+            className="navbar-brand img-responsive"
             alt="NPM click"
             src="dist/images/logo.png" />
         </a>

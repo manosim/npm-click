@@ -214,14 +214,6 @@ $alert-border-radius: 0;
       text-align: left;
       margin: 20px 0;
     }
-
-    // screen-sm-min - 768px
-    @media (min-width: @screen-sm-min) {
-      .stats-map {
-        text-align: right;
-        margin: 0;
-      }
-    }
   }
 }
 
