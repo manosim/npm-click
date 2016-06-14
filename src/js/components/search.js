@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux';
 
 import Dropzone from 'react-dropzone';
@@ -8,24 +8,19 @@ import { setupRequests, fetchPackageDetails } from '../actions';
 import prepareData from '../utils/prepareData';
 import demoData from '../utils/demoData';
 
-class Search extends React.Component {
-  // contextTypes: {
-  //   router: React.PropTypes.func
-  // }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      json: undefined,
-      errors: undefined,
-      loading: false
-    };
+class Search extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.results.get('isFetching') !== this.props.results.get('isFetching')
+      && this.props.results.get('isFetching')) {
+      console.log(this.context.router.push);
+      this.context.router.push('/results');
+    }
   }
 
   validateInput() {
-    if (this.state.errors) {
-      return 'error';
-    }
+    // if (this.state.errors) {
+    //   return 'error';
+    // }
   }
 
   handleJsonChange(e) {
@@ -117,16 +112,16 @@ class Search extends React.Component {
   }
 
   render() {
-    var errors;
-    if (this.state.errors) {
-      errors = (
-        <div className="container-fluid error-bar">
-          <div className="alert alert-danger">
-            Oops! Something is wrong with your package.json. Please try again.
-          </div>
-        </div>
-      );
-    }
+    // var errors;
+    // if (this.state.errors) {
+    //   errors = (
+    //     <div className="container-fluid error-bar">
+    //       <div className="alert alert-danger">
+    //         Oops! Something is wrong with your package.json. Please try again.
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
     return (
       <div>
@@ -151,8 +146,8 @@ class Search extends React.Component {
                 </div>
               </Dropzone>
 
-              {errors}
-              <Loading shouldShow={this.state.loading} className="loading">
+              {/*errors*/}
+              <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
                 <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
               </Loading>
 
@@ -173,11 +168,17 @@ class Search extends React.Component {
           </div>
         </div>
 
+        <h3>Loading: {this.props.results.get('isFetching') ? 'true' : 'false'}</h3>
+        <h3>Total: {this.props.results.get('total')}</h3>
+        <h3>Completed: {this.props.results.get('completed')}</h3>
       </div>
     );
   }
 };
 
+Search.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
   return {

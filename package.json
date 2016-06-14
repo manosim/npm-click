@@ -32,7 +32,7 @@
     "bootstrap": "=4.0.0-alpha.2",
     "chart.js": "=2.1.5",
     "font-awesome": "=4.6.3",
-    "history": "=3.0.0",
+    "history": "=2.1.1",
     "immutable": "=3.8.1",
     "react": "=15.1.0",
     "react-chartjs": "=0.7.3",
@@ -40,11 +40,12 @@
     "react-dropzone": "=3.5.1",
     "react-redux": "=4.4.5",
     "react-router": "=2.4.1",
+    "react-router-redux": "=4.0.5",
     "redux": "=3.5.2",
     "redux-api-middleware": "=1.0.2",
     "redux-thunk": "=2.1.0",
-    "reloading": "0.0.6",
-    "underscore": "^1.8.3"
+    "reloading": "=0.0.6",
+    "underscore": "=1.8.3"
   },
   "devDependencies": {
     "babel-core": "=6.9.1",

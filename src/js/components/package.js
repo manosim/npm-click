@@ -25,14 +25,14 @@ export default class Package extends React.Component {
     var readme;
     if (this.props.dependency.current.homepage) {
       readme = (
-        <a href={this.props.dependency.current.homepage} target='_blank'>
-          <i className='fa fa-file-text-o'/>
+        <a href={this.props.dependency.current.homepage} target="_blank">
+          <i className="fa fa-file-text-o" />
         </a>
       );
     }
 
     return (
-      <div className='row package'>
+      <div className="row package">
         <div classname="col-sm-1 col-md-12 status">
           <i className={this.upToDate()}></i>
         </div>
@@ -42,7 +42,7 @@ export default class Package extends React.Component {
         <div classname="col-sm-3 col-md-6 required">
           <small>required</small><span>{this.props.dependency.version}</span>
         </div>
-        <div classname="col-sm-3 col-md-6 ">
+        <div classname="col-sm-3 col-md-6">
           <small>latest</small> {this.props.dependency.current['dist-tags'].latest}
         </div>
       </div>
