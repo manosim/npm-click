@@ -1,4 +1,4 @@
-import { Map, List} from 'immutable';
+import { Map, List } from 'immutable';
 
 import {
   SETUP_REQUESTS,
@@ -29,17 +29,17 @@ export default function reducer(state = initialState, action) {
         .set('errored', false);
 
     case FETCH_PACKAGE_SUCCESS:
-      let isDone1 = state.get('completed') + 1 === state.get('total');
+      var isDone = state.get('completed') + 1 === state.get('total');
       return state
         .set('completed', state.get('completed') + 1)
-        .set('isFetching', isDone1 ? false : true)
+        .set('isFetching', isDone ? false : true)
         .set('errored', false);
 
     case FETCH_PACKAGE_FAILURE:
-      let isDone2 = state.get('completed') + 1 === state.get('total');
+      var isDone = state.get('completed') + 1 === state.get('total');
       return state
         .set('completed', state.get('completed') + 1)
-        .set('isFetching', isDone2 ? false : true)
+        .set('isFetching', isDone ? false : true)
         .set('errored', true);
 
     default:

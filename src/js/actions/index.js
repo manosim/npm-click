@@ -1,9 +1,11 @@
 // Setup Requests
 export const SETUP_REQUESTS = 'SETUP_REQUESTS';
-export function setupRequests(numberOfPackages) {
+export function setupRequests(numberOfPackages, payload) {
   return {
     type: SETUP_REQUESTS,
-    numberOfPackages
+    numberOfPackages,
+    projectName: payload.name,
+    version: payload.version
   };
 }
 

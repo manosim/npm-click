@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 // import { Pie } from 'react-chartjs';
 
 import Package from '../components/package';
@@ -46,10 +47,10 @@ export default class ResultsPage extends React.Component {
             <h2>Project Details</h2>
             <div className="row">
               <div className="col-sm-4">
-                <small>name</small> <h3>{/*this.state.projectDetails.name*/}</h3>
-                <small>version</small> <h4>{/*this.state.projectDetails.version*/}</h4>
+                <small>name</small> <h3>{this.props.project.get('name')}</h3>
+                <small>version</small> <h4>{this.props.project.get('version')}</h4>
               </div>
-              <div className="col-sm-2" className="stats-map">
+              <div className="col-sm-2 stats-map">
                 <small>dependencies</small>
                 <div className="uptodate">
                   Up to date: {this.getStat('dependencies', 'Up to date')}
@@ -66,7 +67,7 @@ export default class ResultsPage extends React.Component {
                   data={this.state.packages.stats.dependencies}
                   options={this.state.chartOptions} redraw />*/}
               </div>
-              <div className="col-sm-2" className="stats-map">
+              <div className="col-sm-2 stats-map">
                 <small>devDependencies</small>
                 <div className="uptodate">
                   Up to date: {this.getStat('devDependencies', 'Up to date')}
@@ -118,3 +119,13 @@ export default class ResultsPage extends React.Component {
 // ResultsPage.contextTypes = {
 //   router: React.PropTypes.func
 // };
+
+
+function mapStateToProps(state) {
+  return {
+    results: state.results,
+    project: state.project
+  };
+};
+
+export default connect(mapStateToProps, { })(ResultsPage);

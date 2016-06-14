@@ -47,7 +47,7 @@ class Search extends Component {
   generateDemoData() {
     const packages = prepareData(demoData);
     const numberOfPackages = packages.length;
-    this.props.setupRequests(numberOfPackages);
+    this.props.setupRequests(numberOfPackages, demoData);
     packages.forEach((value) => this.props.fetchPackageDetails(value));
   }
 
