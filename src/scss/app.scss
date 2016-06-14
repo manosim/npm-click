@@ -1,6 +1,7 @@
 /* @group Colors */
 
 $theme-red: #B53F39;
+$theme-blue: #2f3241;
 
 $white: #FFF;
 
@@ -35,11 +36,6 @@ $alert-border-radius: 0;
 
 
 // /* @group Misc */
-
-// body {
-//     .FontSourceSansRegular();
-//     font-size: 16px;
-// }
 
 // small {
 //     display: block;
@@ -140,7 +136,7 @@ $alert-border-radius: 0;
 }
 
 .section-welcome {
-  background-color: #2A4D6E;
+  background-color: $theme-blue;
   color: $white;
   padding: 50px 20px;
   margin-bottom: -40px;

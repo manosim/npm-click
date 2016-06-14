@@ -1,29 +1,15 @@
 import React from 'react';
-import { History } from 'react-router';
+import { connect } from 'react-redux';
 
-var Reflux = require('reflux');
 import Dropzone from 'react-dropzone';
 import Loading from 'reloading';
 
-var Actions = require('../actions/actions');
-var DependenciesStore = require('../stores/dependencies');
+import { setupRequests } from '../actions';
 
-// var Alert = ReactBootstrap.Alert;
-// var Input = ReactBootstrap.Input;
-// var Col = ReactBootstrap.Col;
-// var Button = ReactBootstrap.Button;
-
-export default class DependenciesField extends React.Component {
-  // mixins: [
-  //   History,
-  //   Reflux.connect(DependenciesStore, 'dependencies'),
-  //   Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
-  //   Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
-  // ],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  }
+class Search extends React.Component {
+  // contextTypes: {
+  //   router: React.PropTypes.func
+  // }
 
   constructor(props) {
     super(props);
@@ -65,12 +51,7 @@ export default class DependenciesField extends React.Component {
   }
 
   generateDemoData() {
-    this.setState({
-      errors: false,
-      loading: true
-    });
-
-    Actions.getDependencies({
+    const demo = {
       'name': 'npm-click',
       'version': '0.1.1',
       'description': 'Comparing NPM (dev)Dependencies',
@@ -111,7 +92,10 @@ export default class DependenciesField extends React.Component {
         'jsxhint': '=0.14.0',
         'less': '=2.5.0'
       }
-    });
+    };
+
+    const numberOfPackages = Object.keys(demo.dependencies).length + Object.keys(demo.devDependencies).length;
+    this.props.setupRequests(numberOfPackages);
   }
 
   gotDependenciesSuccess() {
@@ -142,7 +126,7 @@ export default class DependenciesField extends React.Component {
           });
 
           var jsonValue = JSON.parse(reader.result);
-          Actions.getDependencies(jsonValue);
+          // Actions.getDependencies(jsonValue);
 
         } catch (error) {
           self.gotDependenciesErrors();
@@ -220,7 +204,7 @@ export default class DependenciesField extends React.Component {
                 <div className="col-md-6">
                   <button
                     className="btn btn-danger btn-large btn-block"
-                    onClick={this.generateDemoData}>
+                    onClick={() => this.generateDemoData()}>
                     or do the demo?
                   </button>
                 </div>
@@ -234,3 +218,12 @@ export default class DependenciesField extends React.Component {
     );
   }
 };
+
+
+function mapStateToProps(state) {
+  return {
+    results: state.results
+  };
+};
+
+export default connect(mapStateToProps, { setupRequests })(Search);

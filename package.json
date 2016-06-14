@@ -33,12 +33,18 @@
     "chart.js": "=2.1.5",
     "font-awesome": "=4.6.3",
     "history": "=3.0.0",
+    "immutable": "=3.8.1",
     "react": "=15.1.0",
     "react-chartjs": "=0.7.3",
     "react-dom": "=15.1.0",
     "react-dropzone": "=3.5.1",
+    "react-redux": "=4.4.5",
     "react-router": "=2.4.1",
-    "reloading": "0.0.6"
+    "redux": "=3.5.2",
+    "redux-api-middleware": "=1.0.2",
+    "redux-thunk": "=2.1.0",
+    "reloading": "0.0.6",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "=6.9.1",
@@ -55,6 +61,7 @@
     "gulp-uglify": "=1.5.3",
     "gulp-util": "=3.0.7",
     "lodash.assign": "=4.0.9",
+    "redux-logger": "=2.6.1",
     "vinyl-buffer": "=1.0.0",
     "vinyl-source-stream": "=1.1.0",
     "watchify": "=3.7.0"
