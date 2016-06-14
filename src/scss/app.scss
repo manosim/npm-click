@@ -1,0 +1,350 @@
+// @import "node_modules/bootstrap/less/bootstrap";
+// @import "node_modules/font-awesome/less/font-awesome.less";
+
+// @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
+
+// /* @group Colors */
+
+// @ThemePrimary: #2A4D6E;
+// @ThemeSecondary: #cb3837;
+// @ThemeGray: #F3F3F3;
+
+// @VersionUpToDate: #0A0;
+// @VersionMinor: #FDB45C;
+// @VersionMajor: #F7464A;
+// @VersionErrored: #787878;
+
+// @White: #FFF;
+// @DarkGray: #777;
+// @LightGray: #F3F3F3;
+
+// /* @end Colors */
+
+
+// /* @group Fonts */
+
+// .FontSourceSansLight() {
+//     font-family: 'Source Sans Pro', sans-serif;
+//     font-weight: 300;
+// }
+
+// .FontSourceSansRegular() {
+//     font-family: 'Source Sans Pro', sans-serif;
+//     font-weight: 400;
+// }
+
+// .FontSourceSansSemiBold() {
+//     font-family: 'Source Sans Pro', sans-serif;
+//     font-weight: 600;
+// }
+
+// .FontSourceSansBold() {
+//     font-family: 'Source Sans Pro', sans-serif;
+//     font-weight: 700;
+// }
+
+// /* @end Fonts */
+
+
+// /* @group Bootstrap Overrides */
+
+// @font-family-base: 'Source Sans Pro', sans-serif;
+
+// /* @end Bootstrap Overrides */
+
+
+// /* @group Mixins */
+
+// // Border Radius (Same Corners)
+// .BorderRadius(@radius: 5px) {
+//     -webkit-border-radius: @radius;
+//     -moz-border-radius:    @radius;
+//     border-radius:         @radius;
+
+//     -moz-background-clip:    padding;
+//     -webkit-background-clip: padding-box;
+//     background-clip:         padding-box;
+// }
+
+// /* @end Mixins */
+
+
+// /* @group Misc */
+
+// body {
+//     .FontSourceSansRegular();
+//     font-size: 16px;
+// }
+
+// small {
+//     display: block;
+//     .FontSourceSansLight();
+//     font-size: 75%;
+// }
+
+// .error-bar {
+//     padding-left: 0;
+//     padding-right: 0;
+//     margin: 20px 0 0 0;
+
+//     .alert {
+//         color: @DarkGray;
+//     }
+// }
+
+// .alert {
+//     .BorderRadius(0);
+//     border: 0;
+//     text-align: center;
+// }
+
+// .loading {
+//     text-align: center;
+//     padding: 5px 0;
+
+//     .fa {
+//         margin: 0 5px;
+//     }
+// }
+
+// /* @end Misc */
+
+
+// /* @group Navbar */
+
+// .navbar {
+//     background-color: @ThemeSecondary;
+//     .BorderRadius(0);
+//     border: 0;
+//     min-height: 0;
+//     margin-bottom: 0;
+
+//     .navbar-brand {
+//         padding: 10px 15px;
+//         height: auto;
+//         color: @White;
+//     }
+
+//     .navbar-nav > li > a {
+//         color: @White;
+
+//         &:hover {
+//             color: darken(@ThemeSecondary, 40%);
+//         }
+//     }
+
+//     .navbar-toggle {
+//         .BorderRadius(0);
+//         border: 0;
+//         padding: 5px 10px;
+//     }
+
+//     // screen-sm-min - 768px
+//     @media (min-width: @screen-sm-min) {
+//         .navbar-nav > li > a {
+//           padding-top: 10px;
+//           padding-bottom: 10px;
+//         }
+//     }
+
+//     @media (max-width: @screen-sm-max) {
+//         .navbar-brand {
+//             width: 100%;
+//             text-align: center;
+//         }
+
+//         .navbar-nav > li > a {
+//           text-align: center;
+//         }
+//     }
+
+// }
+
+// /* @end Navbar */
+
+
+// /* @group Search Bar */
+
+// .search-bar {
+//     background-color: @ThemeGray;
+//     padding: 40px 0;
+
+//     .form-control {
+//         .BorderRadius(0);
+//         border: 0;
+//         resize: none;
+//     }
+
+//     .dropzone {
+//         padding: 10px 20px;
+//         margin-bottom: 10px;
+//         text-align: center;
+//         color: @DarkGray;
+//         border: 1px dotted @DarkGray;
+//         width: 100%;
+
+//         &.active {
+//             background-color: @DarkGray;
+//             color: @White;
+//         }
+
+//         .message {
+//             padding: 5px 0 10px;
+//         }
+//     }
+
+//     .btn {
+//         .BorderRadius(0);
+//         border: 0;
+//         margin-top: 10px;
+
+//         &:focus {
+//            outline: none;
+//         }
+//     }
+
+//     .alert {
+//         margin: 0 0 10px;
+//     }
+// }
+
+// .section-welcome {
+//     background-color: #2A4D6E;
+//     color: @White;
+//     padding: 50px 20px;
+//     margin-bottom: -40px;
+
+//     h1, h2 {
+//         text-align: center;
+//     }
+
+//     .img-responsive {
+//         margin: 25px auto;
+//         .BorderRadius(50%);
+//         max-width: 180px;
+//         border: 5px solid @ThemeSecondary;
+//     }
+// }
+
+// /* @end Search Bar */
+
+
+// /* @group Footer */
+
+// .footer {
+//     padding: 30px;
+//     margin-top: 40px;
+//     background-color: @LightGray;
+//     font-size: 18px;
+//     text-align: center;
+
+//     .social {
+//         margin-bottom: 10px;
+
+//         .fa {
+//             margin: 0 5px;
+//         }
+//     }
+// }
+
+// /* @end Footer */
+
+
+// /* @group Results */
+
+// .results {
+//     h2 {
+//         text-align: center;
+//         text-transform: uppercase;
+//         margin-top: 50px;
+//         margin-bottom: 20px;
+
+//         .count {
+//             color: @DarkGray;
+//         }
+//     }
+
+//     .details {
+//         background-color: @ThemeGray;
+//         margin: 0 0;
+//         padding: 30px 20px;
+
+//         h2 {
+//             margin-top: 0;
+//         }
+
+//         h3 {
+//             margin: 5px 0;
+//         }
+
+//         h4 {
+//             margin: 5px 0 0;
+//         }
+
+//         .stats-map {
+//             text-align: left;
+//             margin: 20px 0;
+//         }
+
+//         // screen-sm-min - 768px
+//         @media (min-width: @screen-sm-min) {
+//             .stats-map {
+//                 text-align: right;
+//                 margin: 0;
+//             }
+//         }
+//     }
+// }
+
+// /* @end Results */
+
+
+// /* @group Package */
+
+// .package {
+//     margin: 10px 0;
+//     padding-bottom: 10px;
+//     border-bottom: 1px solid @DarkGray;
+
+//     .name {
+//       .fa {
+//         font-size: 12px;
+//         color: @DarkGray;
+//         margin-left: 5px;
+//       }
+//     }
+
+//     .status {
+//         font-size: 30px;
+//         text-align: center;
+
+//         .has-latest {
+//             color: @VersionUpToDate;
+//         }
+
+//         .has-minor {
+//             color: @VersionMinor;
+//         }
+
+//         .has-major {
+//             color: @VersionMajor;
+//         }
+
+//         .has-errored {
+//             color: @VersionErrored;
+//         }
+//     }
+
+//     .required {
+
+//         span {
+//             overflow: hidden;
+//             text-overflow: ellipsis;
+//             white-space: nowrap;
+//             display: inline-block;
+//             width: 100%;
+//         }
+//     }
+// }
+
+// /* @end Package */
