@@ -30,16 +30,14 @@ export function fetchTokenFailure() {
   };
 };
 
-export function fetchPackageDetails() {
+export function fetchPackageDetails(packageDetails) {
   return (dispatch, getState) => {
     dispatch(fetchPackageRequest());
 
-    return fetch('https://github.com/login/oauth/access_token', {
+    return fetch(`https://salty-bayou-6454.herokuapp.com/${packageDetails.name}`, {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
+        'Accept': 'application/json'
       }
     })
     .then(response => {
@@ -52,7 +50,7 @@ export function fetchPackageDetails() {
       dispatch(fetchPackageSuccess(json));
     })
     .catch(error => {
-      dispatch(FETCH_PACKAGE_FAILURE());
+      dispatch(fetchTokenFailure());
     });
   };
 };

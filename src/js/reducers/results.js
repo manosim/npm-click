@@ -11,7 +11,8 @@ const initialState = Map({
   isFetching: false,
   errored: false,
   response: List(),
-  count: 0
+  completed: 0,
+  total: 0
 });
 
 export default function reducer(state = initialState, action) {
@@ -19,17 +20,19 @@ export default function reducer(state = initialState, action) {
     case SETUP_REQUESTS:
       return state
         .set('response', List())
-        .set('count', action.numberOfPackages);
+        .set('total', action.numberOfPackages);
     case FETCH_PACKAGE_REQUEST:
       return state
         .set('isFetching', true)
         .set('errored', false);
     case FETCH_PACKAGE_SUCCESS:
       return state
+        .set('completed', state.get('completed') + 1)
         .set('isFetching', false)
         .set('errored', false);
     case FETCH_PACKAGE_FAILURE:
       return state
+        .set('completed', state.get('completed') + 1)
         .set('isFetching', false)
         .set('errored', true);
     default:
