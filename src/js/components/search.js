@@ -2,46 +2,45 @@ import React from 'react';
 import { History } from 'react-router';
 
 var Reflux = require('reflux');
-var ReactBootstrap = require('react-bootstrap');
-var Dropzone = require('react-dropzone');
-var Loading = require('reloading');
+import Dropzone from 'react-dropzone';
+import Loading from 'reloading';
 
 var Actions = require('../actions/actions');
 var DependenciesStore = require('../stores/dependencies');
 
-var Alert = ReactBootstrap.Alert;
-var Input = ReactBootstrap.Input;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
-var Button = ReactBootstrap.Button;
+// var Alert = ReactBootstrap.Alert;
+// var Input = ReactBootstrap.Input; 
+// var Col = ReactBootstrap.Col;
+// var Button = ReactBootstrap.Button;
 
-var DependenciesField = React.createClass({
-  mixins: [
-    History,
-    Reflux.connect(DependenciesStore, 'dependencies'),
-    Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
-    Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
-  ],
+export default class DependenciesField extends React.Component {
+  // mixins: [
+  //   History,
+  //   Reflux.connect(DependenciesStore, 'dependencies'),
+  //   Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
+  //   Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
+  // ],
 
   contextTypes: {
     router: React.PropTypes.func
-  },
+  }
 
-  getInitialState: function () {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       json: undefined,
       errors: undefined,
       loading: false
     };
-  },
+  }
 
-  validateInput: function () {
+  validateInput() {
     if (this.state.errors) {
       return 'error';
     }
-  },
+  }
 
-  handleJsonChange: function (e) {
+  handleJsonChange(e) {
 
     var value = e.target.value;
 
@@ -63,9 +62,9 @@ var DependenciesField = React.createClass({
       this.gotDependenciesErrors();
     }
 
-  },
+  }
 
-  generateDemoData: function () {
+  generateDemoData() {
     this.setState({
       errors: false,
       loading: true
@@ -113,23 +112,23 @@ var DependenciesField = React.createClass({
         'less': '=2.5.0'
       }
     });
-  },
+  }
 
-  gotDependenciesSuccess: function () {
+  gotDependenciesSuccess() {
     this.setState({
       loading: false
     });
     this.history.push('/results');
-  },
+  }
 
-  gotDependenciesErrors: function () {
+  gotDependenciesErrors() {
     this.setState({
       errors: true,
       loading: false
     });
-  },
+  }
 
-  onDrop: function (files) {
+  onDrop(files) {
     var self = this;
     if (files.length == 1 && files[0].type == 'application/json') {
       var reader = new FileReader();
@@ -157,13 +156,13 @@ var DependenciesField = React.createClass({
         errors: true
       });
     }
-  },
+  }
 
-  onTextAreaClick: function (event) {
+  onTextAreaClick(event) {
     event.stopPropagation();
-  },
+  }
 
-  submitJson: function () {
+  submitJson() {
     if (this.state.json) {
       this.setState({
         loading: true,
@@ -172,9 +171,9 @@ var DependenciesField = React.createClass({
     } else {
       this.gotDependenciesErrors();
     }
-  },
+  }
 
-  render: function () {
+  render() {
     var errors;
     if (this.state.errors) {
       errors = (
@@ -185,54 +184,53 @@ var DependenciesField = React.createClass({
         </div>
       );
     }
+
     return (
       <div>
-        <div className='container-fluid'>
-          <Row className='search-bar'>
-            <Col mdOffset={3} md={6}>
+        <div className="container-fluid">
+          <div className="row search-bar">
+            <div className="col-md-offset-3 col-md-6">
 
               <Dropzone onDrop={this.onDrop} className='dropzone' activeClassName='active'>
                 <div>
-                <Input
-                  type='textarea'
-                  className='input-lg'
-                  bsStyle={this.validateInput()}
-                  hasFeedback
-                  rows='8'
-                  placeholder='Place the content of your package.json and I will handle the work.'
-                  onChange={this.handleJsonChange}
-                  onClick={this.onTextAreaClick} />
+                  <input
+                    type="textarea"
+                    className="input-lg"
+                    bsStyle={this.validateInput()}
+                    hasFeedback
+                    rows="8"
+                    placeholder="Place the content of your package.json and I will handle the work."
+                    onChange={this.handleJsonChange}
+                    onClick={this.onTextAreaClick} />
 
-                <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
-                <Button bsStyle='info'>Upload package.json</Button>
+                  <div className="message">Drop your <strong>awesome</strong> package.json here</div>
+                  <button className="btn btn-info">Upload package.json</button>
                 </div>
               </Dropzone>
 
               {errors}
-              <Loading shouldShow={this.state.loading} className='loading'>
-                <i className='fa fa-refresh fa-spin'></i> Getting your (dev) dependencies
+              <Loading shouldShow={this.state.loading} className="loading">
+                <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
               </Loading>
 
-              <Row>
-                <Col md={6}>
-                  <Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>
-                    Submit
-                  </Button>
-                </Col>
-                <Col md={6}>
-                  <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>
+              <div className="row">
+                <div className="col-md-6">
+                  <button className="btn btn-success btn-large btn-block" onClick={this.submitJson}>Submit</button>
+                </div>
+                <div className="col-md-6">
+                  <button
+                    className="btn btn-danger btn-large btn-block"
+                    onClick={this.generateDemoData}>
                     or do the demo?
-                  </Button>
-                </Col>
-              </Row>
+                  </button>
+                </div>
+              </div>
 
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
 
       </div>
     );
   }
-});
-
-module.exports = DependenciesField;
+};

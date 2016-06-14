@@ -4,14 +4,10 @@
   "description": "Comparing NPM (dev)Dependencies.",
   "main": "src/js/app.js",
   "scripts": {
-    "build-js": "webpack",
-    "build": "npm install && mkdir -p build/js && grunt build && npm run build-js",
-    "watch-js": "webpack --progress --colors --watch",
-    "watch": "grunt build && npm build && npm run watch-js | grunt watch",
-    "release-js": "webpack --config webpack.prod.config.js",
-    "release": "npm install && mkdir -p build/js && grunt build && npm run release-js",
+    "build": "gulp build",
+    "watch": "gulp watch",
     "test": "eslint 'src/js/'",
-    "start": "http-server './build/' -c-1 -o"
+    "start": "http-server './' -c-1 -o"
   },
   "repository": {
     "type": "git",
@@ -57,6 +53,10 @@
     "gulp": "=3.9.1",
     "gulp-sass": "=2.3.1",
     "gulp-uglify": "=1.5.3",
-    "gulp-util": "=3.0.7"
+    "gulp-util": "=3.0.7",
+    "lodash.assign": "=4.0.9",
+    "vinyl-buffer": "=1.0.0",
+    "vinyl-source-stream": "=1.1.0",
+    "watchify": "=3.7.0"
   }
 }

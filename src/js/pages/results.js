@@ -1,15 +1,10 @@
-var React = require('react');
+import React from 'react';
+import Results from '../components/results';
 
-var Results = require('../components/results');
-
-var ResultsPage = React.createClass({
-
-  render: function () {
+export default class ResultsPage extends React.Component {
+  render() {
     return (
       <Results />
     );
   }
-
-});
-
-module.exports = ResultsPage;
+};

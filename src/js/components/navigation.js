@@ -1,33 +1,17 @@
 import React from 'react';
 
-var ReactBootstrap = require('react-bootstrap');
-
-var Navbar = ReactBootstrap.Navbar;
-var Nav = ReactBootstrap.Nav;
-var NavItem = ReactBootstrap.NavItem;
-
-var Navigation = React.createClass({
-  render: function () {
+export default class Navigation extends React.Component {
+  render() {
     return (
+      <nav className="navbar navbar-dark bg-inverse">
+        <a href="/">Npm Click</a>
 
-      <Navbar inverse>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="/">Npm Click</a>
-          </Navbar.Brand>
-        </Navbar.Header>
-
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <NavItem href='https://github.com/ekonstantinidis/npm-click'>
-              Fork me on <i className='fa fa-github' />
-            </NavItem>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
+        <ul className="nav navbar-nav pull-xs-right">
+          <li className="nav-item">
+            <a href="https://github.com/ekonstantinidis/npm-click">Fork me on <i className="fa fa-github" /></a>
+          </li>
+        </ul>
+      </nav>
     );
   }
-});
-
-module.exports = Navigation;
+};

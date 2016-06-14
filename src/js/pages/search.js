@@ -1,11 +1,10 @@
-var React = require('react');
+import React from 'react';
 
-var About = require('../components/about');
-var Search = require('../components/search');
+import Search from '../components/search';
+import About from '../components/about';
 
-var SearchPage = React.createClass({
-
-  render: function () {
+export default class SearchPage extends React.Component {
+  render() {
     return (
       <div>
         <Search />
@@ -13,6 +12,4 @@ var SearchPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = SearchPage;
+};
