@@ -1,35 +1,29 @@
 import React from 'react';
-import { History } from 'react-router';
+// import { History } from 'react-router';
 
-var ReactBootstrap = require('react-bootstrap');
+import { Pie } from 'react-chartjs';
 
-var Grid = ReactBootstrap.Grid;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
+import Package from '../components/package';
+import DependenciesStore from '../stores/dependencies';
+import ProjectStore from '../stores/project-details';
 
-var PieChart = require('react-chartjs').Pie;
-
-var Package = require('../components/package');
-var DependenciesStore = require('../stores/dependencies');
-var ProjectStore = require('../stores/project-details');
-
-var Results = React.createClass({
-  mixins: [
-    History
-  ],
+export default class Results extends React.Component {
+  // mixins: [
+  //   History
+  // ],
 
   contextTypes: {
     router: React.PropTypes.func
-  },
+  }
 
-  componentWillMount: function () {
+  componentWillMount() {
     var projectName = ProjectStore.getProjectDetails().name;
     if (!projectName) {
       this.history.push('/');
     }
-  },
+  }
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       projectDetails: ProjectStore.getProjectDetails(),
       packages: DependenciesStore.getResults(),
@@ -40,9 +34,9 @@ var Results = React.createClass({
         responsive: true
       }
     };
-  },
+  }
 
-  getStat: function (type, label) {
+  getStat(type, label) {
     if (this.state.packages.stats[type]) {
       for (var i = this.state.packages.stats[type].length - 1; i >= 0; i--) {
         if (this.state.packages.stats[type][i].label == label) {
@@ -51,15 +45,15 @@ var Results = React.createClass({
       }
     }
     return '-';
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div className='results'>
         <div className='container-fluid details'>
           <div className='container'>
             <h2>Project Details</h2>
-            <Row>
+            <div className="row">
               <Col sm={4}>
                 <small>name</small> <h3>{this.state.projectDetails.name}</h3>
                 <small>version</small> <h4>{this.state.projectDetails.version}</h4>
@@ -77,7 +71,7 @@ var Results = React.createClass({
                 </div>
               </Col>
               <Col sm={2}>
-                <PieChart
+                <Pie
                   data={this.state.packages.stats.dependencies}
                   options={this.state.chartOptions} redraw />
               </Col>
@@ -98,13 +92,12 @@ var Results = React.createClass({
                   data={this.state.packages.stats.devDependencies}
                   options={this.state.chartOptions} redraw />
               </Col>
-            </Row>
+            </div>
           </div>
         </div>
 
-
         <Grid>
-          <Row>
+          <div className="row">
             <Col md={6}>
               <h2>
                 Dependencies
@@ -124,11 +117,9 @@ var Results = React.createClass({
                 return <Package key={object.name} dependency={object} />;
               })}
             </Col>
-          </Row>
+          </div>
         </Grid>
       </div>
     );
   }
-});
-
-module.exports = Results;
+};

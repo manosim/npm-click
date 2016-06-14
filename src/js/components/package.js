@@ -1,17 +1,14 @@
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
+import React from 'react';
 
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
+export default class Package extends React.Component {
 
-var Package = React.createClass({
-  componentWillReceiveProps: function (newProps) {
+  componentWillReceiveProps(newProps) {
     this.setState({
       dependency: newProps.dependency
     });
-  },
+  }
 
-  upToDate: function () {
+  upToDate() {
     var isUpToDate = this.props.dependency.status;
     if (isUpToDate === 1) {
       return 'has-latest fa fa-check-circle';
@@ -22,9 +19,9 @@ var Package = React.createClass({
     } else {
       return 'has-errored fa fa-question-circle';
     }
-  },
+  }
 
-  render: function () {
+  render() {
     var readme;
     if (this.props.dependency.current.homepage) {
       readme = (
@@ -35,22 +32,20 @@ var Package = React.createClass({
     }
 
     return (
-      <Row className='package'>
-        <Col xs={12} sm={1} className='status'>
+      <div className='row package'>
+        <div classname="col-sm-1 col-md-12 status">
           <i className={this.upToDate()}></i>
-        </Col>
-        <Col xs={12} sm={5} className='name'>
+        </div>
+        <div classname="col-sm-5 col-md-12 name">
           <small>name</small> {this.props.dependency.name} {readme}
-        </Col>
-        <Col xs={6} sm={3} className='required'>
+        </div>
+        <div classname="col-sm-3 col-md-6 required">
           <small>required</small><span>{this.props.dependency.version}</span>
-        </Col>
-        <Col xs={6} sm={3} className=''>
+        </div>
+        <div classname="col-sm-3 col-md-6 ">
           <small>latest</small> {this.props.dependency.current['dist-tags'].latest}
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
-});
-
-module.exports = Package;
+};

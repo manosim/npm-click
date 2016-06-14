@@ -1,47 +1,32 @@
 import React from 'react';
-import { History } from 'react-router';
+import { connect } from 'react-redux';
 
-var Reflux = require('reflux');
-var ReactBootstrap = require('react-bootstrap');
-var Dropzone = require('react-dropzone');
-var Loading = require('reloading');
+import Dropzone from 'react-dropzone';
+import Loading from 'reloading';
 
-var Actions = require('../actions/actions');
-var DependenciesStore = require('../stores/dependencies');
+import { setupRequests } from '../actions';
 
-var Alert = ReactBootstrap.Alert;
-var Input = ReactBootstrap.Input;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
-var Button = ReactBootstrap.Button;
+class Search extends React.Component {
+  // contextTypes: {
+  //   router: React.PropTypes.func
+  // }
 
-var DependenciesField = React.createClass({
-  mixins: [
-    History,
-    Reflux.connect(DependenciesStore, 'dependencies'),
-    Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
-    Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
-  ],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  getInitialState: function () {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       json: undefined,
       errors: undefined,
       loading: false
     };
-  },
+  }
 
-  validateInput: function () {
+  validateInput() {
     if (this.state.errors) {
       return 'error';
     }
-  },
+  }
 
-  handleJsonChange: function (e) {
+  handleJsonChange(e) {
 
     var value = e.target.value;
 
@@ -63,15 +48,10 @@ var DependenciesField = React.createClass({
       this.gotDependenciesErrors();
     }
 
-  },
+  }
 
-  generateDemoData: function () {
-    this.setState({
-      errors: false,
-      loading: true
-    });
-
-    Actions.getDependencies({
+  generateDemoData() {
+    const demo = {
       'name': 'npm-click',
       'version': '0.1.1',
       'description': 'Comparing NPM (dev)Dependencies',
@@ -112,26 +92,29 @@ var DependenciesField = React.createClass({
         'jsxhint': '=0.14.0',
         'less': '=2.5.0'
       }
-    });
-  },
+    };
 
-  gotDependenciesSuccess: function () {
+    const numberOfPackages = Object.keys(demo.dependencies).length + Object.keys(demo.devDependencies).length;
+    this.props.setupRequests(numberOfPackages);
+  }
+
+  gotDependenciesSuccess() {
     this.setState({
       loading: false
     });
     this.history.push('/results');
-  },
+  }
 
-  gotDependenciesErrors: function () {
+  gotDependenciesErrors() {
     this.setState({
       errors: true,
       loading: false
     });
-  },
+  }
 
-  onDrop: function (files) {
+  onDrop(files) {
     var self = this;
-    if (files.length == 1 && files[0].type == 'application/json') {
+    if (files.length === 1 && files[0].type === 'application/json') {
       var reader = new FileReader();
 
       reader.onload = function(e) {
@@ -143,7 +126,7 @@ var DependenciesField = React.createClass({
           });
 
           var jsonValue = JSON.parse(reader.result);
-          Actions.getDependencies(jsonValue);
+          // Actions.getDependencies(jsonValue);
 
         } catch (error) {
           self.gotDependenciesErrors();
@@ -157,13 +140,13 @@ var DependenciesField = React.createClass({
         errors: true
       });
     }
-  },
+  }
 
-  onTextAreaClick: function (event) {
+  onTextAreaClick(event) {
     event.stopPropagation();
-  },
+  }
 
-  submitJson: function () {
+  submitJson() {
     if (this.state.json) {
       this.setState({
         loading: true,
@@ -172,67 +155,75 @@ var DependenciesField = React.createClass({
     } else {
       this.gotDependenciesErrors();
     }
-  },
+  }
 
-  render: function () {
+  render() {
     var errors;
     if (this.state.errors) {
       errors = (
-        <div className='container-fluid error-bar'>
-          <Alert bsStyle='danger'>
+        <div className="container-fluid error-bar">
+          <div className="alert alert-danger">
             Oops! Something is wrong with your package.json. Please try again.
-          </Alert>
+          </div>
         </div>
       );
     }
+
     return (
       <div>
-        <div className='container-fluid'>
-          <Row className='search-bar'>
-            <Col mdOffset={3} md={6}>
+        <div className="container-fluid">
+          <div className="row search-bar">
+            <div className="col-md-offset-3 col-md-6">
 
-              <Dropzone onDrop={this.onDrop} className='dropzone' activeClassName='active'>
+              <Dropzone onDrop={this.onDrop} className="dropzone" activeClassName="active">
                 <div>
-                <Input
-                  type='textarea'
-                  className='input-lg'
-                  bsStyle={this.validateInput()}
-                  hasFeedback
-                  rows='8'
-                  placeholder='Place the content of your package.json and I will handle the work.'
-                  onChange={this.handleJsonChange}
-                  onClick={this.onTextAreaClick} />
+                  <textarea
+                    type="textarea"
+                    className="form-control input-lg"
+                    rows="8"
+                    bsStyle={this.validateInput()}
+                    hasFeedback
+                    placeholder="Place the content of your package.json and I will handle the work."
+                    onChange={this.handleJsonChange}
+                    onClick={this.onTextAreaClick} />
 
-                <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
-                <Button bsStyle='info'>Upload package.json</Button>
+                  <div className="message">Drop your <strong>awesome</strong> package.json here</div>
+                  <button className="btn btn-info">Upload package.json</button>
                 </div>
               </Dropzone>
 
               {errors}
-              <Loading shouldShow={this.state.loading} className='loading'>
-                <i className='fa fa-refresh fa-spin'></i> Getting your (dev) dependencies
+              <Loading shouldShow={this.state.loading} className="loading">
+                <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
               </Loading>
 
-              <Row>
-                <Col md={6}>
-                  <Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>
-                    Submit
-                  </Button>
-                </Col>
-                <Col md={6}>
-                  <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>
+              <div className="row">
+                <div className="col-md-6">
+                  <button className="btn btn-success btn-large btn-block" onClick={this.submitJson}>Submit</button>
+                </div>
+                <div className="col-md-6">
+                  <button
+                    className="btn btn-danger btn-large btn-block"
+                    onClick={() => this.generateDemoData()}>
                     or do the demo?
-                  </Button>
-                </Col>
-              </Row>
+                  </button>
+                </div>
+              </div>
 
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
 
       </div>
     );
   }
-});
+};
 
-module.exports = DependenciesField;
+
+function mapStateToProps(state) {
+  return {
+    results: state.results
+  };
+};
+
+export default connect(mapStateToProps, { setupRequests })(Search);

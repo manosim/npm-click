@@ -1,13 +1,15 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-var Navigation = require('./components/navigation');
-var SearchPage = require('./pages/search');
-var ResultsPage = require('./pages/results');
+import configureStore from './store/configureStore';
+import Navigation from './components/navigation';
+import SearchPage from './pages/search';
+import ResultsPage from './pages/results';
 
-var App = React.createClass({
-  render: function () {
+class App extends React.Component {
+  render() {
     return (
       <div>
         <Navigation />
@@ -15,22 +17,29 @@ var App = React.createClass({
       </div>
     );
   }
-});
+};
 
-var NotFound = React.createClass({
-  render: function () {
+class NotFound extends React.Component {
+  render() {
     return <h2>Not found</h2>;
   }
-});
+};
 
-render(
-  <Router history={hashHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={SearchPage} />
-      <Route path='/' component={SearchPage} />
-      <Route path='/results' component={ResultsPage} />
-      <Route path='*' component={NotFound} />
-    </Route>
-  </Router>,
+// Store
+const store = configureStore();
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    { /* Tell the Router to use our enhanced history */ }
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <IndexRoute component={SearchPage} />
+          <Route path="/" component={SearchPage} />
+          <Route path="/results" component={ResultsPage} />
+          <Route path="*" component={NotFound} />
+        </Route>
+      </Router>
+  </Provider>,
   document.getElementById('app')
 );
