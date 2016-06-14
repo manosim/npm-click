@@ -94,9 +94,9 @@ export default class ResultsPage extends React.Component {
                 Dependencies
                 <span className="count">({/*this.state.packages.dependencies.length*/})</span>
               </h2>
-              {this.state.packages.dependencies.map(function (object, i) {
+              {/*this.state.packages.dependencies.map(function (object, i) {
                 return <Package key={object.name} dependency={object} />;
-              })}
+              })*/}
             </div>
 
             <div className="col-md-6">
@@ -104,9 +104,9 @@ export default class ResultsPage extends React.Component {
                 DevDependencies
                 <span className="count">({/*this.state.packages.devDependencies.length*/})</span>
               </h2>
-              {this.state.packages.devDependencies.map(function (object, i) {
+              {/*this.state.packages.devDependencies.map(function (object, i) {
                 return <Package key={object.name} dependency={object} />;
-              })}
+              })*/}
             </div>
           </div>
         </div>
