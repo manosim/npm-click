@@ -9,7 +9,7 @@ var Actions = require('../actions/actions');
 var DependenciesStore = require('../stores/dependencies');
 
 // var Alert = ReactBootstrap.Alert;
-// var Input = ReactBootstrap.Input; 
+// var Input = ReactBootstrap.Input;
 // var Col = ReactBootstrap.Col;
 // var Button = ReactBootstrap.Button;
 
@@ -130,7 +130,7 @@ export default class DependenciesField extends React.Component {
 
   onDrop(files) {
     var self = this;
-    if (files.length == 1 && files[0].type == 'application/json') {
+    if (files.length === 1 && files[0].type === 'application/json') {
       var reader = new FileReader();
 
       reader.onload = function(e) {
@@ -177,10 +177,10 @@ export default class DependenciesField extends React.Component {
     var errors;
     if (this.state.errors) {
       errors = (
-        <div className='container-fluid error-bar'>
-          <Alert bsStyle='danger'>
+        <div className="container-fluid error-bar">
+          <div className="alert alert-danger">
             Oops! Something is wrong with your package.json. Please try again.
-          </Alert>
+          </div>
         </div>
       );
     }
@@ -191,14 +191,14 @@ export default class DependenciesField extends React.Component {
           <div className="row search-bar">
             <div className="col-md-offset-3 col-md-6">
 
-              <Dropzone onDrop={this.onDrop} className='dropzone' activeClassName='active'>
+              <Dropzone onDrop={this.onDrop} className="dropzone" activeClassName="active">
                 <div>
-                  <input
+                  <textarea
                     type="textarea"
-                    className="input-lg"
+                    className="form-control input-lg"
+                    rows="8"
                     bsStyle={this.validateInput()}
                     hasFeedback
-                    rows="8"
                     placeholder="Place the content of your package.json and I will handle the work."
                     onChange={this.handleJsonChange}
                     onClick={this.onTextAreaClick} />

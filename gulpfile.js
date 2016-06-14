@@ -66,11 +66,18 @@ gulp.task('copy:fonts', function () {
   .pipe(gulp.dest('./dist/fonts'));
 });
 
+gulp.task('copy:images', function () {
+  return gulp.src([
+    './src/images/*'
+  ])
+  .pipe(gulp.dest('./dist/images'));
+});
+
 gulp.task('apply-prod-environment', function() {
   process.env.NODE_ENV = 'production';
 });
 
 gulp.task('watch', ['watch:js', 'watch:scss']);
-gulp.task('build', ['copy:fonts', 'build:js', 'build:scss']);
+gulp.task('build', ['copy:fonts', 'copy:images', 'build:js', 'build:scss']);
 gulp.task('release', ['apply-prod-environment', 'build']);
 gulp.task('default', ['build']);
