@@ -66,7 +66,7 @@ export default class ResultsPage extends React.Component {
                   data={this.state.packages.stats.dependencies}
                   options={this.state.chartOptions} redraw />*/}
               </div>
-              <div className="col-sm-2" className='stats-map'>
+              <div className="col-sm-2" className="stats-map">
                 <small>devDependencies</small>
                 <div className="uptodate">
                   Up to date: {this.getStat('devDependencies', 'Up to date')}

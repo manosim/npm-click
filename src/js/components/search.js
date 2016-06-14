@@ -12,7 +12,6 @@ class Search extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.results.get('isFetching') !== this.props.results.get('isFetching')
       && this.props.results.get('isFetching')) {
-      console.log(this.context.router.push);
       this.context.router.push('/results');
     }
   }
@@ -24,25 +23,25 @@ class Search extends Component {
   }
 
   handleJsonChange(e) {
-    const value = e.target.value;
+    // const value = e.target.value;
 
-    if (!value) {
-      this.setState({
-        errors: false,
-        loading: false
-      });
-      return;
-    }
+    // if (!value) {
+    //   this.setState({
+    //     errors: false,
+    //     loading: false
+    //   });
+    //   return;
+    // }
 
-    try {
-      var jsonValue = JSON.parse(value);
-      this.setState({
-        errors: false,
-        json: jsonValue
-      });
-    } catch (error) {
-      this.gotDependenciesErrors();
-    }
+    // try {
+    //   var jsonValue = JSON.parse(value);
+    //   this.setState({
+    //     errors: false,
+    //     json: jsonValue
+    //   });
+    // } catch (error) {
+    //   this.gotDependenciesErrors();
+    // }
   }
 
   generateDemoData() {
@@ -52,48 +51,34 @@ class Search extends Component {
     packages.forEach((value) => this.props.fetchPackageDetails(value));
   }
 
-  gotDependenciesSuccess() {
-    this.setState({
-      loading: false
-    });
-    this.history.push('/results');
-  }
-
-  gotDependenciesErrors() {
-    this.setState({
-      errors: true,
-      loading: false
-    });
-  }
-
   onDrop(files) {
-    var self = this;
-    if (files.length === 1 && files[0].type === 'application/json') {
-      var reader = new FileReader();
+    // var self = this;
+    // if (files.length === 1 && files[0].type === 'application/json') {
+    //   var reader = new FileReader();
 
-      reader.onload = function(e) {
+    //   reader.onload = function(e) {
 
-        try {
-          self.setState({
-            errors: false,
-            loading: true
-          });
+    //     try {
+    //       self.setState({
+    //         errors: false,
+    //         loading: true
+    //       });
 
-          var jsonValue = JSON.parse(reader.result);
-          // Actions.getDependencies(jsonValue);
+    //       // var jsonValue = JSON.parse(reader.result);
+    //       // Actions.getDependencies(jsonValue);
 
-        } catch (error) {
-          self.gotDependenciesErrors();
-        }
+    //     } catch (error) {
+    //       self.gotDependenciesErrors();
+    //     }
 
-      };
+    //   };
 
-      reader.readAsText(files[0]);
-    } else {
-      this.setState({
-        errors: true
-      });
-    }
+    //   reader.readAsText(files[0]);
+    // } else {
+    //   this.setState({
+    //     errors: true
+    //   });
+    // }
   }
 
   onTextAreaClick(event) {
@@ -101,14 +86,14 @@ class Search extends Component {
   }
 
   submitJson() {
-    if (this.state.json) {
-      this.setState({
-        loading: true,
-      });
-      Actions.getDependencies(this.state.json);
-    } else {
-      this.gotDependenciesErrors();
-    }
+    // if (this.state.json) {
+    //   this.setState({
+    //     loading: true,
+    //   });
+    //   // Actions.getDependencies(this.state.json);
+    // } else {
+    //   this.gotDependenciesErrors();
+    // }
   }
 
   render() {
