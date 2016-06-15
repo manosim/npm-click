@@ -19,23 +19,28 @@ export function fetchPackageRequest() {
   };
 }
 
-export function fetchPackageSuccess(isDependency, payload) {
+export function fetchPackageSuccess(isDependency, requiredVersion, payload) {
   return {
     type: FETCH_PACKAGE_SUCCESS,
     isDependency,
+    requiredVersion,
     payload
   };
 };
 
-export function fetchTokenFailure(isDependency, name) {
+export function fetchTokenFailure(isDependency, requiredVersion, name) {
   return {
     type: FETCH_PACKAGE_FAILURE,
     isDependency,
+    requiredVersion,
     name
   };
 };
 
 export function fetchPackageDetails(packageDetails) {
+  console.log(packageDetails);
+  const {name, isDependency, version} = packageDetails;
+
   return (dispatch, getState) => {
     dispatch(fetchPackageRequest());
 
@@ -52,10 +57,10 @@ export function fetchPackageDetails(packageDetails) {
       return response.json();
     })
     .then(json => {
-      dispatch(fetchPackageSuccess(packageDetails.isDependency, json));
+      dispatch(fetchPackageSuccess(isDependency, version, json));
     })
     .catch(error => {
-      dispatch(fetchTokenFailure(packageDetails.isDependency, packageDetails.name));
+      dispatch(fetchTokenFailure(isDependency, version, name));
     });
   };
 };

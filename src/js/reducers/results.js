@@ -32,6 +32,7 @@ export default function reducer(state = initialState, action) {
       var isDone = state.get('completed') + 1 === state.get('total');
       var packagePayload = {
         ...action.payload,
+        requiredVersion: action.requiredVersion,
         isDependency: action.isDependency
       };
 
@@ -45,6 +46,7 @@ export default function reducer(state = initialState, action) {
       var isDone = state.get('completed') + 1 === state.get('total');
       var packagePayload = {
         name: action.name,
+        requiredVersion: action.requiredVersion,
         isDependency: action.isDependency
       };
 

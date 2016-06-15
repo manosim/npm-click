@@ -37,7 +37,7 @@ export default class Package extends React.Component {
           <small>name</small> {details.name} {readme}
         </div>
         <div classname="col-sm-3 col-md-6 required">
-          <small>required</small><span>{details.version}</span>
+          <small>required</small><span> {details.requiredVersion}</span>
         </div>
         <div classname="col-sm-3 col-md-6">
           <small>latest</small> {latestVersion}
