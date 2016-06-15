@@ -2,26 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import { Pie } from 'react-chartjs';
 
+import constants from '../utils/constants';
 import Package from '../components/package';
 
 export default class ResultsPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      projectDetails: 'ProjectStore.getProjectDetails()',
-      packages: 'DependenciesStore.getResults()',
-      errors: false,
-      chartOptions: {
-        percentageInnerCutout : 35,
-        segmentShowStroke : false,
-        responsive: true
-      }
-    };
-  }
-
   componentWillMount() {
-    // console.log('YEYEYEYYEYE');
     // var projectName = ProjectStore.getProjectDetails().name;
     // if (!projectName) {
     //   this.history.push('/');
@@ -68,7 +53,7 @@ export default class ResultsPage extends React.Component {
               <div className="col-sm-2">
                 {/*<Pie
                   data={this.state.packages.stats.dependencies}
-                  options={this.state.chartOptions} redraw />*/}
+                  options={constants.CHART_OPTIONS} redraw />*/}
               </div>
               <div className="col-sm-2 stats-map">
                 <small>devDependencies</small>
@@ -85,7 +70,7 @@ export default class ResultsPage extends React.Component {
               <div className="col-sm-2">
                 {/*<PieChart
                   data={this.state.packages.stats.devDependencies}
-                  options={this.state.chartOptions} redraw />*/}
+                  options={constants.CHART_OPTIONS} redraw />*/}
               </div>
             </div>
           </div>
@@ -94,18 +79,12 @@ export default class ResultsPage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <h2>
-                Dependencies
-                <span className="count">({dependencies.size})</span>
-              </h2>
+              <h3>Dependencies <span className="count">#{dependencies.size}</span></h3>
               {dependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
             </div>
 
             <div className="col-md-6">
-              <h2>
-                DevDependencies
-                <span className="count">({devDependencies.size})</span>
-              </h2>
+              <h3>DevDependencies <span className="count">#{devDependencies.size}</span></h3>
               {devDependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
             </div>
           </div>

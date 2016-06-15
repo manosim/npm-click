@@ -31,7 +31,8 @@ export default function reducer(state = initialState, action) {
     case FETCH_PACKAGE_SUCCESS:
       var isDone = state.get('completed') + 1 === state.get('total');
       var packagePayload = {
-        ...action.payload,
+        name: action.name,
+        payload: action.payload,
         requiredVersion: action.requiredVersion,
         isDependency: action.isDependency
       };
@@ -46,6 +47,7 @@ export default function reducer(state = initialState, action) {
       var isDone = state.get('completed') + 1 === state.get('total');
       var packagePayload = {
         name: action.name,
+        payload: {},
         requiredVersion: action.requiredVersion,
         isDependency: action.isDependency
       };

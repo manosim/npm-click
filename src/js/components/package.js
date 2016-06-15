@@ -16,17 +16,16 @@ export default class Package extends React.Component {
   }
 
   render() {
-    const details = this.props.details;
     let readme;
 
-    if (details.homepage) {
+    const { name, payload, requiredVersion } = this.props.details;
+    const latestVersion = payload.hasOwnProperty('dist-tags') ? payload['dist-tags'].latest : '-';
+
+    if (payload.homepage) {
       readme = (
-        <a href={details.homepage} target="_blank"><i className="fa fa-file-text-o" /></a>
+        <a href={payload.homepage} target="_blank"><i className="fa fa-file-text-o" /></a>
       );
     }
-
-    const latestVersion = details.hasOwnProperty('dist-tags') && details['dist-tags'].hasOwnProperty('latest') ?
-      this.props.details['dist-tags'].latest : '-';
 
     return (
       <div className="row package">
@@ -34,10 +33,10 @@ export default class Package extends React.Component {
           <i className={this.upToDate()}></i>
         </div>
         <div classname="col-sm-5 col-md-12 name">
-          <small>name</small> {details.name} {readme}
+          <small>name</small> {name} {readme}
         </div>
         <div classname="col-sm-3 col-md-6 required">
-          <small>required</small><span> {details.requiredVersion}</span>
+          <small>required</small><span> {requiredVersion}</span>
         </div>
         <div classname="col-sm-3 col-md-6">
           <small>latest</small> {latestVersion}

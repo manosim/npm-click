@@ -19,9 +19,10 @@ export function fetchPackageRequest() {
   };
 }
 
-export function fetchPackageSuccess(isDependency, requiredVersion, payload) {
+export function fetchPackageSuccess(isDependency, requiredVersion, name, payload) {
   return {
     type: FETCH_PACKAGE_SUCCESS,
+    name,
     isDependency,
     requiredVersion,
     payload
@@ -31,9 +32,9 @@ export function fetchPackageSuccess(isDependency, requiredVersion, payload) {
 export function fetchTokenFailure(isDependency, requiredVersion, name) {
   return {
     type: FETCH_PACKAGE_FAILURE,
+    name,
     isDependency,
-    requiredVersion,
-    name
+    requiredVersion
   };
 };
 
@@ -57,7 +58,7 @@ export function fetchPackageDetails(packageDetails) {
       return response.json();
     })
     .then(json => {
-      dispatch(fetchPackageSuccess(isDependency, version, json));
+      dispatch(fetchPackageSuccess(isDependency, version, name, json));
     })
     .catch(error => {
       dispatch(fetchTokenFailure(isDependency, version, name));
