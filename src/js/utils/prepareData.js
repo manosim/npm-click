@@ -3,7 +3,7 @@ export default function prepareData(packageJson) {
     return {
       name: key,
       version: packageJson.dependencies[key],
-      type: 'dependency'
+      isDependency: true
     };
   });
 
@@ -11,7 +11,7 @@ export default function prepareData(packageJson) {
     return {
       name: key,
       version: packageJson.devDependencies[key],
-      type: 'devDependency'
+      isDependency: false
     };
   });
 

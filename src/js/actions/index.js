@@ -19,16 +19,19 @@ export function fetchPackageRequest() {
   };
 }
 
-export function fetchPackageSuccess(payload) {
+export function fetchPackageSuccess(isDependency, payload) {
   return {
     type: FETCH_PACKAGE_SUCCESS,
+    isDependency,
     payload
   };
 };
 
-export function fetchTokenFailure() {
+export function fetchTokenFailure(isDependency, name) {
   return {
-    type: FETCH_PACKAGE_FAILURE
+    type: FETCH_PACKAGE_FAILURE,
+    isDependency,
+    name
   };
 };
 
@@ -49,10 +52,10 @@ export function fetchPackageDetails(packageDetails) {
       return response.json();
     })
     .then(json => {
-      dispatch(fetchPackageSuccess(json));
+      dispatch(fetchPackageSuccess(packageDetails.isDependency, json));
     })
     .catch(error => {
-      dispatch(fetchTokenFailure());
+      dispatch(fetchTokenFailure(packageDetails.isDependency, packageDetails.name));
     });
   };
 };

@@ -40,6 +40,9 @@ export default class ResultsPage extends React.Component {
   }
 
   render() {
+    const dependencies = this.props.results.get('response').filter((obj) => obj.isDependency === true);
+    const devDependencies = this.props.results.get('response').filter((obj) => obj.isDependency === false);
+
     return (
       <div className="results">
         <div className="container-fluid details">
@@ -93,21 +96,17 @@ export default class ResultsPage extends React.Component {
             <div className="col-md-6">
               <h2>
                 Dependencies
-                <span className="count">({/*this.state.packages.dependencies.length*/})</span>
+                <span className="count">({dependencies.size})</span>
               </h2>
-              {/*this.state.packages.dependencies.map(function (object, i) {
-                return <Package key={object.name} dependency={object} />;
-              })*/}
+              {dependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
             </div>
 
             <div className="col-md-6">
               <h2>
                 DevDependencies
-                <span className="count">({/*this.state.packages.devDependencies.length*/})</span>
+                <span className="count">({devDependencies.size})</span>
               </h2>
-              {/*this.state.packages.devDependencies.map(function (object, i) {
-                return <Package key={object.name} dependency={object} />;
-              })*/}
+              {devDependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
             </div>
           </div>
         </div>
@@ -119,7 +118,6 @@ export default class ResultsPage extends React.Component {
 // ResultsPage.contextTypes = {
 //   router: React.PropTypes.func
 // };
-
 
 function mapStateToProps(state) {
   return {

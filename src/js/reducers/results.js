@@ -30,14 +30,26 @@ export default function reducer(state = initialState, action) {
 
     case FETCH_PACKAGE_SUCCESS:
       var isDone = state.get('completed') + 1 === state.get('total');
+      var packagePayload = {
+        ...action.payload,
+        isDependency: action.isDependency
+      };
+
       return state
+        .set('response', state.get('response').push(packagePayload))
         .set('completed', state.get('completed') + 1)
         .set('isFetching', isDone ? false : true)
         .set('errored', false);
 
     case FETCH_PACKAGE_FAILURE:
       var isDone = state.get('completed') + 1 === state.get('total');
+      var packagePayload = {
+        name: action.name,
+        isDependency: action.isDependency
+      };
+
       return state
+        .set('response', state.get('response').push(packagePayload))
         .set('completed', state.get('completed') + 1)
         .set('isFetching', isDone ? false : true)
         .set('errored', true);

@@ -8,9 +8,9 @@ const middlewares = [
 ];
 
 if (process.env.NODE_ENV !== 'production') {
-  const createLogger = require('redux-logger');
-  const loggerMiddleware = createLogger();
-  middlewares.push(loggerMiddleware);
+  // const createLogger = require('redux-logger');
+  // const loggerMiddleware = createLogger();
+  // middlewares.push(loggerMiddleware);
 }
 
 export default function configureStore(initialState) {
