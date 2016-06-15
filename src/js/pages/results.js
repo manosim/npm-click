@@ -13,20 +13,24 @@ export default class ResultsPage extends React.Component {
     // }
   }
 
-  getStat(type, label) {
-    // if (this.state.packages.stats[type]) {
-    //   for (var i = this.state.packages.stats[type].length - 1; i >= 0; i--) {
-    //     if (this.state.packages.stats[type][i].label === label) {
-    //       return this.state.packages.stats[type][i].value;
-    //     }
-    //   }
-    // }
-    return '-';
+  getStats(packages) {
+    const upToDate = packages.filter((pkg) => pkg.status.isUpToDate).size;
+    const major = packages.filter((pkg) => pkg.status.isMajor).size;
+    const minor = packages.filter((pkg) => pkg.status.isMinor).size;
+
+    return {
+      upToDate,
+      major,
+      minor
+    };
   }
 
   render() {
     const dependencies = this.props.results.get('response').filter((obj) => obj.isDependency === true);
     const devDependencies = this.props.results.get('response').filter((obj) => obj.isDependency === false);
+
+    const dependenciesStats = this.getStats(dependencies);
+    const devDependenciesStats = this.getStats(devDependencies);
 
     return (
       <div className="results">
@@ -41,13 +45,13 @@ export default class ResultsPage extends React.Component {
               <div className="col-sm-2 stats-map">
                 <small>dependencies</small>
                 <div className="uptodate">
-                  Up to date: {this.getStat('dependencies', 'Up to date')}
+                  Up to date: {dependenciesStats.upToDate}
                 </div>
                 <div className="minor-updates">
-                  Minor Updates: {this.getStat('dependencies', 'Minor Update')}
+                  Minor Updates: {dependenciesStats.minor}
                 </div>
                 <div className="major-updates">
-                  Major Updates: {this.getStat('dependencies', 'Major Update')}
+                  Major Updates: {dependenciesStats.major}
                 </div>
               </div>
               <div className="col-sm-2">
@@ -58,13 +62,13 @@ export default class ResultsPage extends React.Component {
               <div className="col-sm-2 stats-map">
                 <small>devDependencies</small>
                 <div className="uptodate">
-                  Up to date: {this.getStat('devDependencies', 'Up to date')}
+                  Up to date: {devDependenciesStats.upToDate}
                 </div>
                 <div className="minor-updates">
-                  Minor Updates: {this.getStat('devDependencies', 'Minor Update')}
+                  Minor Updates: {devDependenciesStats.minor}
                 </div>
                 <div className="major-updates">
-                  Major Updates: {this.getStat('devDependencies', 'Major Update')}
+                  Major Updates: {devDependenciesStats.major}
                 </div>
               </div>
               <div className="col-sm-2">
@@ -76,6 +80,7 @@ export default class ResultsPage extends React.Component {
           </div>
         </div>
 
+        <div className="container packages">
           <div className="row">
             <div className="col-md-6">
               <h3>Dependencies <span className="count">#{dependencies.size}</span></h3>
