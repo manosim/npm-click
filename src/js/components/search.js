@@ -138,12 +138,18 @@ class Search extends Component {
 
               <div className="row">
                 <div className="col-md-6">
-                  <button className="btn btn-success btn-large btn-block" onClick={this.submitJson}>Submit</button>
+                  <button
+                    className="btn btn-success btn-large btn-block"
+                    onClick={this.submitJson}
+                    disabled={this.props.results.get('isFetching')}>
+                    Submit
+                  </button>
                 </div>
                 <div className="col-md-6">
                   <button
                     className="btn btn-danger btn-large btn-block"
-                    onClick={() => this.generateDemoData()}>
+                    onClick={() => this.generateDemoData()}
+                    disabled={this.props.results.get('isFetching')}>
                     or do the demo?
                   </button>
                 </div>

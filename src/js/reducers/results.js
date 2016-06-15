@@ -34,7 +34,9 @@ export default function reducer(state = initialState, action) {
         name: action.name,
         payload: action.payload,
         requiredVersion: action.requiredVersion,
-        isDependency: action.isDependency
+        isDependency: action.isDependency,
+        status: action.status,
+        errored: false
       };
 
       return state
@@ -49,7 +51,9 @@ export default function reducer(state = initialState, action) {
         name: action.name,
         payload: {},
         requiredVersion: action.requiredVersion,
-        isDependency: action.isDependency
+        isDependency: action.isDependency,
+        status: {},
+        errored: true
       };
 
       return state

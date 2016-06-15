@@ -1,3 +1,5 @@
+import { compareVersionNumbers, getStatus } from '../utils/versionStatus';
+
 // Setup Requests
 export const SETUP_REQUESTS = 'SETUP_REQUESTS';
 export function setupRequests(numberOfPackages, payload) {
@@ -19,12 +21,13 @@ export function fetchPackageRequest() {
   };
 }
 
-export function fetchPackageSuccess(isDependency, requiredVersion, name, payload) {
+export function fetchPackageSuccess(isDependency, requiredVersion, name, status, payload) {
   return {
     type: FETCH_PACKAGE_SUCCESS,
     name,
     isDependency,
     requiredVersion,
+    status,
     payload
   };
 };
@@ -39,8 +42,7 @@ export function fetchTokenFailure(isDependency, requiredVersion, name) {
 };
 
 export function fetchPackageDetails(packageDetails) {
-  console.log(packageDetails);
-  const {name, isDependency, version} = packageDetails;
+  const {name, isDependency, requiredVersion} = packageDetails;
 
   return (dispatch, getState) => {
     dispatch(fetchPackageRequest());
@@ -58,10 +60,12 @@ export function fetchPackageDetails(packageDetails) {
       return response.json();
     })
     .then(json => {
-      dispatch(fetchPackageSuccess(isDependency, version, name, json));
+      const checkStatus = compareVersionNumbers(requiredVersion, json['dist-tags'].latest);
+      const packageStatus = getStatus(checkStatus);
+      dispatch(fetchPackageSuccess(isDependency, requiredVersion, name, packageStatus, json));
     })
     .catch(error => {
-      dispatch(fetchTokenFailure(isDependency, version, name));
+      dispatch(fetchTokenFailure(isDependency, requiredVersion, name));
     });
   };
 };

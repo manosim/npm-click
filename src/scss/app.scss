@@ -2,6 +2,7 @@
 
 $theme-red: #B53F39;
 $theme-blue: #2f3241;
+$theme-green: #449E4B;
 
 $version-uptodate: #0A0;
 $version-minor: #FDB45C;
@@ -23,6 +24,9 @@ $fa-font-path: "../fonts";
 
 /* @group Bootstrap Overrides */
 
+$brand-success: $theme-green;
+$brand-danger: $theme-red;
+
 $navbar-height: 65px;
 $navbar-border-radius: 0;
 $navbar-padding-vertical: .3rem;
@@ -40,7 +44,7 @@ $alert-border-radius: 0;
 // @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
 
 
-// /* @group Misc */
+/* @group Misc */
 
 // small {
 //     display: block;
@@ -64,16 +68,16 @@ $alert-border-radius: 0;
 //     text-align: center;
 // }
 
-// .loading {
-//     text-align: center;
-//     padding: 5px 0;
+.loading {
+  text-align: center;
+  padding: 5px 0;
 
-//     .fa {
-//         margin: 0 5px;
-//     }
-// }
+  .fa {
+    margin: 0 5px;
+  }
+}
 
-// /* @end Misc */
+/* @end Misc */
 
 
 /* @group Navbar */
@@ -84,10 +88,13 @@ $alert-border-radius: 0;
 
   .navbar-brand {
     display: block;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
+    margin-right: 0;
     float: none;
+
+    .img-responsive {
+      margin: 0 auto;
+      max-height: 45px;
+    }
   }
 }
 
@@ -218,6 +225,18 @@ $alert-border-radius: 0;
     .stats-map {
       text-align: left;
       margin: 20px 0;
+    }
+  }
+
+  .packages {
+    h3 {
+      margin-top: 1rem;
+      border-bottom: 1px solid gray;
+      line-height: 3.75rem;
+
+      .count {
+        float: right;
+      }
     }
   }
 }

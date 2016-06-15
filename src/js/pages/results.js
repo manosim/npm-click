@@ -76,7 +76,6 @@ export default class ResultsPage extends React.Component {
           </div>
         </div>
 
-        <div className="container">
           <div className="row">
             <div className="col-md-6">
               <h3>Dependencies <span className="count">#{dependencies.size}</span></h3>
