@@ -30,7 +30,7 @@
   "homepage": "http://www.npm.click/",
   "dependencies": {
     "bootstrap": "=4.0.0-alpha.2",
-    "chart.js": "=2.1.5",
+    "chart.js": "=1.1.1",
     "font-awesome": "=4.6.3",
     "history": "=2.1.1",
     "immutable": "=3.8.1",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Pie } from 'react-chartjs';
+import { Pie } from 'react-chartjs';
 
 import constants from '../utils/constants';
 import Package from '../components/package';
@@ -25,6 +25,29 @@ export default class ResultsPage extends React.Component {
     };
   }
 
+  getChartData(stats) {
+    return [
+      {
+        value: stats.upToDate,
+        color: '#0A0',
+        highlight: '#008f00',
+        label: 'Up to date'
+      },
+      {
+        value: stats.minor,
+        color: '#FDB45C',
+        highlight: '#FFC870',
+        label: 'Minor Update'
+      },
+      {
+        value: stats.major,
+        color:'#F7464A',
+        highlight: '#FF5A5E',
+        label: 'Major Update'
+      }
+    ];
+  };
+
   render() {
     const dependencies = this.props.results.get('response').filter((obj) => obj.isDependency === true);
     const devDependencies = this.props.results.get('response').filter((obj) => obj.isDependency === false);
@@ -32,16 +55,21 @@ export default class ResultsPage extends React.Component {
     const dependenciesStats = this.getStats(dependencies);
     const devDependenciesStats = this.getStats(devDependencies);
 
+    const dependenciesChart = this.getChartData(dependenciesStats);
+    const devDependenciesChart = this.getChartData(devDependenciesStats);
+
     return (
       <div className="results">
         <div className="container-fluid details">
           <div className="container">
             <h2>Project Details</h2>
             <div className="row">
+
               <div className="col-sm-4">
                 <small>name</small> <h3>{this.props.project.get('name')}</h3>
                 <small>version</small> <h4>{this.props.project.get('version')}</h4>
               </div>
+
               <div className="col-sm-2 stats-map">
                 <small>dependencies</small>
                 <div className="uptodate">
@@ -55,10 +83,11 @@ export default class ResultsPage extends React.Component {
                 </div>
               </div>
               <div className="col-sm-2">
-                {/*<Pie
-                  data={this.state.packages.stats.dependencies}
-                  options={constants.CHART_OPTIONS} redraw />*/}
+                <Pie
+                  data={dependenciesChart}
+                  options={constants.CHART_OPTIONS} redraw />
               </div>
+
               <div className="col-sm-2 stats-map">
                 <small>devDependencies</small>
                 <div className="uptodate">
@@ -71,10 +100,11 @@ export default class ResultsPage extends React.Component {
                   Major Updates: {devDependenciesStats.major}
                 </div>
               </div>
+
               <div className="col-sm-2">
-                {/*<PieChart
-                  data={this.state.packages.stats.devDependencies}
-                  options={constants.CHART_OPTIONS} redraw />*/}
+                <Pie
+                  data={devDependenciesChart}
+                  options={constants.CHART_OPTIONS} redraw />
               </div>
             </div>
           </div>
