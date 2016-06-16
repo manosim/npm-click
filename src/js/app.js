@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
+import configureStore from './store/configureStore';
 import Navigation from './components/navigation';
-import SearchPage from './pages/search';
+import HomePage from './pages/home';
 import ResultsPage from './pages/results';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <div>
@@ -17,20 +20,26 @@ class App extends React.Component {
   }
 };
 
-class NotFound extends React.Component {
+class NotFound extends Component {
   render() {
     return <h2>Not found</h2>;
   }
 };
 
+// Store
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={SearchPage} />
-      <Route path="/" component={SearchPage} />
-      <Route path="/results" component={ResultsPage} />
-      <Route path="*" component={NotFound} />
-    </Route>
-  </Router>,
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <IndexRoute component={HomePage} />
+        <Route path="/" component={HomePage} />
+        <Route path="/results" component={ResultsPage} />
+        <Route path="*" component={NotFound} />
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('app')
 );

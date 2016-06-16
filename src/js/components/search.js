@@ -1,161 +1,84 @@
-import React from 'react';
-import { History } from 'react-router';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 
-var Reflux = require('reflux');
 import Dropzone from 'react-dropzone';
 import Loading from 'reloading';
 
-var Actions = require('../actions/actions');
-var DependenciesStore = require('../stores/dependencies');
+import { setupRequests, fetchPackageDetails } from '../actions';
+import prepareData from '../utils/prepareData';
+import demoData from '../utils/demoData';
 
-// var Alert = ReactBootstrap.Alert;
-// var Input = ReactBootstrap.Input;
-// var Col = ReactBootstrap.Col;
-// var Button = ReactBootstrap.Button;
-
-export default class DependenciesField extends React.Component {
-  // mixins: [
-  //   History,
-  //   Reflux.connect(DependenciesStore, 'dependencies'),
-  //   Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
-  //   Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
-  // ],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      json: undefined,
-      errors: undefined,
-      loading: false
-    };
+class Search extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.results.get('isFetching') !== this.props.results.get('isFetching')
+      && this.props.results.get('isFetching')) {
+      this.context.router.push('/results');
+    }
   }
 
   validateInput() {
-    if (this.state.errors) {
-      return 'error';
-    }
+    // if (this.state.errors) {
+    //   return 'error';
+    // }
   }
 
   handleJsonChange(e) {
+    // const value = e.target.value;
 
-    var value = e.target.value;
+    // if (!value) {
+    //   this.setState({
+    //     errors: false,
+    //     loading: false
+    //   });
+    //   return;
+    // }
 
-    if (!value) {
-      this.setState({
-        errors: false,
-        loading: false
-      });
-      return;
-    }
-
-    try {
-      var jsonValue = JSON.parse(value);
-      this.setState({
-        errors: false,
-        json: jsonValue
-      });
-    } catch (error) {
-      this.gotDependenciesErrors();
-    }
-
+    // try {
+    //   var jsonValue = JSON.parse(value);
+    //   this.setState({
+    //     errors: false,
+    //     json: jsonValue
+    //   });
+    // } catch (error) {
+    //   this.gotDependenciesErrors();
+    // }
   }
 
   generateDemoData() {
-    this.setState({
-      errors: false,
-      loading: true
-    });
-
-    Actions.getDependencies({
-      'name': 'npm-click',
-      'version': '0.1.1',
-      'description': 'Comparing NPM (dev)Dependencies',
-      'repository': {
-        'type': 'git',
-        'url': 'https://github.com/ekonstantinidis/npm-click.git'
-      },
-
-      'dependencies': {
-        '@ekonstantinidis/reloading': '^0.0.6',
-        'bootstrap': '^3.3.4',
-        'browserify': '^9.0.8',
-        'chart.js': '^1.0.2',
-        'font-awesome': '^4.3.0',
-        'grunt-gh-pages': '^0.10.0',
-        'react': '=0.14.6',
-        'react-dom': '=0.14.6',
-        'react-bootstrap': '^0.21.2',
-        'react-chartjs': '^0.6.0',
-        'react-dropzone': '^1.0.1',
-        'react-router': '^1.0.3',
-        'reactify': '^1.1.0',
-        'reflux': '^0.2.7',
-        'reloading': '0.0.6',
-        'superagent': '^1.2.0',
-        'underscore': '^1.8.3',
-        'watchify': '^3.1.2'
-      },
-
-      'devDependencies': {
-        '@ekonstantinidis/gitify': '^0.0.1',
-        'grunt': '^0.4.5',
-        'grunt-contrib-clean': '^0.7.0',
-        'grunt-contrib-copy': '^0.8.2',
-        'grunt-contrib-less': '^1.0.1',
-        'grunt-contrib-watch': '^0.6.1',
-        'jshint-stylish': '^1.0.1',
-        'jsxhint': '=0.14.0',
-        'less': '=2.5.0'
-      }
-    });
-  }
-
-  gotDependenciesSuccess() {
-    this.setState({
-      loading: false
-    });
-    this.history.push('/results');
-  }
-
-  gotDependenciesErrors() {
-    this.setState({
-      errors: true,
-      loading: false
-    });
+    const packages = prepareData(demoData);
+    const numberOfPackages = packages.length;
+    this.props.setupRequests(numberOfPackages, demoData);
+    packages.forEach((value) => this.props.fetchPackageDetails(value));
   }
 
   onDrop(files) {
-    var self = this;
-    if (files.length === 1 && files[0].type === 'application/json') {
-      var reader = new FileReader();
+    // var self = this;
+    // if (files.length === 1 && files[0].type === 'application/json') {
+    //   var reader = new FileReader();
 
-      reader.onload = function(e) {
+    //   reader.onload = function(e) {
 
-        try {
-          self.setState({
-            errors: false,
-            loading: true
-          });
+    //     try {
+    //       self.setState({
+    //         errors: false,
+    //         loading: true
+    //       });
 
-          var jsonValue = JSON.parse(reader.result);
-          Actions.getDependencies(jsonValue);
+    //       // var jsonValue = JSON.parse(reader.result);
+    //       // Actions.getDependencies(jsonValue);
 
-        } catch (error) {
-          self.gotDependenciesErrors();
-        }
+    //     } catch (error) {
+    //       self.gotDependenciesErrors();
+    //     }
 
-      };
+    //   };
 
-      reader.readAsText(files[0]);
-    } else {
-      this.setState({
-        errors: true
-      });
-    }
+    //   reader.readAsText(files[0]);
+    // } else {
+    //   this.setState({
+    //     errors: true
+    //   });
+    // }
   }
 
   onTextAreaClick(event) {
@@ -163,27 +86,27 @@ export default class DependenciesField extends React.Component {
   }
 
   submitJson() {
-    if (this.state.json) {
-      this.setState({
-        loading: true,
-      });
-      Actions.getDependencies(this.state.json);
-    } else {
-      this.gotDependenciesErrors();
-    }
+    // if (this.state.json) {
+    //   this.setState({
+    //     loading: true,
+    //   });
+    //   // Actions.getDependencies(this.state.json);
+    // } else {
+    //   this.gotDependenciesErrors();
+    // }
   }
 
   render() {
-    var errors;
-    if (this.state.errors) {
-      errors = (
-        <div className="container-fluid error-bar">
-          <div className="alert alert-danger">
-            Oops! Something is wrong with your package.json. Please try again.
-          </div>
-        </div>
-      );
-    }
+    // var errors;
+    // if (this.state.errors) {
+    //   errors = (
+    //     <div className="container-fluid error-bar">
+    //       <div className="alert alert-danger">
+    //         Oops! Something is wrong with your package.json. Please try again.
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
     return (
       <div>
@@ -208,19 +131,25 @@ export default class DependenciesField extends React.Component {
                 </div>
               </Dropzone>
 
-              {errors}
-              <Loading shouldShow={this.state.loading} className="loading">
+              {/*errors*/}
+              <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
                 <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
               </Loading>
 
               <div className="row">
                 <div className="col-md-6">
-                  <button className="btn btn-success btn-large btn-block" onClick={this.submitJson}>Submit</button>
+                  <button
+                    className="btn btn-success btn-large btn-block"
+                    onClick={this.submitJson}
+                    disabled={this.props.results.get('isFetching')}>
+                    Submit
+                  </button>
                 </div>
                 <div className="col-md-6">
                   <button
                     className="btn btn-danger btn-large btn-block"
-                    onClick={this.generateDemoData}>
+                    onClick={() => this.generateDemoData()}
+                    disabled={this.props.results.get('isFetching')}>
                     or do the demo?
                   </button>
                 </div>
@@ -230,7 +159,22 @@ export default class DependenciesField extends React.Component {
           </div>
         </div>
 
+        <h3>Loading: {this.props.results.get('isFetching') ? 'true' : 'false'}</h3>
+        <h3>Total: {this.props.results.get('total')}</h3>
+        <h3>Completed: {this.props.results.get('completed')}</h3>
       </div>
     );
   }
 };
+
+Search.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    results: state.results
+  };
+};
+
+export default connect(mapStateToProps, { setupRequests, fetchPackageDetails })(Search);

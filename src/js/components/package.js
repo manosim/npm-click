@@ -2,19 +2,14 @@ import React from 'react';
 
 export default class Package extends React.Component {
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      dependency: newProps.dependency
-    });
-  }
-
-  upToDate() {
-    var isUpToDate = this.props.dependency.status;
-    if (isUpToDate === 1) {
+  getStatus() {
+    if (this.props.details.errored) { return 'has-errored fa fa-question-circle'; }
+    const { isMajor, isMinor, isUpToDate } = this.props.details.status;
+    if (isUpToDate) {
       return 'has-latest fa fa-check-circle';
-    } else if (isUpToDate === 0) {
+    } else if (isMinor) {
       return 'has-minor fa fa-exclamation-circle';
-    } else if (isUpToDate === -1) {
+    } else if (isMajor) {
       return 'has-major fa fa-times-circle-o';
     } else {
       return 'has-errored fa fa-question-circle';
@@ -22,28 +17,30 @@ export default class Package extends React.Component {
   }
 
   render() {
-    var readme;
-    if (this.props.dependency.current.homepage) {
+    let readme;
+
+    const { name, payload, requiredVersion } = this.props.details;
+    const latestVersion = payload.hasOwnProperty('dist-tags') ? payload['dist-tags'].latest : '-';
+
+    if (payload.homepage) {
       readme = (
-        <a href={this.props.dependency.current.homepage} target='_blank'>
-          <i className='fa fa-file-text-o'/>
-        </a>
+        <a href={payload.homepage} target="_blank"><i className="fa fa-file-text-o" /></a>
       );
     }
 
     return (
-      <div className='row package'>
-        <div classname="col-sm-1 col-md-12 status">
-          <i className={this.upToDate()}></i>
+      <div className="row package">
+        <div className="col-sm-1 col-md-12 status">
+          <i className={this.getStatus()}></i>
         </div>
-        <div classname="col-sm-5 col-md-12 name">
-          <small>name</small> {this.props.dependency.name} {readme}
+        <div className="col-sm-5 col-md-12 name">
+          <small>name</small> {name} {readme}
         </div>
-        <div classname="col-sm-3 col-md-6 required">
-          <small>required</small><span>{this.props.dependency.version}</span>
+        <div className="col-sm-3 col-md-6 required">
+          <small>required</small><span> {requiredVersion}</span>
         </div>
-        <div classname="col-sm-3 col-md-6 ">
-          <small>latest</small> {this.props.dependency.current['dist-tags'].latest}
+        <div className="col-sm-3 col-md-6">
+          <small>latest</small> {latestVersion}
         </div>
       </div>
     );
