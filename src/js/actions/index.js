@@ -69,3 +69,14 @@ export function fetchPackageDetails(packageDetails) {
     });
   };
 };
+
+
+// File Reader
+
+export const READ_FILE_ERROR = 'READ_FILE_ERROR';
+export function readFileError(error) {
+  return {
+    type: READ_FILE_ERROR,
+    error
+  };
+};
