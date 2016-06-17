@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 
 
-export default class About extends Component {
+export default class AboutBottom extends Component {
   render() {
     return (
       <div className="container-fluid section-welcome">

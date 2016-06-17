@@ -72,47 +72,48 @@ class Search extends Component {
   render() {
     return (
       <div>
+        {this.props.error ? <div className="alert alert-danger search-alert">{this.props.error}</div> : null}
         <div className="container-fluid">
+
           <div className="row search-bar">
-            <div className="col-md-offset-3 col-md-6">
+            <div className="col-md-10">
+              <div className={this.props.error ? 'form-group has-danger' : 'form-group'}>
+                <textarea
+                  type="textarea"
+                  rows="16"
+                  className="form-control input-lg"
+                  placeholder="Place the contents of your package.json and I will handle the work."
+                  onChange={(e) => this.handleJsonChange(e)}
+                  onClick={this.onTextAreaClick} />
+              </div>
+            </div>
+
+            <div className="col-md-2 search-sidebar">
+              <button
+                className="btn btn-danger btn-large btn-block"
+                onClick={() => this.generateDemoData()}
+                disabled={this.props.results.get('isFetching')}>
+                <i className="fa fa-play" aria-hidden="true" />
+                Demo
+              </button>
+
+              <button
+                className="btn btn-block btn-info">
+                <i className="fa fa-cloud-upload" aria-hidden="true" />
+                Upload
+              </button>
 
               <Dropzone onDrop={(files) => this.onDrop(files)} className="dropzone" activeClassName="active">
-                <div>
-                  <textarea
-                    type="textarea"
-                    className="form-control input-lg"
-                    rows="8"
-                    placeholder="Place the content of your package.json and I will handle the work."
-                    onChange={(e) => this.handleJsonChange(e)}
-                    onClick={this.onTextAreaClick} />
-
-                  <div className="message">Drop your <strong>awesome</strong> package.json here</div>
-                  <button className="btn btn-info">Upload package.json</button>
-                </div>
+                Drop your <strong>awesome</strong> package.json here
               </Dropzone>
-
-              {this.props.error ? (
-                <div className="alert alert-danger">{this.props.error}</div>
-              ) : null}
-
-              <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
-                <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
-              </Loading>
-
-              <div className="row">
-                <div className="col-md-12">
-                  <button
-                    className="btn btn-danger btn-large btn-block"
-                    onClick={() => this.generateDemoData()}
-                    disabled={this.props.results.get('isFetching')}>
-                    or do the demo?
-                  </button>
-                </div>
-              </div>
-
             </div>
+
           </div>
         </div>
+
+        <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
+          <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
+        </Loading>
 
         <h3>Loading: {this.props.results.get('isFetching') ? 'true' : 'false'}</h3>
         <h3>Total: {this.props.results.get('total')}</h3>

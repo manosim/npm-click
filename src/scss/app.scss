@@ -1,3 +1,10 @@
+/* @group Imports */
+
+@import 'https://fonts.googleapis.com/css?family=Fira+Mono';
+
+/* @end Imports */
+
+
 /* @group Colors */
 
 $theme-red: #B53F39;
@@ -14,6 +21,15 @@ $white: #FFF;
 /* @end Colors */
 
 
+/* @group Mixins */
+
+@mixin font-fira-mono() {
+  font-family: 'Fira Mono', monospace;
+}
+
+/* @end Mixins */
+
+
 /* @group Fonts Overrides */
 
 $fa-font-path: "../fonts";
@@ -23,6 +39,8 @@ $fa-font-path: "../fonts";
 
 
 /* @group Bootstrap Overrides */
+
+$alert-border-width: 0;
 
 $brand-success: $theme-green;
 $brand-danger: $theme-red;
@@ -50,22 +68,6 @@ $alert-border-radius: 0;
 //     display: block;
 //     .FontSourceSansLight();
 //     font-size: 75%;
-// }
-
-// .error-bar {
-//     padding-left: 0;
-//     padding-right: 0;
-//     margin: 20px 0 0 0;
-
-//     .alert {
-//         color: @DarkGray;
-//     }
-// }
-
-// .alert {
-//     .BorderRadius(0);
-//     border: 0;
-//     text-align: center;
 // }
 
 .loading {
@@ -101,49 +103,77 @@ $alert-border-radius: 0;
 /* @end Navbar */
 
 
+/* @group Welcome Banner */
+
+.welcome-banner {
+  background-color: $theme-blue;
+  color: $white;
+  padding: 20px 10px;
+
+  h2, h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+}
+
+/* @end Welcome Banner */
+
+
 /* @group Search Bar */
+
+.search-alert {
+  margin-bottom: 0;
+  padding: 10px 20px;
+}
 
 .search-bar {
   background-color: $gray-lighter;
-  padding: 40px 0;
 
-  .form-control {
-    @include border-radius(0);
-    border: 0;
-    resize: none;
+  .form-group {
+    margin-bottom: 0;
+
+    .form-control {
+      @include border-radius(0);
+      @include font-fira-mono();
+
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border: 0;
+      resize: none;
+      background-color: $gray-lighter;
+      font-size: 16px;
+    }
   }
 
   .dropzone {
     padding: 10px 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
+    line-height: 19px;
     color: $gray-dark;
-    border: 1px dotted $gray-dark;
-    width: 100%;
+    border: 1px dashed $gray-dark;
 
     &.active {
       background-color: $gray-dark;
       color: $white;
     }
-
-    .message {
-      padding: 5px 0 10px;
-    }
   }
 
-  .btn {
-    @include border-radius(0);
-   
-    border: 0;
-    margin-top: 10px;
+  .search-sidebar {
+    padding: 30px 10px;
 
-    &:focus {
-       outline: none;
+    .btn {
+      @include border-radius(0);
+      padding: 20px 5px;
+      margin-top: 10px;
+
+      .fa {
+        display: block;
+        font-size: 30px;
+      }
     }
-  }
-
-  .alert {
-    margin: 0 0 10px;
   }
 }
 
