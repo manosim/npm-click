@@ -25,7 +25,7 @@ export default class AboutBottom extends Component {
             <p className="lead">
               Got your package.json? Drop it on the search bar, copy & paste its
               contents to the text box or use the upload button. Whatever works for you.
-              'Submit' and that's all!
+              That's all!
             </p>
           </div>
 
