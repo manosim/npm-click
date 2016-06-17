@@ -16,10 +16,11 @@ class Search extends Component {
     }
   }
 
-  validateInput() {
-    // if (c) {
-    //   return 'error';
-    // }
+  generateDemoData() {
+    const packages = prepareData(demoData);
+    const numberOfPackages = packages.length;
+    this.props.setupRequests(numberOfPackages, demoData);
+    packages.forEach((value) => this.props.fetchPackageDetails(value));
   }
 
   handleJsonChange(e) {
@@ -34,35 +35,36 @@ class Search extends Component {
     }
   }
 
-  generateDemoData() {
-    const packages = prepareData(demoData);
-    const numberOfPackages = packages.length;
-    this.props.setupRequests(numberOfPackages, demoData);
-    packages.forEach((value) => this.props.fetchPackageDetails(value));
+  handleFileChange(e) {
+    this.handleFile(e.target.files[0]);
   }
 
-  onDrop(files) {
-    const self = this;
+  handleDropChange(files) {
     if (files.length === 1 && files[0].type === 'application/json') {
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        try {
-          const jsonValue = JSON.parse(reader.result);
-          const packages = prepareData(jsonValue);
-          const numberOfPackages = packages.length;
-          self.props.setupRequests(numberOfPackages, demoData);
-          packages.forEach((value) => self.props.fetchPackageDetails(value));
-        } catch (error) {
-          self.props.readFileError(`${error}`);
-        }
-      };
-
-      reader.readAsText(files[0]);
+      this.handleFile(files[0]);
     } else {
       this.props.readFileError('It looks like you are trying to upload multiple files or ' +
         'you did not upload a .json file. Please try again.');
     }
+  }
+
+  handleFile(file) {
+    const self = this;
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      try {
+        const jsonValue = JSON.parse(reader.result);
+        const packages = prepareData(jsonValue);
+        const numberOfPackages = packages.length;
+        self.props.setupRequests(numberOfPackages, demoData);
+        packages.forEach((value) => self.props.fetchPackageDetails(value));
+      } catch (error) {
+        self.props.readFileError(`${error}`);
+      }
+    };
+
+    reader.readAsText(file);
   }
 
   onTextAreaClick(event) {
@@ -90,20 +92,21 @@ class Search extends Component {
 
             <div className="col-md-2 search-sidebar">
               <button
-                className="btn btn-danger btn-large btn-block"
+                className="btn btn-success btn-large btn-block"
                 onClick={() => this.generateDemoData()}
                 disabled={this.props.results.get('isFetching')}>
                 <i className="fa fa-play" aria-hidden="true" />
                 Demo
               </button>
 
-              <button
-                className="btn btn-block btn-info">
+              <label
+                className="btn btn-block btn-info"
+                disabled={this.props.results.get('isFetching')}>
                 <i className="fa fa-cloud-upload" aria-hidden="true" />
-                Upload
-              </button>
+                Upload <input type="file" onChange={(e) => this.handleFileChange(e)} style={{display: 'none'}} />
+              </label>
 
-              <Dropzone onDrop={(files) => this.onDrop(files)} className="dropzone" activeClassName="active">
+              <Dropzone onDrop={(files) => this.handleDropChange(files)} className="dropzone" activeClassName="active">
                 Drop your <strong>awesome</strong> package.json here
               </Dropzone>
             </div>
