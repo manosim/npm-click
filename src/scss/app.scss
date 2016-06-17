@@ -8,7 +8,7 @@
 /* @group Colors */
 
 $theme-red: #B53F39;
-$theme-blue: #2f3241;
+$theme-blue: #393C4F;
 $theme-green: #449E4B;
 
 $version-uptodate: #0A0;
@@ -64,18 +64,42 @@ $alert-border-radius: 0;
 
 /* @group Misc */
 
-// small {
-//     display: block;
-//     .FontSourceSansLight();
-//     font-size: 75%;
-// }
-
 .loading {
   text-align: center;
   padding: 5px 0;
 
   .fa {
     margin: 0 5px;
+  }
+}
+
+.github-corner svg {
+  z-index: 9999;
+}
+
+.github-corner:hover .octo-arm {
+  animation:octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave{
+  0%, 100% {
+    transform:rotate(0)
+  }
+  20%, 60% {
+    transform:rotate(-25deg)
+  }
+  40%, 80% {
+    transform:rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation:none
+  }
+
+  .github-corner .octo-arm {
+    animation:octocat-wave 560ms ease-in-out
   }
 }
 
@@ -146,23 +170,8 @@ $alert-border-radius: 0;
     }
   }
 
-  .dropzone {
-    padding: 10px 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    line-height: 19px;
-    color: $gray-dark;
-    border: 1px dashed $gray-dark;
-
-    &.active {
-      background-color: $gray-dark;
-      color: $white;
-    }
-  }
-
   .search-sidebar {
-    padding: 30px 10px;
+    padding: 10px 10px;
 
     .btn {
       @include border-radius(0);
@@ -174,6 +183,21 @@ $alert-border-radius: 0;
         font-size: 30px;
       }
     }
+
+    .dropzone {
+      padding: 10px 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 19px;
+      color: $gray-dark;
+      border: 1px dashed $gray;
+
+      &.active {
+        background-color: $gray;
+        color: $white;
+      }
+    }
   }
 }
 
@@ -183,7 +207,7 @@ $alert-border-radius: 0;
   padding: 50px 20px;
   margin-bottom: -40px;
 
-  h1, h2 {
+  h2 {
     text-align: center;
   }
 

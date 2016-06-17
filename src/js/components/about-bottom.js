@@ -7,7 +7,6 @@ export default class AboutBottom extends Component {
       <div className="container-fluid section-welcome">
         <div className="row">
           <div classname="col-md-12">
-            <h1>Comparing NPM (dev) Dependencies</h1>
             <h2>All you need is your package.json. That's all!</h2>
           </div>
         </div>
