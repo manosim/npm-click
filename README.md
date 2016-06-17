@@ -1,32 +1,34 @@
 Npm Click [![Build Status](https://travis-ci.org/ekonstantinidis/npm-click.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-click)
 =====================
-Comparing NPM (dev)Dependencies.
+Comparing NPM (dev)Dependencies. [www.npm.click](http://www.npm.click/)
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ekonstantinidis/npm-click/master/src/images/logo-big.png" alt"NPM Click Logo" />
+  <img src="https://raw.githubusercontent.com/ekonstantinidis/npm-click/master/src/images/logo-big-red.png" alt"NPM Click Logo" />
 </p>
 
 
 ### Prerequisites
 
- - ReactJS
  - NPM
- - Grunt
+ - Gulp
+ - ReactJS
+ - Redux
+ - Immutable JS
 
 ### Installation
-You will need `http-server` installed globally to serve the website. If you encounter any issues with `npm install`, then run `ulimit -n 512`.
+You will need `http-server` installed globally to serve the website.
 
     npm install -g http-server
     npm install
 
 ### Development
 
+    npm start
     npm run watch
-    npm run serve
 
 
-### Tests (JsxHint)
+### Tests (ES Lint)
 
     npm test
 
