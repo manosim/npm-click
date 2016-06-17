@@ -2,6 +2,7 @@ var assign = require('lodash.assign');
 var babelify = require('babelify');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
+var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
@@ -75,6 +76,11 @@ gulp.task('copy:images', function () {
 
 gulp.task('apply-prod-environment', function() {
   process.env.NODE_ENV = 'production';
+});
+
+gulp.task('deploy', function() {
+  return gulp.src(['./dist/**/*', './src/index.html', 'CNAME'])
+    .pipe(ghPages());
 });
 
 gulp.task('watch', ['watch:js', 'watch:scss']);

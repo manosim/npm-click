@@ -116,10 +116,6 @@ class Search extends Component {
         <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
           <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
         </Loading>
-
-        <h3>Loading: {this.props.results.get('isFetching') ? 'true' : 'false'}</h3>
-        <h3>Total: {this.props.results.get('total')}</h3>
-        <h3>Completed: {this.props.results.get('completed')}</h3>
       </div>
     );
   }

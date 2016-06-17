@@ -13,7 +13,7 @@ export default class AboutBottom extends Component {
 
         <div className="row">
           <div className="col-md-4">
-            <img src="dist/images/npm-logo.png" className="img-responsive" />
+            <img src="images/npm-logo.png" className="img-responsive" />
             <p className="lead">
               NPM is awesome! We all use it. Dependencies get updated daily so
               if you want to be up to date, you are at the right place.
@@ -21,19 +21,19 @@ export default class AboutBottom extends Component {
           </div>
 
           <div className="col-md-4">
-            <img src="dist/images/packagejson.png" className="img-responsive" />
+            <img src="images/packagejson.png" className="img-responsive" />
             <p className="lead">
               Got your package.json? Drop it on the search bar, copy & paste its
-              content to the text box or use the upload. Whatever works for you...
-              'Submit' and that's all!
+              contents to the text box or use the upload button. Whatever works for you.
+              That's all!
             </p>
           </div>
 
           <div className="col-md-4">
-            <img src="dist/images/results.png" className="img-responsive" />
+            <img src="images/results.png" className="img-responsive" />
             <p className="lead">
               Still not convienced? There's a 'demo' button next to the search form.
-              Yeap that red one. Click and see what happens!
+              Yeap that green one. Click on it and see what happens!
             </p>
           </div>
         </div>
