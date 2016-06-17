@@ -1,23 +1,19 @@
 language: node_js
 
+sudo: false
+
 node_js:
-- '0.12'
+  - '5'
+
+cache:
+  directories:
+    - node_modules
 
 before_install:
-- npm install -g grunt-cli
+  - npm install -g gulp-cli
 
 install:
-- npm install
-- npm test
-- npm run release
+  - npm install
 
 script:
-- grunt deploy
-
-branches:
-  only:
-  - master
-
-env:
-  global:
-    - secure: Y9S0Go+REobo1g80ai+HCoLidBX443VXKJ//PLeAIC9MQVxIrKq8cJaQzLnNLlu9rzNs5ykT1CWXX05RyQTWzTHl9npmLvgwA9UESMyR0hO+JOoRJRBLsnyVatqmI7iRdlz7amK8CPu2A9ubEl7IaAQABpHVW/pfUiX2RvRJ1hRbF6B1gwUPun8bAoTCBbXEz0+QUBhj69NiD1f3h9Q2CmdIT4jbB52RUMgeqiO5+OuOrA52WifiqPTdE10QxBCRKhwnxwTdQDtBGs0aE5ifC79k0Q9QF251ncBfLvuC1oIJlrAq7MXg8rhrC/dU2/3pv38nnFwuRZ/89t4MTpD24unNS5BODI5s/JYEKLeo6w58HhFnIyZJrqMYezyDrj1yDeGbaFG+SmVONBGUZVC3/i8PJe8Yeg1avnNuyBsDK/Roc0eXs5b/FD+2cSpUprV5K0An4ii+3GmUKY3jveYbpAIIV6EJmp8rr6XL2UD8dx9u4Nj5+8qQSy/o1Utc+vdNaFe1gtAXQT+6l/zncayCcGVdvEV3wqPpBP6AVZvmndcBHYLWLHBbj1Or4lNfyAOPRfi6A4exHXlZzYzGTqAjiY9iosgrk88L1YTHjkC72r/pd3koUYzfL04+y8Xq1UuRmCdue73UwI/Jbv5kjmr2h1GcmmgMYgZLoOtCkH3g/bs=
+  - npm test

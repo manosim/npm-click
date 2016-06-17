@@ -1,15 +1,142 @@
-var React = require('react');
+import React from 'react';
+import { connect } from 'react-redux';
+import { Pie } from 'react-chartjs';
 
-var Results = require('../components/results');
+import constants from '../utils/constants';
+import Package from '../components/package';
 
-var ResultsPage = React.createClass({
-
-  render: function () {
-    return (
-      <Results />
-    );
+export default class ResultsPage extends React.Component {
+  componentWillMount() {
+    // var projectName = ProjectStore.getProjectDetails().name;
+    // if (!projectName) {
+    //   this.history.push('/');
+    // }
   }
 
-});
+  getStats(packages) {
+    const upToDate = packages.filter((pkg) => pkg.status.isUpToDate).size;
+    const major = packages.filter((pkg) => pkg.status.isMajor).size;
+    const minor = packages.filter((pkg) => pkg.status.isMinor).size;
 
-module.exports = ResultsPage;
+    return {
+      upToDate,
+      major,
+      minor
+    };
+  }
+
+  getChartData(stats) {
+    return [
+      {
+        value: stats.upToDate,
+        color: '#0A0',
+        highlight: '#008f00',
+        label: 'Up to date'
+      },
+      {
+        value: stats.minor,
+        color: '#FDB45C',
+        highlight: '#FFC870',
+        label: 'Minor Update'
+      },
+      {
+        value: stats.major,
+        color:'#F7464A',
+        highlight: '#FF5A5E',
+        label: 'Major Update'
+      }
+    ];
+  };
+
+  render() {
+    const dependencies = this.props.results.get('response').filter((obj) => obj.isDependency === true);
+    const devDependencies = this.props.results.get('response').filter((obj) => obj.isDependency === false);
+
+    const dependenciesStats = this.getStats(dependencies);
+    const devDependenciesStats = this.getStats(devDependencies);
+
+    const dependenciesChart = this.getChartData(dependenciesStats);
+    const devDependenciesChart = this.getChartData(devDependenciesStats);
+
+    return (
+      <div className="results">
+        <div className="container-fluid details">
+          <div className="container">
+            <h2>Project Details</h2>
+            <div className="row">
+
+              <div className="col-sm-4">
+                <small>name</small> <h3>{this.props.project.get('name')}</h3>
+                <small>version</small> <h4>{this.props.project.get('version')}</h4>
+              </div>
+
+              <div className="col-sm-2 stats-map">
+                <small>dependencies</small>
+                <div className="uptodate">
+                  Up to date: {dependenciesStats.upToDate}
+                </div>
+                <div className="minor-updates">
+                  Minor Updates: {dependenciesStats.minor}
+                </div>
+                <div className="major-updates">
+                  Major Updates: {dependenciesStats.major}
+                </div>
+              </div>
+              <div className="col-sm-2">
+                <Pie
+                  data={dependenciesChart}
+                  options={constants.CHART_OPTIONS} redraw />
+              </div>
+
+              <div className="col-sm-2 stats-map">
+                <small>devDependencies</small>
+                <div className="uptodate">
+                  Up to date: {devDependenciesStats.upToDate}
+                </div>
+                <div className="minor-updates">
+                  Minor Updates: {devDependenciesStats.minor}
+                </div>
+                <div className="major-updates">
+                  Major Updates: {devDependenciesStats.major}
+                </div>
+              </div>
+
+              <div className="col-sm-2">
+                <Pie
+                  data={devDependenciesChart}
+                  options={constants.CHART_OPTIONS} redraw />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container packages">
+          <div className="row">
+            <div className="col-md-6">
+              <h3>Dependencies <span className="count">#{dependencies.size}</span></h3>
+              {dependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
+            </div>
+
+            <div className="col-md-6">
+              <h3>DevDependencies <span className="count">#{devDependencies.size}</span></h3>
+              {devDependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
+// ResultsPage.contextTypes = {
+//   router: React.PropTypes.func
+// };
+
+function mapStateToProps(state) {
+  return {
+    results: state.results,
+    project: state.project
+  };
+};
+
+export default connect(mapStateToProps, { })(ResultsPage);

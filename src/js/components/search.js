@@ -1,238 +1,139 @@
-import React from 'react';
-import { History } from 'react-router';
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
 
-var Reflux = require('reflux');
-var ReactBootstrap = require('react-bootstrap');
-var Dropzone = require('react-dropzone');
-var Loading = require('reloading');
+import Dropzone from 'react-dropzone';
+import Loading from 'reloading';
 
-var Actions = require('../actions/actions');
-var DependenciesStore = require('../stores/dependencies');
+import { setupRequests, fetchPackageDetails, readFileError } from '../actions';
+import prepareData from '../utils/prepareData';
+import demoData from '../utils/demoData';
 
-var Alert = ReactBootstrap.Alert;
-var Input = ReactBootstrap.Input;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
-var Button = ReactBootstrap.Button;
-
-var DependenciesField = React.createClass({
-  mixins: [
-    History,
-    Reflux.connect(DependenciesStore, 'dependencies'),
-    Reflux.listenTo(Actions.getDependencies.completed, 'gotDependenciesSuccess'),
-    Reflux.listenTo(Actions.onGetDependenciesErrors, 'gotDependenciesErrors')
-  ],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  getInitialState: function () {
-    return {
-      json: undefined,
-      errors: undefined,
-      loading: false
-    };
-  },
-
-  validateInput: function () {
-    if (this.state.errors) {
-      return 'error';
+class Search extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.results.get('isFetching') !== this.props.results.get('isFetching')
+      && this.props.results.get('isFetching')) {
+      this.context.router.push('/results');
     }
-  },
+  }
 
-  handleJsonChange: function (e) {
+  generateDemoData() {
+    const packages = prepareData(demoData);
+    const numberOfPackages = packages.length;
+    this.props.setupRequests(numberOfPackages, demoData);
+    packages.forEach((value) => this.props.fetchPackageDetails(value));
+  }
 
-    var value = e.target.value;
-
-    if (!value) {
-      this.setState({
-        errors: false,
-        loading: false
-      });
-      return;
-    }
-
+  handleJsonChange(e) {
     try {
-      var jsonValue = JSON.parse(value);
-      this.setState({
-        errors: false,
-        json: jsonValue
-      });
+      const jsonValue = JSON.parse(e.target.value);
+      const packages = prepareData(jsonValue);
+      const numberOfPackages = packages.length;
+      this.props.setupRequests(numberOfPackages, demoData);
+      packages.forEach((value) => this.props.fetchPackageDetails(value));
     } catch (error) {
-      this.gotDependenciesErrors();
+      this.props.readFileError(`${error}`);
     }
+  }
 
-  },
+  handleFileChange(e) {
+    this.handleFile(e.target.files[0]);
+  }
 
-  generateDemoData: function () {
-    this.setState({
-      errors: false,
-      loading: true
-    });
+  handleDropChange(files) {
+    if (files.length === 1 && files[0].type === 'application/json') {
+      this.handleFile(files[0]);
+    } else {
+      this.props.readFileError('It looks like you are trying to upload multiple files or ' +
+        'you did not upload a .json file. Please try again.');
+    }
+  }
 
-    Actions.getDependencies({
-      'name': 'npm-click',
-      'version': '0.1.1',
-      'description': 'Comparing NPM (dev)Dependencies',
-      'repository': {
-        'type': 'git',
-        'url': 'https://github.com/ekonstantinidis/npm-click.git'
-      },
+  handleFile(file) {
+    const self = this;
+    const reader = new FileReader();
 
-      'dependencies': {
-        '@ekonstantinidis/reloading': '^0.0.6',
-        'bootstrap': '^3.3.4',
-        'browserify': '^9.0.8',
-        'chart.js': '^1.0.2',
-        'font-awesome': '^4.3.0',
-        'grunt-gh-pages': '^0.10.0',
-        'react': '=0.14.6',
-        'react-dom': '=0.14.6',
-        'react-bootstrap': '^0.21.2',
-        'react-chartjs': '^0.6.0',
-        'react-dropzone': '^1.0.1',
-        'react-router': '^1.0.3',
-        'reactify': '^1.1.0',
-        'reflux': '^0.2.7',
-        'reloading': '0.0.6',
-        'superagent': '^1.2.0',
-        'underscore': '^1.8.3',
-        'watchify': '^3.1.2'
-      },
-
-      'devDependencies': {
-        '@ekonstantinidis/gitify': '^0.0.1',
-        'grunt': '^0.4.5',
-        'grunt-contrib-clean': '^0.7.0',
-        'grunt-contrib-copy': '^0.8.2',
-        'grunt-contrib-less': '^1.0.1',
-        'grunt-contrib-watch': '^0.6.1',
-        'jshint-stylish': '^1.0.1',
-        'jsxhint': '=0.14.0',
-        'less': '=2.5.0'
+    reader.onload = function(e) {
+      try {
+        const jsonValue = JSON.parse(reader.result);
+        const packages = prepareData(jsonValue);
+        const numberOfPackages = packages.length;
+        self.props.setupRequests(numberOfPackages, demoData);
+        packages.forEach((value) => self.props.fetchPackageDetails(value));
+      } catch (error) {
+        self.props.readFileError(`${error}`);
       }
-    });
-  },
+    };
 
-  gotDependenciesSuccess: function () {
-    this.setState({
-      loading: false
-    });
-    this.history.push('/results');
-  },
+    reader.readAsText(file);
+  }
 
-  gotDependenciesErrors: function () {
-    this.setState({
-      errors: true,
-      loading: false
-    });
-  },
-
-  onDrop: function (files) {
-    var self = this;
-    if (files.length == 1 && files[0].type == 'application/json') {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-
-        try {
-          self.setState({
-            errors: false,
-            loading: true
-          });
-
-          var jsonValue = JSON.parse(reader.result);
-          Actions.getDependencies(jsonValue);
-
-        } catch (error) {
-          self.gotDependenciesErrors();
-        }
-
-      };
-
-      reader.readAsText(files[0]);
-    } else {
-      this.setState({
-        errors: true
-      });
-    }
-  },
-
-  onTextAreaClick: function (event) {
+  onTextAreaClick(event) {
     event.stopPropagation();
-  },
+  }
 
-  submitJson: function () {
-    if (this.state.json) {
-      this.setState({
-        loading: true,
-      });
-      Actions.getDependencies(this.state.json);
-    } else {
-      this.gotDependenciesErrors();
-    }
-  },
-
-  render: function () {
-    var errors;
-    if (this.state.errors) {
-      errors = (
-        <div className='container-fluid error-bar'>
-          <Alert bsStyle='danger'>
-            Oops! Something is wrong with your package.json. Please try again.
-          </Alert>
-        </div>
-      );
-    }
+  render() {
     return (
       <div>
-        <div className='container-fluid'>
-          <Row className='search-bar'>
-            <Col mdOffset={3} md={6}>
+        {this.props.error ? <div className="alert alert-danger search-alert">{this.props.error}</div> : null}
+        <div className="container-fluid">
 
-              <Dropzone onDrop={this.onDrop} className='dropzone' activeClassName='active'>
-                <div>
-                <Input
-                  type='textarea'
-                  className='input-lg'
-                  bsStyle={this.validateInput()}
-                  hasFeedback
-                  rows='8'
-                  placeholder='Place the content of your package.json and I will handle the work.'
-                  onChange={this.handleJsonChange}
+          <div className="row search-bar">
+            <div className="col-md-10">
+              <div className={this.props.error ? 'form-group has-danger' : 'form-group'}>
+                <textarea
+                  type="textarea"
+                  rows="16"
+                  className="form-control input-lg"
+                  placeholder="Place the contents of your package.json and I will handle the work."
+                  onChange={(e) => this.handleJsonChange(e)}
                   onClick={this.onTextAreaClick} />
+              </div>
+            </div>
 
-                <div className='message'>Drop your <strong>awesome</strong> package.json here</div>
-                <Button bsStyle='info'>Upload package.json</Button>
-                </div>
+            <div className="col-md-2 search-sidebar">
+              <button
+                className="btn btn-success btn-large btn-block"
+                onClick={() => this.generateDemoData()}
+                disabled={this.props.results.get('isFetching')}>
+                <i className="fa fa-play" aria-hidden="true" />
+                Demo
+              </button>
+
+              <label
+                className="btn btn-block btn-info">
+                <i className="fa fa-cloud-upload" aria-hidden="true" />
+                Upload <input type="file" onChange={(e) => this.handleFileChange(e)} style={{display: 'none'}} />
+              </label>
+
+              <Dropzone onDrop={(files) => this.handleDropChange(files)} className="dropzone" activeClassName="active">
+                Drop your <strong>awesome</strong> package.json here
               </Dropzone>
+            </div>
 
-              {errors}
-              <Loading shouldShow={this.state.loading} className='loading'>
-                <i className='fa fa-refresh fa-spin'></i> Getting your (dev) dependencies
-              </Loading>
-
-              <Row>
-                <Col md={6}>
-                  <Button bsStyle='success' bsSize='large' block onClick={this.submitJson}>
-                    Submit
-                  </Button>
-                </Col>
-                <Col md={6}>
-                  <Button bsStyle='danger' bsSize='large' block onClick={this.generateDemoData}>
-                    or do the demo?
-                  </Button>
-                </Col>
-              </Row>
-
-            </Col>
-          </Row>
+          </div>
         </div>
 
+        <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
+          <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
+        </Loading>
+
+        <h3>Loading: {this.props.results.get('isFetching') ? 'true' : 'false'}</h3>
+        <h3>Total: {this.props.results.get('total')}</h3>
+        <h3>Completed: {this.props.results.get('completed')}</h3>
       </div>
     );
   }
-});
+};
 
-module.exports = DependenciesField;
+Search.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    results: state.results,
+    error: state.project.get('error')
+  };
+};
+
+export default connect(mapStateToProps, { setupRequests, fetchPackageDetails, readFileError })(Search);

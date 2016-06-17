@@ -1,56 +1,48 @@
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
+import React from 'react';
 
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
+export default class Package extends React.Component {
 
-var Package = React.createClass({
-  componentWillReceiveProps: function (newProps) {
-    this.setState({
-      dependency: newProps.dependency
-    });
-  },
-
-  upToDate: function () {
-    var isUpToDate = this.props.dependency.status;
-    if (isUpToDate === 1) {
+  getStatus() {
+    if (this.props.details.errored) { return 'has-errored fa fa-question-circle'; }
+    const { isMajor, isMinor, isUpToDate } = this.props.details.status;
+    if (isUpToDate) {
       return 'has-latest fa fa-check-circle';
-    } else if (isUpToDate === 0) {
+    } else if (isMinor) {
       return 'has-minor fa fa-exclamation-circle';
-    } else if (isUpToDate === -1) {
+    } else if (isMajor) {
       return 'has-major fa fa-times-circle-o';
     } else {
       return 'has-errored fa fa-question-circle';
     }
-  },
+  }
 
-  render: function () {
-    var readme;
-    if (this.props.dependency.current.homepage) {
+  render() {
+    let readme;
+
+    const { name, payload, requiredVersion } = this.props.details;
+    const latestVersion = payload.hasOwnProperty('dist-tags') ? payload['dist-tags'].latest : '-';
+
+    if (payload.homepage) {
       readme = (
-        <a href={this.props.dependency.current.homepage} target='_blank'>
-          <i className='fa fa-file-text-o'/>
-        </a>
+        <a href={payload.homepage} target="_blank"><i className="fa fa-file-text-o" /></a>
       );
     }
 
     return (
-      <Row className='package'>
-        <Col xs={12} sm={1} className='status'>
-          <i className={this.upToDate()}></i>
-        </Col>
-        <Col xs={12} sm={5} className='name'>
-          <small>name</small> {this.props.dependency.name} {readme}
-        </Col>
-        <Col xs={6} sm={3} className='required'>
-          <small>required</small><span>{this.props.dependency.version}</span>
-        </Col>
-        <Col xs={6} sm={3} className=''>
-          <small>latest</small> {this.props.dependency.current['dist-tags'].latest}
-        </Col>
-      </Row>
+      <div className="row package">
+        <div className="col-sm-1 col-md-12 status">
+          <i className={this.getStatus()}></i>
+        </div>
+        <div className="col-sm-5 col-md-12 name">
+          <small>name</small> {name} {readme}
+        </div>
+        <div className="col-sm-3 col-md-6 required">
+          <small>required</small><span> {requiredVersion}</span>
+        </div>
+        <div className="col-sm-3 col-md-6">
+          <small>latest</small> {latestVersion}
+        </div>
+      </div>
     );
   }
-});
-
-module.exports = Package;
+};
