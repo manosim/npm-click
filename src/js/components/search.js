@@ -100,8 +100,7 @@ class Search extends Component {
               </button>
 
               <label
-                className="btn btn-block btn-info"
-                disabled={this.props.results.get('isFetching')}>
+                className="btn btn-block btn-info">
                 <i className="fa fa-cloud-upload" aria-hidden="true" />
                 Upload <input type="file" onChange={(e) => this.handleFileChange(e)} style={{display: 'none'}} />
               </label>
