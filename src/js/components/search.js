@@ -23,25 +23,15 @@ class Search extends Component {
   }
 
   handleJsonChange(e) {
-    // const value = e.target.value;
-
-    // if (!value) {
-    //   this.setState({
-    //     errors: false,
-    //     loading: false
-    //   });
-    //   return;
-    // }
-
-    // try {
-    //   var jsonValue = JSON.parse(value);
-    //   this.setState({
-    //     errors: false,
-    //     json: jsonValue
-    //   });
-    // } catch (error) {
-    //   this.gotDependenciesErrors();
-    // }
+    try {
+      const jsonValue = JSON.parse(e.target.value);
+      const packages = prepareData(jsonValue);
+      const numberOfPackages = packages.length;
+      this.props.setupRequests(numberOfPackages, demoData);
+      packages.forEach((value) => this.props.fetchPackageDetails(value));
+    } catch (error) {
+      this.props.readFileError(`${error}`);
+    }
   }
 
   generateDemoData() {
@@ -79,17 +69,6 @@ class Search extends Component {
     event.stopPropagation();
   }
 
-  submitJson() {
-    // if (this.state.json) {
-    //   this.setState({
-    //     loading: true,
-    //   });
-    //   // Actions.getDependencies(this.state.json);
-    // } else {
-    //   this.gotDependenciesErrors();
-    // }
-  }
-
   render() {
     return (
       <div>
@@ -103,10 +82,8 @@ class Search extends Component {
                     type="textarea"
                     className="form-control input-lg"
                     rows="8"
-                    bsStyle={this.validateInput()}
-                    hasFeedback
                     placeholder="Place the content of your package.json and I will handle the work."
-                    onChange={this.handleJsonChange}
+                    onChange={(e) => this.handleJsonChange(e)}
                     onClick={this.onTextAreaClick} />
 
                   <div className="message">Drop your <strong>awesome</strong> package.json here</div>
@@ -123,15 +100,7 @@ class Search extends Component {
               </Loading>
 
               <div className="row">
-                <div className="col-md-6">
-                  <button
-                    className="btn btn-success btn-large btn-block"
-                    onClick={this.submitJson}
-                    disabled={this.props.results.get('isFetching')}>
-                    Submit
-                  </button>
-                </div>
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <button
                     className="btn btn-danger btn-large btn-block"
                     onClick={() => this.generateDemoData()}
