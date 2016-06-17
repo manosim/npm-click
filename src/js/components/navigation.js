@@ -8,7 +8,7 @@ export default class Navigation extends Component {
           <img
             className="img-responsive"
             alt="NPM click"
-            src="dist/images/logo.png" />
+            src="dist/images/logo-big.png" />
         </a>
       </nav>
     );

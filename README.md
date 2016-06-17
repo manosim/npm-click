@@ -2,6 +2,12 @@ Npm Click [![Build Status](https://travis-ci.org/ekonstantinidis/npm-click.svg?b
 =====================
 Comparing NPM (dev)Dependencies.
 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ekonstantinidis/npm-click/master/src/images/logo-big.png" alt"NPM Click Logo" />
+</p>
+
+
 ### Prerequisites
 
  - ReactJS
