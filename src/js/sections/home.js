@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import Search from '../components/search';
 import AboutTop from '../components/about-top';
-import AboutBottom from '../components/about-bottom';
+import AboutBottom from '../../ts/components/about-bottom.tsx';
 
 export class HomePage extends React.Component {
   render() {

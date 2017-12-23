@@ -1,7 +1,7 @@
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import malarkey from 'malarkey';
+import * as React from 'react';
+import * as malarkey from 'malarkey';
 
-export default class AboutTop extends Component {
+export default class AboutTop extends React.Component {
   componentDidMount() {
     var elem = document.querySelector('.typed');
     var opts = {

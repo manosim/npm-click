@@ -1,8 +1,6 @@
-import * as React from 'react'; // eslint-disable-line no-unused-vars
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
-
-import Dropzone from 'react-dropzone';
+import * as Dropzone from 'react-dropzone';
 
 import { setupRequests, fetchPackageDetails, readFileError } from '../actions';
 import prepareData from '../utils/prepareData';
@@ -118,7 +116,9 @@ class Search extends React.Component {
                 className="dropzone"
                 activeClassName="active"
               >
-                Drop your <strong>awesome</strong> package.json here
+                <p>
+                  Drop your <strong>awesome</strong> package.json here
+                </p>
               </Dropzone>
             </div>
           </div>

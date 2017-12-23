@@ -1,6 +1,6 @@
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import * as React from 'react';
 
-export default class AboutBottom extends Component {
+class AboutBottom extends React.Component {
   render() {
     return (
       <div className="container-fluid section-welcome">
@@ -40,3 +40,5 @@ export default class AboutBottom extends Component {
     );
   }
 }
+
+export default AboutBottom;
