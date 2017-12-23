@@ -3,14 +3,15 @@ import * as malarkey from 'malarkey';
 
 export default class AboutTop extends React.Component {
   componentDidMount() {
-    var elem = document.querySelector('.typed');
-    var opts = {
+    const elem = document.querySelector('.typed');
+    const opts = {
       typeSpeed: 50,
       deleteSpeed: 50,
       pauseDelay: 1500,
       loop: true,
       postfix: '',
     };
+
     malarkey(elem, opts)
       .type('One single step')
       .pause()

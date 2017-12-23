@@ -5,7 +5,7 @@
   "main": "src/js/app.js",
   "scripts": {
     "copy-fonts": "mkdir -p dist/fonts && cp -r node_modules/font-awesome/fonts/* dist/fonts/",
-    "build-js": "browserify -v -d -t babelify src/js/app.js -t envify -p [tsify -p tsconfig.json] -p [minifyify --map app.map.js --output dist/js/app.map.js] -o dist/js/app.js",
+    "build-js": "browserify -v -d -t babelify src/js/app.js -t envify -p [tsify] -p [minifyify --map app.map.js --output dist/js/app.map.js] -o dist/js/app.js",
     "build-scss": "mkdir -p dist/css && node-sass --output-style compressed src/scss/app.scss dist/css/app.css",
     "build": "npm run copy-fonts && npm run build-js && npm run build-scss",
     "watch-js": "watchify -t babelify -p [tsify -p tsconfig.json] src/js/app.js -o dist/js/app.js -v",
@@ -40,6 +40,7 @@
     "@types/chart.js": "=2.7.3",
     "@types/react": "=16.0.31",
     "@types/react-dom": "=16.0.3",
+    "@types/react-redux": "5.0.14",
     "babel-core": "=6.26.0",
     "babelify": "=7.3.0",
     "bootstrap": "=4.0.0-alpha.2",
