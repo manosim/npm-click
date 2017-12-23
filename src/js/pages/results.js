@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Pie } from 'react-chartjs';
+import { Doughnut } from 'react-chartjs-2';
 
 import constants from '../utils/constants';
-import Package from '../components/package';
+import SinglePackage from '../components/package';
 
-export default class ResultsPage extends React.Component {
+export class ResultsPage extends React.Component {
   componentWillMount() {
+    alert('AJBDSAKGDHJSN');
     // var projectName = ProjectStore.getProjectDetails().name;
     // if (!projectName) {
     //   this.history.push('/');
@@ -14,43 +15,46 @@ export default class ResultsPage extends React.Component {
   }
 
   getStats(packages) {
-    const upToDate = packages.filter((pkg) => pkg.status.isUpToDate).size;
-    const major = packages.filter((pkg) => pkg.status.isMajor).size;
-    const minor = packages.filter((pkg) => pkg.status.isMinor).size;
+    const upToDate = packages.filter(pkg => pkg.status.isUpToDate).size;
+    const major = packages.filter(pkg => pkg.status.isMajor).size;
+    const minor = packages.filter(pkg => pkg.status.isMinor).size;
 
     return {
       upToDate,
       major,
-      minor
+      minor,
     };
   }
 
   getChartData(stats) {
-    return [
-      {
-        value: stats.upToDate,
-        color: '#0A0',
-        highlight: '#008f00',
-        label: 'Up to date'
+    console.log(stats);
+
+    return {
+      labels: ['Up to date', 'Minor Update', 'Major Update'],
+      datasets: [
+        {
+          backgroundColor: ['#0A0', '#FDB45C', '#F7464A'],
+          data: [stats.upToDate, stats.minor, stats.major],
+          options: { borderWidth: 0 },
+        },
+      ],
+      options: {
+        elements: {
+          arc: {
+            borderWidth: 0,
+          },
+        },
       },
-      {
-        value: stats.minor,
-        color: '#FDB45C',
-        highlight: '#FFC870',
-        label: 'Minor Update'
-      },
-      {
-        value: stats.major,
-        color:'#F7464A',
-        highlight: '#FF5A5E',
-        label: 'Major Update'
-      }
-    ];
-  };
+    };
+  }
 
   render() {
-    const dependencies = this.props.results.get('response').filter((obj) => obj.isDependency === true);
-    const devDependencies = this.props.results.get('response').filter((obj) => obj.isDependency === false);
+    const dependencies = this.props.results
+      .get('response')
+      .filter(obj => obj.isDependency === true);
+    const devDependencies = this.props.results
+      .get('response')
+      .filter(obj => obj.isDependency === false);
 
     const dependenciesStats = this.getStats(dependencies);
     const devDependenciesStats = this.getStats(devDependencies);
@@ -64,10 +68,10 @@ export default class ResultsPage extends React.Component {
           <div className="container">
             <h2>Project Details</h2>
             <div className="row">
-
               <div className="col-sm-4">
                 <small>name</small> <h3>{this.props.project.get('name')}</h3>
-                <small>version</small> <h4>{this.props.project.get('version')}</h4>
+                <small>version</small>{' '}
+                <h4>{this.props.project.get('version')}</h4>
               </div>
 
               <div className="col-sm-2 stats-map">
@@ -83,9 +87,11 @@ export default class ResultsPage extends React.Component {
                 </div>
               </div>
               <div className="col-sm-2">
-                <Pie
+                <Doughnut
                   data={dependenciesChart}
-                  options={constants.CHART_OPTIONS} redraw />
+                  options={constants.CHART_OPTIONS}
+                  redraw
+                />
               </div>
 
               <div className="col-sm-2 stats-map">
@@ -102,9 +108,11 @@ export default class ResultsPage extends React.Component {
               </div>
 
               <div className="col-sm-2">
-                <Pie
+                <Doughnut
                   data={devDependenciesChart}
-                  options={constants.CHART_OPTIONS} redraw />
+                  options={constants.CHART_OPTIONS}
+                  redraw
+                />
               </div>
             </div>
           </div>
@@ -113,20 +121,29 @@ export default class ResultsPage extends React.Component {
         <div className="container packages">
           <div className="row">
             <div className="col-md-6">
-              <h3>Dependencies <span className="count">#{dependencies.size}</span></h3>
-              {dependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
+              <h3>
+                Dependencies <span className="count">#{dependencies.size}</span>
+              </h3>
+              {dependencies.map((pkg, i) => (
+                <SinglePackage key={i} details={pkg} />
+              ))}
             </div>
 
             <div className="col-md-6">
-              <h3>DevDependencies <span className="count">#{devDependencies.size}</span></h3>
-              {devDependencies.map((pkg, i) => <Package key={i} details={pkg} />)}
+              <h3>
+                DevDependencies{' '}
+                <span className="count">#{devDependencies.size}</span>
+              </h3>
+              {devDependencies.map((pkg, i) => (
+                <SinglePackage key={i} details={pkg} />
+              ))}
             </div>
           </div>
         </div>
       </div>
     );
   }
-};
+}
 
 // ResultsPage.contextTypes = {
 //   router: React.PropTypes.func
@@ -135,8 +152,8 @@ export default class ResultsPage extends React.Component {
 function mapStateToProps(state) {
   return {
     results: state.results,
-    project: state.project
+    project: state.project,
   };
-};
+}
 
-export default connect(mapStateToProps, { })(ResultsPage);
+export default connect(mapStateToProps, null)(ResultsPage);
