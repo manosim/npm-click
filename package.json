@@ -11,7 +11,8 @@
     "watch-scss": "node-sass -w src/scss/app.scss dist/css/app.css",
     "watch": "npm run build && npm run watch-js & npm run watch-scss",
     "test": "eslint 'src/js/'",
-    "start": "http-server './' -c-1 -o"
+    "start": "http-server './' -c-1 -o",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
