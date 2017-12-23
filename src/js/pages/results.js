@@ -7,7 +7,6 @@ import SinglePackage from '../components/package';
 
 export class ResultsPage extends React.Component {
   componentWillMount() {
-    alert('AJBDSAKGDHJSN');
     // var projectName = ProjectStore.getProjectDetails().name;
     // if (!projectName) {
     //   this.history.push('/');
