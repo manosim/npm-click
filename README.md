@@ -1,4 +1,4 @@
-Npm Click [![Build Status](https://travis-ci.org/ekonstantinidis/npm-click.svg?branch=master)](https://travis-ci.org/ekonstantinidis/npm-click)
+Npm Click [![Build Status](https://travis-ci.org/manosim/npm-click.svg?branch=master)](https://travis-ci.org/manosim/npm-click)
 =====================
 Comparing NPM (dev)Dependencies. [www.npm.click](http://www.npm.click/)
 
