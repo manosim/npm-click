@@ -4,22 +4,20 @@
 
 /* @end Imports */
 
-
 /* @group Colors */
 
-$theme-red: #B53F39;
-$theme-blue: #393C4F;
-$theme-green: #449E4B;
+$theme-red: #b53f39;
+$theme-blue: #393c4f;
+$theme-green: #449e4b;
 
-$version-uptodate: #0A0;
-$version-minor: #FDB45C;
-$version-major: #F7464A;
+$version-uptodate: #0a0;
+$version-minor: #fdb45c;
+$version-major: #f7464a;
 $version-errored: #787878;
 
-$white: #FFF;
+$white: #fff;
 
 /* @end Colors */
-
 
 /* @group Mixins */
 
@@ -29,14 +27,12 @@ $white: #FFF;
 
 /* @end Mixins */
 
-
 /* @group Fonts Overrides */
 
-$fa-font-path: "../fonts";
-@import "node_modules/font-awesome/scss/font-awesome.scss";
+$fa-font-path: '../fonts';
+@import 'node_modules/font-awesome/scss/font-awesome.scss';
 
 /* @end Fonts Overrides */
-
 
 /* @group Bootstrap Overrides */
 
@@ -47,20 +43,19 @@ $brand-danger: $theme-red;
 
 $navbar-height: 65px;
 $navbar-border-radius: 0;
-$navbar-padding-vertical: .3rem;
+$navbar-padding-vertical: 0.3rem;
 $navbar-padding-horizontal: 1rem;
 
 $alert-padding: 8px;
 $alert-border-radius: 0;
 
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 /* @end Bootstrap Overrides */
 
 // @import "node_modules/bootstrap/less/bootstrap";
 // @import "node_modules/font-awesome/less/font-awesome.less";
 // @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
-
 
 /* @group Misc */
 
@@ -78,33 +73,35 @@ $alert-border-radius: 0;
 }
 
 .github-corner:hover .octo-arm {
-  animation:octocat-wave 560ms ease-in-out;
+  animation: octocat-wave 560ms ease-in-out;
 }
 
-@keyframes octocat-wave{
-  0%, 100% {
-    transform:rotate(0)
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
   }
-  20%, 60% {
-    transform:rotate(-25deg)
+  20%,
+  60% {
+    transform: rotate(-25deg);
   }
-  40%, 80% {
-    transform:rotate(10deg)
+  40%,
+  80% {
+    transform: rotate(10deg);
   }
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .github-corner:hover .octo-arm {
-    animation:none
+    animation: none;
   }
 
   .github-corner .octo-arm {
-    animation:octocat-wave 560ms ease-in-out
+    animation: octocat-wave 560ms ease-in-out;
   }
 }
 
 /* @end Misc */
-
 
 /* @group Navbar */
 
@@ -126,7 +123,6 @@ $alert-border-radius: 0;
 
 /* @end Navbar */
 
-
 /* @group Welcome Banner */
 
 .welcome-banner {
@@ -134,7 +130,8 @@ $alert-border-radius: 0;
   color: $white;
   padding: 20px 30px;
 
-  h2, h3 {
+  h2,
+  h3 {
     margin-top: 15px;
     margin-bottom: 15px;
     text-align: center;
@@ -142,7 +139,6 @@ $alert-border-radius: 0;
 }
 
 /* @end Welcome Banner */
-
 
 /* @group Search Bar */
 
@@ -223,7 +219,6 @@ $alert-border-radius: 0;
 
 /* @end Search Bar */
 
-
 /* @group Footer */
 
 .footer {
@@ -244,7 +239,6 @@ $alert-border-radius: 0;
 
 /* @end Footer */
 
-
 /* @group Results */
 
 .results {
@@ -260,6 +254,7 @@ $alert-border-radius: 0;
   }
 
   .details {
+    border-top: 1rem solid $theme-blue;
     background-color: $gray-lighter;
     margin: 0;
     padding: 30px 20px;
@@ -296,7 +291,6 @@ $alert-border-radius: 0;
 }
 
 /* @end Results */
-
 
 /* @group Package */
 

@@ -1,7 +1,6 @@
 import * as React from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import Dropzone from 'react-dropzone';
 
@@ -10,16 +9,6 @@ import prepareData from '../utils/prepareData';
 import demoData from '../utils/demoData';
 
 class Search extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.results.get('isFetching') !==
-        this.props.results.get('isFetching') &&
-      this.props.results.get('isFetching')
-    ) {
-      return this.props.history.push('/results');
-    }
-  }
-
   generateDemoData() {
     const packages = prepareData(demoData);
     const numberOfPackages = packages.length;
@@ -139,10 +128,6 @@ class Search extends React.Component {
   }
 }
 
-Search.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
-
 function mapStateToProps(state) {
   return {
     results: state.results,
@@ -150,10 +135,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(
-  connect(mapStateToProps, {
-    setupRequests,
-    fetchPackageDetails,
-    readFileError,
-  })(Search)
-);
+export default connect(mapStateToProps, {
+  setupRequests,
+  fetchPackageDetails,
+  readFileError,
+})(Search);

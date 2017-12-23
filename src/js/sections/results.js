@@ -6,13 +6,6 @@ import constants from '../utils/constants';
 import SinglePackage from '../components/package';
 
 export class ResultsPage extends React.Component {
-  componentWillMount() {
-    // var projectName = ProjectStore.getProjectDetails().name;
-    // if (!projectName) {
-    //   this.history.push('/');
-    // }
-  }
-
   getStats(packages) {
     const upToDate = packages.filter(pkg => pkg.status.isUpToDate).size;
     const major = packages.filter(pkg => pkg.status.isMajor).size;
@@ -26,8 +19,6 @@ export class ResultsPage extends React.Component {
   }
 
   getChartData(stats) {
-    console.log(stats);
-
     return {
       labels: ['Up to date', 'Minor Update', 'Major Update'],
       datasets: [
