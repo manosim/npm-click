@@ -7,5 +7,5 @@ import results from './results';
 export default combineReducers({
   project,
   results,
-  routing: routerReducer
+  routing: routerReducer,
 });

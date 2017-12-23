@@ -1,18 +1,22 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
-import Dropzone from 'react-dropzone';
-import Loading from 'reloading';
+import * as Dropzone from 'react-dropzone';
 
 import { setupRequests, fetchPackageDetails, readFileError } from '../actions';
 import prepareData from '../utils/prepareData';
 import demoData from '../utils/demoData';
 
-class Search extends Component {
+class Search extends React.Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.results.get('isFetching') !== this.props.results.get('isFetching')
-      && this.props.results.get('isFetching')) {
-      this.context.router.push('/results');
+    if (
+      nextProps.results.get('isFetching') !==
+        this.props.results.get('isFetching') &&
+      !nextProps.results.get('isFetching')
+    ) {
+      return this.props.history.push('/results');
     }
   }
 
@@ -20,7 +24,7 @@ class Search extends Component {
     const packages = prepareData(demoData);
     const numberOfPackages = packages.length;
     this.props.setupRequests(numberOfPackages, demoData);
-    packages.forEach((value) => this.props.fetchPackageDetails(value));
+    packages.forEach(value => this.props.fetchPackageDetails(value));
   }
 
   handleJsonChange(e) {
@@ -29,7 +33,7 @@ class Search extends Component {
       const packages = prepareData(jsonValue);
       const numberOfPackages = packages.length;
       this.props.setupRequests(numberOfPackages, demoData);
-      packages.forEach((value) => this.props.fetchPackageDetails(value));
+      packages.forEach(value => this.props.fetchPackageDetails(value));
     } catch (error) {
       this.props.readFileError(`${error}`);
     }
@@ -43,8 +47,10 @@ class Search extends Component {
     if (files.length === 1 && files[0].type === 'application/json') {
       this.handleFile(files[0]);
     } else {
-      this.props.readFileError('It looks like you are trying to upload multiple files or ' +
-        'you did not upload a .json file. Please try again.');
+      this.props.readFileError(
+        'It looks like you are trying to upload multiple files or ' +
+          'you did not upload a .json file. Please try again.'
+      );
     }
   }
 
@@ -58,7 +64,7 @@ class Search extends Component {
         const packages = prepareData(jsonValue);
         const numberOfPackages = packages.length;
         self.props.setupRequests(numberOfPackages, demoData);
-        packages.forEach((value) => self.props.fetchPackageDetails(value));
+        packages.forEach(value => self.props.fetchPackageDetails(value));
       } catch (error) {
         self.props.readFileError(`${error}`);
       }
@@ -74,19 +80,27 @@ class Search extends Component {
   render() {
     return (
       <div>
-        {this.props.error ? <div className="alert alert-danger search-alert">{this.props.error}</div> : null}
+        {this.props.error ? (
+          <div className="alert alert-danger search-alert">
+            {this.props.error}
+          </div>
+        ) : null}
         <div className="container-fluid">
-
           <div className="row search-bar">
             <div className="col-md-10">
-              <div className={this.props.error ? 'form-group has-danger' : 'form-group'}>
+              <div
+                className={
+                  this.props.error ? 'form-group has-danger' : 'form-group'
+                }
+              >
                 <textarea
                   type="textarea"
                   rows="16"
                   className="form-control input-lg"
                   placeholder="Place the contents of your package.json and I will handle the work."
-                  onChange={(e) => this.handleJsonChange(e)}
-                  onClick={this.onTextAreaClick} />
+                  onChange={e => this.handleJsonChange(e)}
+                  onClick={this.onTextAreaClick}
+                />
               </div>
             </div>
 
@@ -94,42 +108,48 @@ class Search extends Component {
               <button
                 className="btn btn-success btn-large btn-block"
                 onClick={() => this.generateDemoData()}
-                disabled={this.props.results.get('isFetching')}>
+                disabled={this.props.results.get('isFetching')}
+              >
                 <i className="fa fa-play" aria-hidden="true" />
                 Demo
               </button>
 
-              <label
-                className="btn btn-block btn-info">
+              <label className="btn btn-block btn-info">
                 <i className="fa fa-cloud-upload" aria-hidden="true" />
-                Upload <input type="file" onChange={(e) => this.handleFileChange(e)} style={{display: 'none'}} />
+                Upload{' '}
+                <input
+                  type="file"
+                  onChange={e => this.handleFileChange(e)}
+                  style={{ display: 'none' }}
+                />
               </label>
 
-              <Dropzone onDrop={(files) => this.handleDropChange(files)} className="dropzone" activeClassName="active">
+              <Dropzone
+                onDrop={files => this.handleDropChange(files)}
+                className="dropzone"
+                activeClassName="active"
+              >
                 Drop your <strong>awesome</strong> package.json here
               </Dropzone>
             </div>
-
           </div>
         </div>
-
-        <Loading shouldShow={this.props.results.get('isFetching')} className="loading">
-          <i className="fa fa-refresh fa-spin"></i> Getting your (dev) dependencies
-        </Loading>
       </div>
     );
   }
-};
-
-Search.contextTypes = {
-  router: PropTypes.object.isRequired
-};
+}
 
 function mapStateToProps(state) {
   return {
     results: state.results,
-    error: state.project.get('error')
+    error: state.project.get('error'),
   };
-};
+}
 
-export default connect(mapStateToProps, { setupRequests, fetchPackageDetails, readFileError })(Search);
+export default withRouter(
+  connect(mapStateToProps, {
+    setupRequests,
+    fetchPackageDetails,
+    readFileError,
+  })(Search)
+);

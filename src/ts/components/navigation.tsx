@@ -1,16 +1,18 @@
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import * as React from 'react';
 
-export default class Navigation extends Component {
+export default class Navigation extends React.Component {
   render() {
+    console.log('ASDSADADAD');
     return (
       <nav className="navbar navbar-dark bg-inverse">
         <a className="navbar-brand" href="/">
           <img
             className="img-responsive"
             alt="NPM click"
-            src="images/logo-big.png" />
+            src="src/images/logo-big.png"
+          />
         </a>
       </nav>
     );
   }
-};
+}

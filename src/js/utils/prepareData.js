@@ -3,20 +3,19 @@ export default function prepareData(packageJson) {
     return {
       name: key,
       requiredVersion: packageJson.dependencies[key],
-      isDependency: true
+      isDependency: true,
     };
   });
 
-  const devDependencies = Object.keys(packageJson.devDependencies).map(function(key) {
+  const devDependencies = Object.keys(packageJson.devDependencies).map(function(
+    key
+  ) {
     return {
       name: key,
       requiredVersion: packageJson.devDependencies[key],
-      isDependency: false
+      isDependency: false,
     };
   });
 
-  return [
-    ...dependencies,
-    ...devDependencies
-  ];
-};
+  return [...dependencies, ...devDependencies];
+}
