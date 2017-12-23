@@ -10,6 +10,8 @@
     "watch-js": "watchify -t babelify src/js/app.js -o dist/js/app.js -v",
     "watch-scss": "node-sass -w src/scss/app.scss dist/css/app.css",
     "watch": "npm run build && npm run watch-js & npm run watch-scss",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write 'src/js/**/*.js'",
+    "prettier-check": "./scripts/prettier-check",
     "test": "eslint 'src/js/'",
     "start": "http-server './' -c-1 -o",
     "postinstall": "npm run build"

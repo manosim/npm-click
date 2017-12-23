@@ -1,0 +1,12 @@
+#!/bin/sh
+diffs=$(node_modules/.bin/prettier -l --single-quote --trailing-comma es5 "src/js/**/*.js")
+
+[ -z "$diffs" ] && exit 0
+
+echo >&2 "Javascript files must be formatted with prettier. Please run:\n"
+echo >&2 " npm run prettier \n"
+echo >&2 "These files need to be formatted:\n"
+echo >&2 "$diffs"
+echo >&2 "\n"
+
+exit 1
