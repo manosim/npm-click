@@ -4,7 +4,7 @@ import {
   SETUP_REQUESTS,
   FETCH_PACKAGE_REQUEST,
   FETCH_PACKAGE_SUCCESS,
-  FETCH_PACKAGE_FAILURE
+  FETCH_PACKAGE_FAILURE,
 } from '../actions';
 
 const initialState = Map({
@@ -12,7 +12,7 @@ const initialState = Map({
   errored: false,
   response: List(),
   completed: 0,
-  total: 0
+  total: 0,
 });
 
 export default function reducer(state = initialState, action) {
@@ -25,8 +25,7 @@ export default function reducer(state = initialState, action) {
         .set('total', action.numberOfPackages);
 
     case FETCH_PACKAGE_REQUEST:
-      return state
-        .set('errored', false);
+      return state.set('errored', false);
 
     case FETCH_PACKAGE_SUCCESS:
       var isDone = state.get('completed') + 1 === state.get('total');
@@ -36,7 +35,7 @@ export default function reducer(state = initialState, action) {
         requiredVersion: action.requiredVersion,
         isDependency: action.isDependency,
         status: action.status,
-        errored: false
+        errored: false,
       };
 
       return state
@@ -53,7 +52,7 @@ export default function reducer(state = initialState, action) {
         requiredVersion: action.requiredVersion,
         isDependency: action.isDependency,
         status: {},
-        errored: true
+        errored: true,
       };
 
       return state
@@ -65,4 +64,4 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-};
+}

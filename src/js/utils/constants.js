@@ -1,10 +1,12 @@
 export default {
-
   API_URL: '',
   CHART_OPTIONS: {
-    percentageInnerCutout : 35,
-    segmentShowStroke : false,
-    responsive: true
-  }
-
+    maintainAspectRatio: false,
+    cutoutPercentage: 35,
+    elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
+  },
 };

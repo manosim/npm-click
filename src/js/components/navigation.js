@@ -1,6 +1,6 @@
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import * as React from 'react';
 
-export default class Navigation extends Component {
+export default class Navigation extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-inverse">
@@ -8,9 +8,10 @@ export default class Navigation extends Component {
           <img
             className="img-responsive"
             alt="NPM click"
-            src="images/logo-big.png" />
+            src="images/logo-big.png"
+          />
         </a>
       </nav>
     );
   }
-};
+}
