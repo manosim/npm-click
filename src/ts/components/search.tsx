@@ -7,7 +7,7 @@ import {
   fetchPackageDetails,
   readFileError,
 } from '../../js/actions';
-import prepareData from '../../js/utils/prepareData';
+import prepareData from '../utils/prepareData';
 import demoData from '../../js/utils/demoData';
 
 interface IProps {

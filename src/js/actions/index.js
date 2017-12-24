@@ -1,4 +1,4 @@
-import { compareVersionNumbers, getStatus } from '../utils/versionStatus';
+import { compareVersionNumbers, getStatus } from '../../ts/utils/versionStatus';
 
 // Setup Requests
 export const SETUP_REQUESTS = 'SETUP_REQUESTS';

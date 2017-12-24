@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from '../../js/reducers';
 
-export default function configureStore(initialState: {}) {
+export default function configureStore(initialState = undefined) {
   const middlewares = [thunkMiddleware];
 
   if (process.env.NODE_ENV !== 'production') {

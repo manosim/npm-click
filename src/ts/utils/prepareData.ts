@@ -1,4 +1,4 @@
-export default function prepareData(packageJson) {
+export default function prepareData(packageJson: {dependencies?: any, devDependencies?: any}) {
   const dependencies = Object.keys(packageJson.dependencies).map(function(key) {
     return {
       name: key,

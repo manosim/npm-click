@@ -1,13 +1,14 @@
 // Article: http://goo.gl/K7hYWj
-export function parseVersionString(str) {
+export function parseVersionString(str?: string): any {
   if (typeof str !== 'string') {
     return false;
   }
-  var x = str.split('.');
+
+  const x = str.split('.');
   // parse from string or default to 0 if can't parse
-  var maj = parseInt(x[0], 10) || 0;
-  var min = parseInt(x[1], 10) || 0;
-  var pat = parseInt(x[2], 10) || 0;
+  const maj = parseInt(x[0], 10) || 0;
+  const min = parseInt(x[1], 10) || 0;
+  const pat = parseInt(x[2], 10) || 0;
 
   return {
     major: maj,
@@ -16,7 +17,7 @@ export function parseVersionString(str) {
   };
 }
 
-export function compareVersionNumbers(v1, v2) {
+export function compareVersionNumbers(v1: string, v2: string) {
   var running_version = parseVersionString(v1.replace(/[^0-9.]/g, ''));
   var latest_version = parseVersionString(v2);
   if (running_version.major < latest_version.major) {
@@ -34,7 +35,7 @@ export function compareVersionNumbers(v1, v2) {
   }
 }
 
-export function getStatus(status) {
+export function getStatus(status: number) {
   let isMajor = false;
   let isMinor = false;
   let isUpToDate = false;

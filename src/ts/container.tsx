@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Navbar from './components/navigation';
 import HomePage from './sections/home';
-import ResultsPage from '../js/sections/results';
+import ResultsPage from './sections/results';
 
 interface IProps {
   results: any;
