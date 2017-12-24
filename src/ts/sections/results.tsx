@@ -6,30 +6,29 @@ import constants from '../../js/utils/constants';
 import SinglePackage from '../../ts/components/package';
 
 interface IProps {
-  results: any,
-  project: any,
+  results: any;
+  project: any;
 }
 
 export class ResultsPage extends React.Component<IProps, {}> {
   getStats(packages: any) {
-    const upToDate = packages.filter((pkg: any) => pkg.status.isUpToDate).size;
-    const major = packages.filter((pkg: any) => pkg.status.isMajor).size;
-    const minor = packages.filter((pkg: any) => pkg.status.isMinor).size;
+    const upToDate = packages.filter((pkg: any) => pkg.get('isSatisfied')).size;
+    const needUpdate = packages.filter((pkg: any) => !pkg.get('isSatisfied'))
+      .size;
 
     return {
       upToDate,
-      major,
-      minor,
+      needUpdate,
     };
   }
 
-  getChartData(stats: {upToDate: number, minor: number, major: number}) {
+  getChartData(stats: { upToDate: number; needUpdate: number }) {
     return {
-      labels: ['Up to date', 'Minor Update', 'Major Update'],
+      labels: ['Up to date', 'Need Update'],
       datasets: [
         {
-          backgroundColor: ['#0A0', '#FDB45C', '#F7464A'],
-          data: [stats.upToDate, stats.minor, stats.major],
+          backgroundColor: ['#0A0', '#F7464A'],
+          data: [stats.upToDate, stats.needUpdate],
           options: { borderWidth: 0 },
         },
       ],
@@ -46,10 +45,10 @@ export class ResultsPage extends React.Component<IProps, {}> {
   render() {
     const dependencies = this.props.results
       .get('response')
-      .filter((obj: any) => obj.isDependency === true);
+      .filter((obj: any) => obj.get('isDependency') === true);
     const devDependencies = this.props.results
       .get('response')
-      .filter((obj: any) => obj.isDependency === false);
+      .filter((obj: any) => obj.get('isDependency') === false);
 
     const dependenciesStats = this.getStats(dependencies);
     const devDependenciesStats = this.getStats(devDependencies);
@@ -74,11 +73,8 @@ export class ResultsPage extends React.Component<IProps, {}> {
                 <div className="uptodate">
                   Up to date: {dependenciesStats.upToDate}
                 </div>
-                <div className="minor-updates">
-                  Minor Updates: {dependenciesStats.minor}
-                </div>
-                <div className="major-updates">
-                  Major Updates: {dependenciesStats.major}
+                <div className="need-update">
+                  Need Update: {dependenciesStats.needUpdate}
                 </div>
               </div>
               <div className="col-sm-2">
@@ -94,11 +90,8 @@ export class ResultsPage extends React.Component<IProps, {}> {
                 <div className="uptodate">
                   Up to date: {devDependenciesStats.upToDate}
                 </div>
-                <div className="minor-updates">
-                  Minor Updates: {devDependenciesStats.minor}
-                </div>
-                <div className="major-updates">
-                  Major Updates: {devDependenciesStats.major}
+                <div className="need-update">
+                  Need Update: {devDependenciesStats.needUpdate}
                 </div>
               </div>
 

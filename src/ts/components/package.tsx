@@ -1,67 +1,63 @@
 import * as React from 'react';
 
-interface IProps {
-  details: {
-    name: string;
-    requiredVersion: string;
-    errored: boolean;
-    status: {
-      isUpToDate: boolean;
-      isMinor: boolean;
-      isMajor: boolean;
-    };
+import constants from '../../js/utils/constants';
 
-    payload: any;
-  };
+interface IProps {
+  details: any;
 }
 
 export default class SinglePackage extends React.Component<IProps, {}> {
   getStatus() {
-    if (this.props.details.errored) {
+    if (this.props.details.get('errored')) {
       return 'has-errored fa fa-question-circle';
     }
-    const { isMajor, isMinor, isUpToDate } = this.props.details.status;
-    if (isUpToDate) {
+    const isSatisfied = this.props.details.get('isSatisfied');
+
+    if (isSatisfied) {
       return 'has-latest fa fa-check-circle';
-    } else if (isMinor) {
-      return 'has-minor fa fa-exclamation-circle';
-    } else if (isMajor) {
-      return 'has-major fa fa-times-circle-o';
     } else {
-      return 'has-errored fa fa-question-circle';
+      return 'has-major fa fa-times-circle-o';
     }
   }
 
   render() {
-    let readme;
+    const { details } = this.props;
+    const latestVersion = details.getIn(
+      ['payload', 'dist-tags', 'latest'],
+      '-'
+    );
 
-    const { name, payload, requiredVersion } = this.props.details;
-    const latestVersion = payload.hasOwnProperty('dist-tags')
-      ? payload['dist-tags'].latest
-      : '-';
-
-    if (payload.homepage) {
-      readme = (
-        <a href={payload.homepage} target="_blank">
-          <i className="fa fa-file-text-o" />
-        </a>
-      );
-    }
+    const readme = details.hasIn(['payload', 'homepage']) && (
+      <a href={details.getIn(['payload', 'homepage'])} target="_blank">
+        <i className="fa fa-file-text-o" />
+      </a>
+    );
 
     return (
       <div className="row package">
         <div className="col-sm-1 col-md-12 status">
           <i className={this.getStatus()} />
         </div>
+
         <div className="col-sm-5 col-md-12 name">
-          <small>name</small> {name} {readme}
+          <div>
+            <small>name</small>
+          </div>
+          {details.get('name')} {readme && readme}
         </div>
+
         <div className="col-sm-3 col-md-6 required">
-          <small>required</small>
-          <span> {requiredVersion}</span>
+          <div>
+            <small>required</small>
+          </div>
+          <span>{details.get('requiredVersion')}</span>
         </div>
-        <div className="col-sm-3 col-md-6">
-          <small>latest</small> {latestVersion}
+
+        <div className="col-sm-3 col-md-6 latest">
+          <div>
+            <small>latest</small>
+          </div>
+          <span>{latestVersion}</span>
         </div>
       </div>
     );
