@@ -1,6 +1,21 @@
 import * as React from 'react';
 
-export default class SinglePackage extends React.Component {
+interface IProps {
+  details: {
+    name: string;
+    requiredVersion: string;
+    errored: boolean;
+    status: {
+      isUpToDate: boolean;
+      isMinor: boolean;
+      isMajor: boolean;
+    };
+
+    payload: any;
+  };
+}
+
+export default class SinglePackage extends React.Component<IProps, {}> {
   getStatus() {
     if (this.props.details.errored) {
       return 'has-errored fa fa-question-circle';

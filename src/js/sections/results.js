@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
 
 import constants from '../utils/constants';
-import SinglePackage from '../components/package';
+import SinglePackage from '../../ts/components/package';
 
 export class ResultsPage extends React.Component {
   getStats(packages) {
@@ -134,10 +134,6 @@ export class ResultsPage extends React.Component {
     );
   }
 }
-
-// ResultsPage.contextTypes = {
-//   router: React.PropTypes.func
-// };
 
 function mapStateToProps(state) {
   return {

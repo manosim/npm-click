@@ -2,11 +2,26 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Dropzone from 'react-dropzone';
 
-import { setupRequests, fetchPackageDetails, readFileError } from '../actions';
-import prepareData from '../utils/prepareData';
-import demoData from '../utils/demoData';
+import {
+  setupRequests,
+  fetchPackageDetails,
+  readFileError,
+} from '../../js/actions';
+import prepareData from '../../js/utils/prepareData';
+import demoData from '../../js/utils/demoData';
 
-class Search extends React.Component {
+interface IStateProps {
+  error: string;
+  results: any;
+}
+
+interface IDispatchProps {
+  setupRequests(numberOfPackages: number, payload: object): void;
+  fetchPackageDetails(details: object): void;
+  readFileError(error: string): void;
+}
+
+class Search extends React.Component<IStateProps & IDispatchProps, {}> {
   generateDemoData() {
     const packages = prepareData(demoData);
     const numberOfPackages = packages.length;
@@ -14,7 +29,7 @@ class Search extends React.Component {
     packages.forEach(value => this.props.fetchPackageDetails(value));
   }
 
-  handleJsonChange(e) {
+  handleJsonChange(e: any) {
     try {
       const jsonValue = JSON.parse(e.target.value);
       const packages = prepareData(jsonValue);
@@ -26,11 +41,11 @@ class Search extends React.Component {
     }
   }
 
-  handleFileChange(e) {
+  handleFileChange(e: any) {
     this.handleFile(e.target.files[0]);
   }
 
-  handleDropChange(files) {
+  handleDropChange(files: any) {
     if (files.length === 1 && files[0].type === 'application/json') {
       this.handleFile(files[0]);
     } else {
@@ -41,7 +56,7 @@ class Search extends React.Component {
     }
   }
 
-  handleFile(file) {
+  handleFile(file: any) {
     const self = this;
     const reader = new FileReader();
 
@@ -60,7 +75,7 @@ class Search extends React.Component {
     reader.readAsText(file);
   }
 
-  onTextAreaClick(event) {
+  onTextAreaClick(event: { stopPropagation(): void }) {
     event.stopPropagation();
   }
 
@@ -81,8 +96,7 @@ class Search extends React.Component {
                 }
               >
                 <textarea
-                  type="textarea"
-                  rows="16"
+                  rows={16}
                   className="form-control input-lg"
                   placeholder="Place the contents of your package.json and I will handle the work."
                   onChange={e => this.handleJsonChange(e)}
@@ -128,7 +142,12 @@ class Search extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+interface IState {
+  results: object;
+  project: any;
+}
+
+export function mapStateToProps(state: IState) {
   return {
     results: state.results,
     error: state.project.get('error'),
@@ -139,4 +158,4 @@ export default connect(mapStateToProps, {
   setupRequests,
   fetchPackageDetails,
   readFileError,
-})(Search);
+})(Search as any);

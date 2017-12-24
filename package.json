@@ -40,6 +40,7 @@
     "@types/chart.js": "=2.7.3",
     "@types/react": "=16.0.31",
     "@types/react-dom": "=16.0.3",
+    "@types/react-dropzone": "4.1.0",
     "@types/react-redux": "5.0.14",
     "babel-core": "=6.26.0",
     "babelify": "=7.3.0",

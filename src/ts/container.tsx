@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import Navbar from '../js/components/navigation';
-import HomePage from '../js/sections/home';
+import Navbar from './components/navigation';
+import HomePage from './sections/home';
 import ResultsPage from '../js/sections/results';
 
 interface IProps {
   results: any;
 }
 
-class Container extends React.Component<IProps, object> {
+class Container extends React.Component<IProps, {}> {
   render() {
     return (
       <div>

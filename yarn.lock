@@ -70,6 +70,12 @@
     "@types/node" "*"
     "@types/react" "*"
 
+"@types/react-dropzone@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-dropzone/-/react-dropzone-4.1.0.tgz#f219eb77c5fdf2ed52538876b0b06afeb5bd17bb"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@5.0.14":
   version "5.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.14.tgz#f3fc30dcbb2d20455a714f591cc27f77b4df09bb"

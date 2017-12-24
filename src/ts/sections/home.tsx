@@ -2,10 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import Search from '../components/search';
-import AboutTop from '../../ts/components/about-top';
-import AboutBottom from '../../ts/components/about-bottom.tsx';
+import AboutTop from '../components/about-top';
+import AboutBottom from '../components/about-bottom';
 
-export class HomePage extends React.Component {
+interface IProps {
+  hasResults: boolean;
+}
+
+export class HomePage extends React.Component<IProps, {}> {
   render() {
     const { hasResults } = this.props;
     return (
@@ -18,7 +22,11 @@ export class HomePage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+interface IState {
+  results: any;
+}
+
+export function mapStateToProps(state: IState) {
   return {
     hasResults: !state.results.get('response').isEmpty(),
   };
