@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import * as semver from 'semver';
 
-import { FETCH_PACKAGES } from '../../ts/actions';
+import { FETCH_PACKAGES, SET_FILE_ERROR } from '../../ts/actions';
 
 const initialState = Map({
   isFetching: false,
@@ -12,6 +12,8 @@ const initialState = Map({
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_FILE_ERROR:
+      return initialState;
     case FETCH_PACKAGES.REQUEST:
       return initialState
         .set('isFetching', true)
