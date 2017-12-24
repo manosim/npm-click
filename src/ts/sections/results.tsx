@@ -2,14 +2,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
 
-import constants from '../utils/constants';
+import constants from '../../js/utils/constants';
 import SinglePackage from '../../ts/components/package';
 
-export class ResultsPage extends React.Component {
-  getStats(packages) {
-    const upToDate = packages.filter(pkg => pkg.status.isUpToDate).size;
-    const major = packages.filter(pkg => pkg.status.isMajor).size;
-    const minor = packages.filter(pkg => pkg.status.isMinor).size;
+interface IProps {
+  results: any,
+  project: any,
+}
+
+export class ResultsPage extends React.Component<IProps, {}> {
+  getStats(packages: any) {
+    const upToDate = packages.filter((pkg: any) => pkg.status.isUpToDate).size;
+    const major = packages.filter((pkg: any) => pkg.status.isMajor).size;
+    const minor = packages.filter((pkg: any) => pkg.status.isMinor).size;
 
     return {
       upToDate,
@@ -18,7 +23,7 @@ export class ResultsPage extends React.Component {
     };
   }
 
-  getChartData(stats) {
+  getChartData(stats: {upToDate: number, minor: number, major: number}) {
     return {
       labels: ['Up to date', 'Minor Update', 'Major Update'],
       datasets: [
@@ -41,10 +46,10 @@ export class ResultsPage extends React.Component {
   render() {
     const dependencies = this.props.results
       .get('response')
-      .filter(obj => obj.isDependency === true);
+      .filter((obj: any) => obj.isDependency === true);
     const devDependencies = this.props.results
       .get('response')
-      .filter(obj => obj.isDependency === false);
+      .filter((obj: any) => obj.isDependency === false);
 
     const dependenciesStats = this.getStats(dependencies);
     const devDependenciesStats = this.getStats(devDependencies);
@@ -114,7 +119,7 @@ export class ResultsPage extends React.Component {
               <h3>
                 Dependencies <span className="count">#{dependencies.size}</span>
               </h3>
-              {dependencies.map((pkg, i) => (
+              {dependencies.map((pkg: any, i: number) => (
                 <SinglePackage key={i} details={pkg} />
               ))}
             </div>
@@ -124,7 +129,7 @@ export class ResultsPage extends React.Component {
                 DevDependencies{' '}
                 <span className="count">#{devDependencies.size}</span>
               </h3>
-              {devDependencies.map((pkg, i) => (
+              {devDependencies.map((pkg: any, i: number) => (
                 <SinglePackage key={i} details={pkg} />
               ))}
             </div>
@@ -135,7 +140,12 @@ export class ResultsPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+interface IState {
+  results: any;
+  project: any;
+}
+
+function mapStateToProps(state: IState) {
   return {
     results: state.results,
     project: state.project,

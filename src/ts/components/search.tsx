@@ -10,18 +10,16 @@ import {
 import prepareData from '../../js/utils/prepareData';
 import demoData from '../../js/utils/demoData';
 
-interface IStateProps {
+interface IProps {
   error: string;
   results: any;
-}
 
-interface IDispatchProps {
   setupRequests(numberOfPackages: number, payload: object): void;
   fetchPackageDetails(details: object): void;
   readFileError(error: string): void;
 }
 
-class Search extends React.Component<IStateProps & IDispatchProps, {}> {
+class Search extends React.Component<IProps, {}> {
   generateDemoData() {
     const packages = prepareData(demoData);
     const numberOfPackages = packages.length;
