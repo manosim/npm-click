@@ -26,7 +26,6 @@ export default class SinglePackage extends React.Component<IProps, {}> {
       ['payload', 'dist-tags', 'latest'],
       '-'
     );
-
     const readme = details.hasIn(['payload', 'homepage']) && (
       <a href={details.getIn(['payload', 'homepage'])} target="_blank">
         <i className="fa fa-file-text-o" />
@@ -35,25 +34,25 @@ export default class SinglePackage extends React.Component<IProps, {}> {
 
     return (
       <div className="row package">
-        <div className="col-sm-1 col-md-12 status">
+        <div className="col-sm-1 status">
           <i className={this.getStatus()} />
         </div>
 
-        <div className="col-sm-5 col-md-12 name">
+        <div className="col-sm-5 name">
           <div>
             <small>name</small>
           </div>
           {details.get('name')} {readme && readme}
         </div>
 
-        <div className="col-sm-3 col-md-6 required">
+        <div className="col-xs-6 col-sm-3 required">
           <div>
             <small>required</small>
           </div>
           <span>{details.get('requiredVersion')}</span>
         </div>
 
-        <div className="col-sm-3 col-md-6 latest">
+        <div className="col-xs-6 col-sm-3 latest">
           <div>
             <small>latest</small>
           </div>

@@ -108,16 +108,14 @@ export class ResultsPage extends React.Component<IProps, {}> {
 
         <div className="container packages">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <h3>
                 Dependencies <span className="count">#{dependencies.size}</span>
               </h3>
               {dependencies.map((pkg: any, i: number) => (
                 <SinglePackage key={i} details={pkg} />
               ))}
-            </div>
 
-            <div className="col-md-6">
               <h3>
                 DevDependencies{' '}
                 <span className="count">#{devDependencies.size}</span>
