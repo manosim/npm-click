@@ -7,6 +7,7 @@ import {
   fetchPackageDetails,
   readFileError,
 } from '../../js/actions';
+import { fetchPackagesDetails } from '../actions';
 import prepareData from '../utils/prepareData';
 import demoData from '../../js/utils/demoData';
 
@@ -16,15 +17,15 @@ interface IProps {
 
   setupRequests(numberOfPackages: number, payload: object): void;
   fetchPackageDetails(details: object): void;
+  fetchPackagesDetails(details: [any]): void;
   readFileError(error: string): void;
 }
 
 class Search extends React.Component<IProps, {}> {
   generateDemoData() {
-    const packages = prepareData(demoData);
+    const packages: any = prepareData(demoData);
     const numberOfPackages = packages.length;
-    this.props.setupRequests(numberOfPackages, demoData);
-    packages.forEach(value => this.props.fetchPackageDetails(value));
+    this.props.fetchPackagesDetails(packages);
   }
 
   handleJsonChange(e: any) {
@@ -33,7 +34,7 @@ class Search extends React.Component<IProps, {}> {
       const packages = prepareData(jsonValue);
       const numberOfPackages = packages.length;
       this.props.setupRequests(numberOfPackages, demoData);
-      packages.forEach(value => this.props.fetchPackageDetails(value));
+      packages.forEach((value: any) => this.props.fetchPackageDetails(value));
     } catch (error) {
       this.props.readFileError(`${error}`);
     }
@@ -64,7 +65,7 @@ class Search extends React.Component<IProps, {}> {
         const packages = prepareData(jsonValue);
         const numberOfPackages = packages.length;
         self.props.setupRequests(numberOfPackages, demoData);
-        packages.forEach(value => self.props.fetchPackageDetails(value));
+        packages.forEach((value: any) => self.props.fetchPackageDetails(value));
       } catch (error) {
         self.props.readFileError(`${error}`);
       }
@@ -155,5 +156,6 @@ export function mapStateToProps(state: IState) {
 export default connect(mapStateToProps, {
   setupRequests,
   fetchPackageDetails,
+  fetchPackagesDetails,
   readFileError,
 })(Search as any);

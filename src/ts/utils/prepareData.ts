@@ -1,5 +1,10 @@
-export default function prepareData(packageJson: {dependencies?: any, devDependencies?: any}) {
-  const dependencies = Object.keys(packageJson.dependencies).map(function(key) {
+export default function prepareData(packageJson: {
+  dependencies?: any;
+  devDependencies?: any;
+}): any {
+  const dependencies: any = Object.keys(packageJson.dependencies).map(function(
+    key
+  ) {
     return {
       name: key,
       requiredVersion: packageJson.dependencies[key],
@@ -7,15 +12,15 @@ export default function prepareData(packageJson: {dependencies?: any, devDepende
     };
   });
 
-  const devDependencies = Object.keys(packageJson.devDependencies).map(function(
-    key
-  ) {
-    return {
-      name: key,
-      requiredVersion: packageJson.devDependencies[key],
-      isDependency: false,
-    };
-  });
+  const devDependencies: any = Object.keys(packageJson.devDependencies).map(
+    function(key) {
+      return {
+        name: key,
+        requiredVersion: packageJson.devDependencies[key],
+        isDependency: false,
+      };
+    }
+  );
 
   return [...dependencies, ...devDependencies];
 }

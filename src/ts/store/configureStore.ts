@@ -11,7 +11,7 @@ export default function configureStore(initialState = undefined) {
     const loggerMiddleware = createLogger({
       collapsed: true,
     });
-    // middlewares.push(loggerMiddleware);
+    middlewares.push(loggerMiddleware);
   }
 
   const createStoreWithMiddleware = applyMiddleware(...middlewares)(
