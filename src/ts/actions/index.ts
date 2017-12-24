@@ -10,10 +10,18 @@ export function makeAsyncActionSet(actionName: string) {
   };
 }
 
+export const SET_FILE_ERROR = 'SET_FILE_ERROR';
+export function setFileError(error: string) {
+  return {
+    type: SET_FILE_ERROR,
+    error,
+  };
+}
+
 export const FETCH_PACKAGES = makeAsyncActionSet('FETCH_PACKAGES');
-export function fetchPackagesDetails(packages: [any]) {
+export function fetchPackagesDetails(packages: [any], projectDetails: any) {
   return (dispatch: any, getState: any) => {
-    dispatch({ type: FETCH_PACKAGES.REQUEST, packages: fromJS(packages) });
+    dispatch({ type: FETCH_PACKAGES.REQUEST, packages: fromJS(packages), projectDetails });
 
     function prepareRequests() {
       return packages.map((obj: { name: string }) =>

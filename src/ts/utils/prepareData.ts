@@ -1,4 +1,15 @@
-export default function prepareData(packageJson: {
+import { fromJS, Map } from 'immutable';
+
+export function prepareProjectDetails(data: any): any {
+  const projectData = fromJS(data);
+
+  return Map({
+    name: projectData.get('name'),
+    version: projectData.get('version'),
+  });
+}
+
+export function prepareData(packageJson: {
   dependencies?: any;
   devDependencies?: any;
 }): any {

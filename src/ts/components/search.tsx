@@ -2,41 +2,36 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as Dropzone from 'react-dropzone';
 
-import {
-  setupRequests,
-  fetchPackageDetails,
-  readFileError,
-} from '../../js/actions';
+import { setFileError } from '../actions';
 import { fetchPackagesDetails } from '../actions';
-import prepareData from '../utils/prepareData';
+import { prepareData, prepareProjectDetails } from '../utils/prepareData';
 import demoData from '../../js/utils/demoData';
 
 interface IProps {
   error: string;
   results: any;
+  isLoading: boolean;
 
-  setupRequests(numberOfPackages: number, payload: object): void;
-  fetchPackageDetails(details: object): void;
-  fetchPackagesDetails(details: [any]): void;
-  readFileError(error: string): void;
+  fetchPackagesDetails(details: [any], projectDetails: {}): void;
+  setFileError(error: string): void;
 }
 
 class Search extends React.Component<IProps, {}> {
   generateDemoData() {
     const packages: any = prepareData(demoData);
+    const projectDetails: {} = prepareProjectDetails(demoData);
     const numberOfPackages = packages.length;
-    this.props.fetchPackagesDetails(packages);
+    this.props.fetchPackagesDetails(packages, projectDetails);
   }
 
   handleJsonChange(e: any) {
     try {
       const jsonValue = JSON.parse(e.target.value);
       const packages = prepareData(jsonValue);
-      const numberOfPackages = packages.length;
-      this.props.setupRequests(numberOfPackages, demoData);
-      packages.forEach((value: any) => this.props.fetchPackageDetails(value));
+      const projectDetails: {} = prepareProjectDetails(demoData);
+      this.props.fetchPackagesDetails(packages, projectDetails);
     } catch (error) {
-      this.props.readFileError(`${error}`);
+      this.props.setFileError(`${error}`);
     }
   }
 
@@ -48,7 +43,7 @@ class Search extends React.Component<IProps, {}> {
     if (files.length === 1 && files[0].type === 'application/json') {
       this.handleFile(files[0]);
     } else {
-      this.props.readFileError(
+      this.props.setFileError(
         'It looks like you are trying to upload multiple files or ' +
           'you did not upload a .json file. Please try again.'
       );
@@ -63,11 +58,10 @@ class Search extends React.Component<IProps, {}> {
       try {
         const jsonValue = JSON.parse(reader.result);
         const packages = prepareData(jsonValue);
-        const numberOfPackages = packages.length;
-        self.props.setupRequests(numberOfPackages, demoData);
-        packages.forEach((value: any) => self.props.fetchPackageDetails(value));
+        const projectDetails: {} = prepareProjectDetails(demoData);
+        self.props.fetchPackagesDetails(packages, projectDetails);
       } catch (error) {
-        self.props.readFileError(`${error}`);
+        self.props.setFileError(`${error}`);
       }
     };
 
@@ -100,6 +94,7 @@ class Search extends React.Component<IProps, {}> {
                   placeholder="Place the contents of your package.json and I will handle the work."
                   onChange={e => this.handleJsonChange(e)}
                   onClick={this.onTextAreaClick}
+                  disabled={this.props.isLoading}
                 />
               </div>
             </div>
@@ -142,20 +137,19 @@ class Search extends React.Component<IProps, {}> {
 }
 
 interface IState {
-  results: object;
+  results: any;
   project: any;
 }
 
 export function mapStateToProps(state: IState) {
   return {
+    isLoading: state.results.get('isFetching'),
     results: state.results,
     error: state.project.get('error'),
   };
 }
 
 export default connect(mapStateToProps, {
-  setupRequests,
-  fetchPackageDetails,
   fetchPackagesDetails,
-  readFileError,
+  setFileError,
 })(Search as any);
