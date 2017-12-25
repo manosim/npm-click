@@ -59,15 +59,6 @@ $alert-border-radius: 0;
 
 /* @group Misc */
 
-.loading {
-  text-align: center;
-  padding: 5px 0;
-
-  .fa {
-    margin: 0 5px;
-  }
-}
-
 .github-corner svg {
   z-index: 9999;
 }
@@ -102,6 +93,75 @@ $alert-border-radius: 0;
 }
 
 /* @end Misc */
+
+/* @group Loading */
+
+@-webkit-keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#nprogress {
+  pointer-events: none;
+
+  .bar {
+    position: absolute;
+    top: 215px;
+    left: 0;
+    z-index: 1031;
+    background: $theme-red;
+
+    width: 100%;
+    height: 5px;
+  }
+
+  .spinner {
+    display: block;
+    position: absolute;
+    z-index: 1031;
+    top: 20px;
+    left: 20px;
+  }
+
+  .spinner-icon {
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+
+    border: solid 2px transparent;
+    border-top-color: $theme-blue;
+    border-left-color: $theme-blue;
+    border-radius: 50%;
+
+    -webkit-animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 400ms linear infinite;
+  }
+}
+
+.nprogress-custom-parent {
+  position: relative;
+  overflow: hidden;
+
+  #nprogress .spinner,
+  #nprogress .bar {
+    position: absolute;
+  }
+}
+
+/* @end Loading */
 
 /* @group Navbar */
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
+import Loading from './components/loading';
 import Navbar from './components/navigation';
 import HomePage from './sections/home';
 import ResultsPage from './sections/results';
@@ -32,6 +33,8 @@ class Container extends React.Component<IProps, {}> {
         {!this.props.results.get('response').isEmpty() && (
           <ResultsPage ref={el => (this.results = el)} />
         )}
+
+        <Loading isLoading={this.props.isLoading} />
       </div>
     );
   }
