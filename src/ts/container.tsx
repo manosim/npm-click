@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
+import Loading from './components/loading';
 import Navbar from './components/navigation';
 import HomePage from './sections/home';
 import ResultsPage from './sections/results';
@@ -15,11 +16,11 @@ class Container extends React.Component<IProps, {}> {
   results: any;
 
   componentWillReceiveProps(nextProps: IProps) {
-    if (!this.props.isLoading && nextProps.isLoading) {
+    if (this.props.isLoading !== nextProps.isLoading && !nextProps.isLoading) {
       setTimeout(() => {
         const elem: any = ReactDOM.findDOMNode(this.results);
         return elem && window.scrollTo(0, elem.offsetTop);
-      }, 2000);
+      }, 500);
     }
   }
 
@@ -32,6 +33,8 @@ class Container extends React.Component<IProps, {}> {
         {!this.props.results.get('response').isEmpty() && (
           <ResultsPage ref={el => (this.results = el)} />
         )}
+
+        <Loading isLoading={this.props.isLoading} />
       </div>
     );
   }
