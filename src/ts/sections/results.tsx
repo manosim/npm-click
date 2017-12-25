@@ -12,9 +12,12 @@ interface IProps {
 
 export class ResultsPage extends React.Component<IProps, {}> {
   getStats(packages: any) {
-    const upToDate = packages.filter((pkg: any) => pkg.get('isSatisfied')).size;
-    const needUpdate = packages.filter((pkg: any) => !pkg.get('isSatisfied'))
-      .size;
+    const upToDate = packages.filter(
+      (pkg: any) => pkg.get('isSatisfied') && !pkg.get('errored')
+    ).size;
+    const needUpdate = packages.filter(
+      (pkg: any) => !pkg.get('isSatisfied') && !pkg.get('errored')
+    ).size;
 
     return {
       upToDate,
