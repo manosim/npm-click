@@ -1,30 +1,34 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
 
-import constants from '../utils/constants';
-import SinglePackage from '../components/package';
+import constants from '../../js/utils/constants';
+import SinglePackage from '../../ts/components/package';
 
-export class ResultsPage extends React.Component {
-  getStats(packages) {
-    const upToDate = packages.filter(pkg => pkg.status.isUpToDate).size;
-    const major = packages.filter(pkg => pkg.status.isMajor).size;
-    const minor = packages.filter(pkg => pkg.status.isMinor).size;
+interface IProps {
+  results: any;
+  project: any;
+}
+
+export class ResultsPage extends React.Component<IProps, {}> {
+  getStats(packages: any) {
+    const upToDate = packages.filter((pkg: any) => pkg.get('isSatisfied')).size;
+    const needUpdate = packages.filter((pkg: any) => !pkg.get('isSatisfied'))
+      .size;
 
     return {
       upToDate,
-      major,
-      minor,
+      needUpdate,
     };
   }
 
-  getChartData(stats) {
+  getChartData(stats: { upToDate: number; needUpdate: number }) {
     return {
-      labels: ['Up to date', 'Minor Update', 'Major Update'],
+      labels: ['Up to date', 'Need Update'],
       datasets: [
         {
-          backgroundColor: ['#0A0', '#FDB45C', '#F7464A'],
-          data: [stats.upToDate, stats.minor, stats.major],
+          backgroundColor: ['#0A0', '#F7464A'],
+          data: [stats.upToDate, stats.needUpdate],
           options: { borderWidth: 0 },
         },
       ],
@@ -41,10 +45,10 @@ export class ResultsPage extends React.Component {
   render() {
     const dependencies = this.props.results
       .get('response')
-      .filter(obj => obj.isDependency === true);
+      .filter((obj: any) => obj.get('isDependency') === true);
     const devDependencies = this.props.results
       .get('response')
-      .filter(obj => obj.isDependency === false);
+      .filter((obj: any) => obj.get('isDependency') === false);
 
     const dependenciesStats = this.getStats(dependencies);
     const devDependenciesStats = this.getStats(devDependencies);
@@ -69,11 +73,8 @@ export class ResultsPage extends React.Component {
                 <div className="uptodate">
                   Up to date: {dependenciesStats.upToDate}
                 </div>
-                <div className="minor-updates">
-                  Minor Updates: {dependenciesStats.minor}
-                </div>
-                <div className="major-updates">
-                  Major Updates: {dependenciesStats.major}
+                <div className="need-update">
+                  Need Update: {dependenciesStats.needUpdate}
                 </div>
               </div>
               <div className="col-sm-2">
@@ -89,11 +90,8 @@ export class ResultsPage extends React.Component {
                 <div className="uptodate">
                   Up to date: {devDependenciesStats.upToDate}
                 </div>
-                <div className="minor-updates">
-                  Minor Updates: {devDependenciesStats.minor}
-                </div>
-                <div className="major-updates">
-                  Major Updates: {devDependenciesStats.major}
+                <div className="need-update">
+                  Need Update: {devDependenciesStats.needUpdate}
                 </div>
               </div>
 
@@ -110,21 +108,19 @@ export class ResultsPage extends React.Component {
 
         <div className="container packages">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <h3>
                 Dependencies <span className="count">#{dependencies.size}</span>
               </h3>
-              {dependencies.map((pkg, i) => (
+              {dependencies.map((pkg: any, i: number) => (
                 <SinglePackage key={i} details={pkg} />
               ))}
-            </div>
 
-            <div className="col-md-6">
               <h3>
                 DevDependencies{' '}
                 <span className="count">#{devDependencies.size}</span>
               </h3>
-              {devDependencies.map((pkg, i) => (
+              {devDependencies.map((pkg: any, i: number) => (
                 <SinglePackage key={i} details={pkg} />
               ))}
             </div>
@@ -135,11 +131,12 @@ export class ResultsPage extends React.Component {
   }
 }
 
-// ResultsPage.contextTypes = {
-//   router: React.PropTypes.func
-// };
+interface IState {
+  results: any;
+  project: any;
+}
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
   return {
     results: state.results,
     project: state.project,

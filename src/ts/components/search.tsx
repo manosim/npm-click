@@ -1,49 +1,56 @@
-import * as React from 'react'; // eslint-disable-line no-unused-vars
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
+import * as Dropzone from 'react-dropzone';
 
-import Dropzone from 'react-dropzone';
+import { setFileError } from '../actions';
+import { fetchPackagesDetails } from '../actions';
+import { prepareData, prepareProjectDetails } from '../utils/prepareData';
+import demoData from '../../js/utils/demoData';
 
-import { setupRequests, fetchPackageDetails, readFileError } from '../actions';
-import prepareData from '../utils/prepareData';
-import demoData from '../utils/demoData';
+interface IProps {
+  error: string;
+  results: any;
+  isLoading: boolean;
 
-class Search extends React.Component {
+  fetchPackagesDetails(details: [any], projectDetails: {}): void;
+  setFileError(error: string): void;
+}
+
+class Search extends React.Component<IProps, {}> {
   generateDemoData() {
-    const packages = prepareData(demoData);
+    const packages: any = prepareData(demoData);
+    const projectDetails: {} = prepareProjectDetails(demoData);
     const numberOfPackages = packages.length;
-    this.props.setupRequests(numberOfPackages, demoData);
-    packages.forEach(value => this.props.fetchPackageDetails(value));
+    this.props.fetchPackagesDetails(packages, projectDetails);
   }
 
-  handleJsonChange(e) {
+  handleJsonChange(e: any) {
     try {
       const jsonValue = JSON.parse(e.target.value);
       const packages = prepareData(jsonValue);
-      const numberOfPackages = packages.length;
-      this.props.setupRequests(numberOfPackages, demoData);
-      packages.forEach(value => this.props.fetchPackageDetails(value));
+      const projectDetails: {} = prepareProjectDetails(demoData);
+      this.props.fetchPackagesDetails(packages, projectDetails);
     } catch (error) {
-      this.props.readFileError(`${error}`);
+      this.props.setFileError(`${error}`);
     }
   }
 
-  handleFileChange(e) {
+  handleFileChange(e: any) {
     this.handleFile(e.target.files[0]);
   }
 
-  handleDropChange(files) {
+  handleDropChange(files: any) {
     if (files.length === 1 && files[0].type === 'application/json') {
       this.handleFile(files[0]);
     } else {
-      this.props.readFileError(
+      this.props.setFileError(
         'It looks like you are trying to upload multiple files or ' +
           'you did not upload a .json file. Please try again.'
       );
     }
   }
 
-  handleFile(file) {
+  handleFile(file: any) {
     const self = this;
     const reader = new FileReader();
 
@@ -51,18 +58,17 @@ class Search extends React.Component {
       try {
         const jsonValue = JSON.parse(reader.result);
         const packages = prepareData(jsonValue);
-        const numberOfPackages = packages.length;
-        self.props.setupRequests(numberOfPackages, demoData);
-        packages.forEach(value => self.props.fetchPackageDetails(value));
+        const projectDetails: {} = prepareProjectDetails(demoData);
+        self.props.fetchPackagesDetails(packages, projectDetails);
       } catch (error) {
-        self.props.readFileError(`${error}`);
+        self.props.setFileError(`${error}`);
       }
     };
 
     reader.readAsText(file);
   }
 
-  onTextAreaClick(event) {
+  onTextAreaClick(event: { stopPropagation(): void }) {
     event.stopPropagation();
   }
 
@@ -83,12 +89,12 @@ class Search extends React.Component {
                 }
               >
                 <textarea
-                  type="textarea"
-                  rows="16"
+                  rows={16}
                   className="form-control input-lg"
                   placeholder="Place the contents of your package.json and I will handle the work."
                   onChange={e => this.handleJsonChange(e)}
                   onClick={this.onTextAreaClick}
+                  disabled={this.props.isLoading}
                 />
               </div>
             </div>
@@ -118,7 +124,9 @@ class Search extends React.Component {
                 className="dropzone"
                 activeClassName="active"
               >
-                Drop your <strong>awesome</strong> package.json here
+                <p>
+                  Drop your <strong>awesome</strong> package.json here
+                </p>
               </Dropzone>
             </div>
           </div>
@@ -128,15 +136,20 @@ class Search extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+interface IState {
+  results: any;
+  project: any;
+}
+
+export function mapStateToProps(state: IState) {
   return {
+    isLoading: state.results.get('isFetching'),
     results: state.results,
     error: state.project.get('error'),
   };
 }
 
 export default connect(mapStateToProps, {
-  setupRequests,
-  fetchPackageDetails,
-  readFileError,
-})(Search);
+  fetchPackagesDetails,
+  setFileError,
+})(Search as any);
