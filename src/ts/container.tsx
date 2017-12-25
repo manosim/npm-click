@@ -16,11 +16,11 @@ class Container extends React.Component<IProps, {}> {
   results: any;
 
   componentWillReceiveProps(nextProps: IProps) {
-    if (!this.props.isLoading && nextProps.isLoading) {
+    if (this.props.isLoading !== nextProps.isLoading && !nextProps.isLoading) {
       setTimeout(() => {
         const elem: any = ReactDOM.findDOMNode(this.results);
         return elem && window.scrollTo(0, elem.offsetTop);
-      }, 2000);
+      }, 500);
     }
   }
 
