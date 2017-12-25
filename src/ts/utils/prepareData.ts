@@ -4,8 +4,8 @@ export function prepareProjectDetails(data: any): any {
   const projectData = fromJS(data);
 
   return Map({
-    name: projectData.get('name'),
-    version: projectData.get('version'),
+    name: projectData.get('name', '-'),
+    version: projectData.get('version', '-'),
   });
 }
 
