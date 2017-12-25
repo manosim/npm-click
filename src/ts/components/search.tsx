@@ -28,7 +28,7 @@ class Search extends React.Component<IProps, {}> {
     try {
       const jsonValue = JSON.parse(e.target.value);
       const packages = prepareData(jsonValue);
-      const projectDetails: {} = prepareProjectDetails(demoData);
+      const projectDetails: {} = prepareProjectDetails(jsonValue);
       this.props.fetchPackagesDetails(packages, projectDetails);
     } catch (error) {
       this.props.setFileError(`${error}`);
@@ -58,7 +58,7 @@ class Search extends React.Component<IProps, {}> {
       try {
         const jsonValue = JSON.parse(reader.result);
         const packages = prepareData(jsonValue);
-        const projectDetails: {} = prepareProjectDetails(demoData);
+        const projectDetails: {} = prepareProjectDetails(jsonValue);
         self.props.fetchPackagesDetails(packages, projectDetails);
       } catch (error) {
         self.props.setFileError(`${error}`);
