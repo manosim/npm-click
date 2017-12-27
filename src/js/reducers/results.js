@@ -21,13 +21,11 @@ export default function reducer(state = initialState, action) {
 
     case FETCH_PACKAGES.SUCCESS:
       const data = action.payload.map(obj => {
-        const packageName = obj.hasIn(['data', 'name'])
-          ? obj.getIn(['data', 'name'])
-          : decodeURIComponent(
-              obj
-                .getIn(['config', 'url'])
-                .replace(obj.getIn(['config', 'baseURL']), '')
-            );
+        const packageName = decodeURIComponent(
+          obj
+            .getIn(['config', 'url'])
+            .replace(obj.getIn(['config', 'baseURL']), '')
+        );
 
         const requiredDetails = state.get('packages').find(
           item => {
