@@ -6,6 +6,14 @@ interface IProps {
   details: any;
 }
 
+const PATH_TO_REPO_URL = [
+  'payload',
+  'collected',
+  'metadata',
+  'link',
+  'repository',
+];
+
 export default class SinglePackage extends React.Component<IProps, {}> {
   getStatus() {
     if (this.props.details.get('errored')) {
@@ -23,11 +31,11 @@ export default class SinglePackage extends React.Component<IProps, {}> {
   render() {
     const { details } = this.props;
     const latestVersion = details.getIn(
-      ['payload', 'dist-tags', 'latest'],
+      ['payload', 'collected', 'metadata', 'version'],
       '-'
     );
-    const readme = details.hasIn(['payload', 'homepage']) && (
-      <a href={details.getIn(['payload', 'homepage'])} target="_blank">
+    const readme = details.hasIn(PATH_TO_REPO_URL) && (
+      <a href={details.getIn(PATH_TO_REPO_URL)} target="_blank">
         <i className="fa fa-file-text-o" />
       </a>
     );

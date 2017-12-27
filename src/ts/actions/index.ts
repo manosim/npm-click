@@ -21,13 +21,17 @@ export function setFileError(error: string) {
 export const FETCH_PACKAGES = makeAsyncActionSet('FETCH_PACKAGES');
 export function fetchPackagesDetails(packages: [any], projectDetails: any) {
   return (dispatch: any, getState: any) => {
-    dispatch({ type: FETCH_PACKAGES.REQUEST, packages: fromJS(packages), projectDetails });
+    dispatch({
+      type: FETCH_PACKAGES.REQUEST,
+      packages: fromJS(packages),
+      projectDetails,
+    });
 
     function prepareRequests() {
       return packages.map((obj: { name: string }) =>
         axios({
           baseURL: `${constants.API_URL}`,
-          url: `/${obj.name}`,
+          url: `/${encodeURIComponent(obj.name)}`,
           method: 'GET',
           validateStatus: (status: number) =>
             (status >= 200 && status < 300) || status === 404,

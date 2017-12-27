@@ -21,9 +21,11 @@ export default function reducer(state = initialState, action) {
 
     case FETCH_PACKAGES.SUCCESS:
       const data = action.payload.map(obj => {
-        const packageName = obj
-          .getIn(['config', 'url'])
-          .replace(obj.getIn(['config', 'baseURL']), '');
+        const packageName = decodeURIComponent(
+          obj
+            .getIn(['config', 'url'])
+            .replace(obj.getIn(['config', 'baseURL']), '')
+        );
 
         const requiredDetails = state.get('packages').find(
           item => {
@@ -35,7 +37,12 @@ export default function reducer(state = initialState, action) {
 
         const requiredVersion = requiredDetails.get('requiredVersion', '');
         const isDependency = requiredDetails.get('isDependency', false);
-        const latestVersion = obj.getIn(['data', 'dist-tags', 'latest']);
+        const latestVersion = obj.getIn([
+          'data',
+          'collected',
+          'metadata',
+          'version',
+        ]);
         const isSatisfied = latestVersion
           ? semver.satisfies(latestVersion, requiredVersion)
           : false;
