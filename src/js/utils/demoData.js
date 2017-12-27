@@ -9,6 +9,8 @@ export default {
 
   dependencies: {
     '@manosim/reloading': '^0.0.6',
+    '@types/react': '=16.0.31',
+    '@types/react-dom': '=16.0.3',
     axios: '^0.16.0',
     bootstrap: '^3.3.6',
     browserify: '^9.0.8',
