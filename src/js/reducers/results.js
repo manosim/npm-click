@@ -37,7 +37,12 @@ export default function reducer(state = initialState, action) {
 
         const requiredVersion = requiredDetails.get('requiredVersion', '');
         const isDependency = requiredDetails.get('isDependency', false);
-        const latestVersion = obj.getIn(['data', 'dist-tags', 'latest']);
+        const latestVersion = obj.getIn([
+          'data',
+          'collected',
+          'metadata',
+          'version',
+        ]);
         const isSatisfied = latestVersion
           ? semver.satisfies(latestVersion, requiredVersion)
           : false;

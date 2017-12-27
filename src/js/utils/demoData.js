@@ -8,7 +8,6 @@ export default {
   },
 
   dependencies: {
-    '@manosim/reloading': '^0.0.6',
     '@types/react': '=16.0.31',
     '@types/react-dom': '=16.0.3',
     axios: '^0.16.0',
@@ -22,7 +21,7 @@ export default {
     typescript: '=1.6.2',
   },
   devDependencies: {
-    '@manosim/gitify': '^0.0.1',
+    '@manosim/reloading': '^0.0.6',
     'babel-eslint': '=8.0.3',
     'babel-preset-es2015': '=6.24.1',
     'babel-preset-react': '=6.24.1',
