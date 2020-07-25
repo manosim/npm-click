@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 import { Layout } from '../components/Layout';
 
@@ -12,46 +12,59 @@ export default function Home() {
 
       <main>
         <div className="bg-gray-800 text-white text-center py-6">
-          <h1 className="text-2xl font-medium">Are your dependencies up to date?</h1>
+          <h1 className="text-2xl font-medium">
+            Are your dependencies up to date?
+          </h1>
         </div>
 
-        <div className="container">
+        <div className="bg-gray-300 py-5">
+          <div className="container">
+            <h2 className="text-xl font-medium text-center mt-5 mb-10">
+              All you need is your package.json. That's all!
+            </h2>
 
-          <p className="description">
-            Get started by editing <code>pages/index.js</code>
-          </p>
+            <div className="flex flex-row">
+              <div className="px-5 mb-8">
+                <img
+                  src="/images/npm-logo.png"
+                  className="block mx-auto mb-5 rounded-lg shadow-lg"
+                  style={{ maxWidth: '10rem' }}
+                />
+                <p className="lead">
+                  NPM is awesome! We all use it. Dependencies get updated daily
+                  so if you want to be up to date, you are at the right place.
+                </p>
+              </div>
 
-          <div className="grid">
-            <a href="https://nextjs.org/docs" className="card">
-              <h3>Documentation &rarr;</h3>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </a>
+              <div className="px-5 mb-8">
+                <img
+                  src="/images/packagejson.png"
+                  className="block mx-auto mb-5 rounded-lg shadow-lg"
+                  style={{ maxWidth: '10rem' }}
+                />
+                <p className="lead">
+                  Got your package.json? Drop it on the search bar, copy &amp;
+                  paste its contents to the text box or use the upload button.
+                  Whatever works for you. That's all!
+                </p>
+              </div>
 
-            <a href="https://nextjs.org/learn" className="card">
-              <h3>Learn &rarr;</h3>
-              <p>Learn about Next.js in an interactive course with quizzes!</p>
-            </a>
-
-            <a
-              href="https://github.com/vercel/next.js/tree/master/examples"
-              className="card"
-            >
-              <h3>Examples &rarr;</h3>
-              <p>Discover and deploy boilerplate example Next.js projects.</p>
-            </a>
-
-            <a
-              href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              className="card"
-            >
-              <h3>Deploy &rarr;</h3>
-              <p>
-                Instantly deploy your Next.js site to a public URL with Vercel.
-              </p>
-            </a>
+              <div className="px-5 mb-8">
+                <img
+                  src="/images/results.png"
+                  className="block mx-auto mb-5 rounded-lg shadow-lg"
+                  style={{ maxWidth: '10rem' }}
+                />
+                <p className="lead">
+                  Still not convienced? There's a 'demo' button next to the
+                  search form. Yeap that green one. Click on it and see what
+                  happens!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </main>
     </Layout>
-  )
+  );
 }
