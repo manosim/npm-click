@@ -3,37 +3,37 @@ import Joi from '@hapi/joi';
 
 import demoData from '../demoData.json';
 
+const validationSchema = Joi.object({
+  name: Joi.string().required(),
+  version: Joi.string().required(),
+  dependencies: Joi.object().pattern(Joi.string(), Joi.string()).required(),
+  devDependencies: Joi.object().pattern(Joi.string(), Joi.string()),
+}).required();
+
 interface IProps {}
 
 export const InputForm: React.FC<IProps> = () => {
   const [inputValue, setInputValue] = React.useState<string>('');
   const [formError, setFormError] = React.useState<string | null>(null);
 
-  const validateData = async () => {
+  const useDemoData = () => {
+    setInputValue(JSON.stringify(demoData, null, 2));
+  };
+
+  const validateData = React.useCallback(async () => {
     setFormError(null);
 
     if (!inputValue) {
       return;
     }
 
-    const schema = Joi.object({
-      name: Joi.string().required(),
-      version: Joi.string().required(),
-      dependencies: Joi.object().pattern(Joi.string(), Joi.string()).required(),
-      devDependencies: Joi.object().pattern(Joi.string(), Joi.string()),
-    }).required();
-
     try {
       const data = JSON.parse(inputValue);
-      await schema.validateAsync(data, { allowUnknown: true });
+      await validationSchema.validateAsync(data, { allowUnknown: true });
     } catch (err) {
       setFormError(`Invalid data: ${err.message}.`);
     }
-  };
-
-  const useDemoData = () => {
-    setInputValue(JSON.stringify(demoData, null, 2));
-  };
+  }, [inputValue]);
 
   React.useEffect(() => {
     validateData();
