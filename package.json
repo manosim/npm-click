@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prettier-check": "prettier --check '{components,pages}/**/*.{js,ts,tsx}'",
+    "prettier:apply": "prettier --write '{components,pages}/**/*.{js,ts,tsx}'",
+    "prettier:check": "prettier --check '{components,pages}/**/*.{js,ts,tsx}'",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

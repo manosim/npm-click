@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 import { Layout } from '../components/Layout';
 
@@ -12,11 +12,12 @@ export default function Home() {
 
       <main>
         <div className="bg-gray-800 text-white text-center py-6">
-          <h1 className="text-2xl font-medium">Are your dependencies up to date?</h1>
+          <h1 className="text-2xl font-medium">
+            Are your dependencies up to date?
+          </h1>
         </div>
 
         <div className="container">
-
           <p className="description">
             Get started by editing <code>pages/index.js</code>
           </p>
@@ -53,5 +54,5 @@ export default function Home() {
         </div>
       </main>
     </Layout>
-  )
+  );
 }
