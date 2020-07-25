@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
-import { Layout } from '../components/Layout';
+import { Layout } from '../src/components/Layout';
+import { InputForm } from '../src/components/InputForm';
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
             Are your dependencies up to date?
           </h1>
         </div>
+
+        <InputForm />
 
         <div className="bg-gray-300 py-5">
           <div className="container">
