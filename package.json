@@ -10,7 +10,9 @@
   "dependencies": {
     "next": "9.4.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^1.5.2"
   },
   "devDependencies": {
     "@types/node": "^14.0.26",
