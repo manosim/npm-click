@@ -2,6 +2,7 @@ import * as React from 'react';
 import Joi from '@hapi/joi';
 
 import demoData from '../demoData.json';
+import { SET_INITIAL_DATA } from '../hooks/useNpmAPI';
 
 const validationSchema = Joi.object({
   name: Joi.string().required(),
@@ -10,9 +11,11 @@ const validationSchema = Joi.object({
   devDependencies: Joi.object().pattern(Joi.string(), Joi.string()),
 }).required();
 
-interface IProps {}
+interface IProps {
+  dispatch: any;
+}
 
-export const InputForm: React.FC<IProps> = () => {
+export const InputForm: React.FC<IProps> = ({ dispatch }) => {
   const [inputValue, setInputValue] = React.useState<string>('');
   const [formError, setFormError] = React.useState<string | null>(null);
 
@@ -30,6 +33,7 @@ export const InputForm: React.FC<IProps> = () => {
     try {
       const data = JSON.parse(inputValue);
       await validationSchema.validateAsync(data, { allowUnknown: true });
+      dispatch({ type: SET_INITIAL_DATA, data });
     } catch (err) {
       setFormError(`Invalid data: ${err.message}.`);
     }
@@ -40,11 +44,11 @@ export const InputForm: React.FC<IProps> = () => {
   }, [inputValue]);
 
   return (
-    <div className="bg-gray-400">
-      <div className="container bg-gray-100">
+    <div className="bg-gray-100">
+      <div className="container bg-gray-100 py-3">
         <textarea
           rows={16}
-          className="appearance-none block w-full bg-gray-100 text-gray-700 p-8 pb-2 mb-3 font-mono leading-tight focus:outline-none"
+          className="appearance-none block w-full bg-gray-100 text-gray-700 font-mono leading-tight focus:outline-none p-2 md:p-4"
           placeholder="Place the contents of your package.json and I will handle the work."
           onChange={(evt: React.ChangeEvent<HTMLTextAreaElement>) =>
             setInputValue(evt.target.value)
@@ -56,7 +60,7 @@ export const InputForm: React.FC<IProps> = () => {
         <div className="py-3 flex justify-between">
           <div className="flex items-center">
             {inputValue && formError && (
-              <div className="font-mono font-bold text-sm text-red-400 px-8 py-2">
+              <div className="font-mono font-bold text-sm text-red-400 px-2 md:px-4 py-2">
                 {formError}
               </div>
             )}

@@ -2,8 +2,8 @@ import * as React from 'react';
 
 export const Navbar = () => {
   return (
-    <nav className="bg-red-500 py-6">
-      <div className="container flex flex-col lg:flex-row items-center justify-between flex-wrap">
+    <nav className="bg-blue-900 py-3">
+      <div className="container flex flex-row items-center justify-between flex-wrap">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <a href="/">
             <img
@@ -14,7 +14,7 @@ export const Navbar = () => {
           </a>
         </div>
 
-        <div className="w-full block flex flex-1 justify-center items-center lg:justify-end lg:w-auto mt-5 lg:mt-0">
+        <div className="w-full block flex flex-1 items-center justify-end lg:w-auto">
           <ul className="flex flex-row list-none">
             <li>
               <a
@@ -22,7 +22,11 @@ export const Navbar = () => {
                 href="https://github.com/manosim/npm-click"
                 rel="noopener noreferrer"
               >
-                View on GitHub
+                <img
+                  style={{ width: '1.25rem' }}
+                  src="/icons/github.svg"
+                  alt="GitHub Logo"
+                />
               </a>
             </li>
           </ul>
